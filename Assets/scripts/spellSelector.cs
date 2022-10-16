@@ -1,20 +1,21 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class spellSelector : MonoBehaviour
 {
    
-    public void selectSpell(char[] runes, Vector2 loc)
-    {
-        string spellName = "Spells/" + spellSelect(runes);
-        GameObject spell = Instantiate(Resources.Load(spellName)) as GameObject ;
+    public void selectSpell(char[] runes, Vector2 loc, dLRS list) //This method takes the runes from the buffer and based upon them
+    {                                                               //Fires a spell prefab
+        string spellName = "Spells/" + spellSelect(runes, list);
+        GameObject spell = Instantiate(Resources.Load(spellName)) as GameObject;
         spell.transform.position = loc;
         spell.SetActive(true);
     }
 
-    public string spellSelect(char[] runes) //This method shound return the string of the rune type
-    {                                       //that has the most runes on the rune chart
+    public string spellSelect(char[] runes, dLRS list) //This method shound return the string of the rune type
+    {                                                  //that has the most runes on the rune chart
         int Tcount = 0;
         int[] runeCount = {0,0,0,0,0};
 
@@ -27,16 +28,20 @@ public class spellSelector : MonoBehaviour
             else if (runes[i] == 'W') { runeCount[4]++; Tcount++; }
         }
 
-        return highestCount(runeCount) + Tcount;
+        return highestCount(runeCount, list) + (Tcount + 1);
     }
 
-    public string highestCount(int[] runeCount) //This method returns the string of the type of rune that has the highest count
-    {
-        int indexOfMax = -1;
+    public string highestCount(int[] runeCount, dLRS list) //This method returns the string of the type of rune that has the highest count
+    {                                                      //If there is an equally high amount of runes then it chooses a random rune
+        int[] checkArr = { 0, 0, 0, 0, 0 };
+        if(Enumerable.SequenceEqual(checkArr, runeCount)) { return convertIndexToString(list.getId()); }
+
+        int indexOfMax = -1; 
         int indexOf2nd = -1;
         int indexOf3rd = -1;
         int max = 0;
 
+        
         for (int i = 0; i < runeCount.Length; i++)
         {
             if (runeCount[i] > max) { indexOfMax = i; max = runeCount[i]; indexOf2nd = -1; indexOf3rd = -1; }

@@ -46,6 +46,9 @@ TagManager:
   - name: Background
     uniqueID: 3963727231
     locked: 0
+  - name: props
+    uniqueID: 89405753
+    locked: 0
   - name: Units
     uniqueID: 3952691657
     locked: 0

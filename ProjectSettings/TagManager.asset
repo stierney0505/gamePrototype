@@ -49,6 +49,9 @@ TagManager:
   - name: props
     uniqueID: 89405753
     locked: 0
+  - name: aboveProps
+    uniqueID: 2666892905
+    locked: 0
   - name: Units
     uniqueID: 3952691657
     locked: 0

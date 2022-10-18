@@ -16,3 +16,4 @@ The art is not mine, the sources are below
 spell effects by Pimen https://pimen.itch.io/
 Character sprite by 9E0 https://9e0.itch.io/
 UI Border by GX310 https://gx310.itch.io/ 
+The tileset was created by https://cainos.itch.io/

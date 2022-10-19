@@ -134,11 +134,20 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
 
         Vector2 loc = new Vector2(0, 0);
         loc = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        selector.selectSpell(runes, loc, list);
-
+        string spellName = selector.spellSelect(runes, list);
+        lauchSpell(spellName, loc, list);
         for(int i = 0; i < runes.Length; i++) { runes[i] = 'X'; };
         disableRuneIcons();
       
+    }
+
+    public void lauchSpell(string name, Vector2 loc, dLRS list) //This method takes the runes from the buffer and based upon them
+    {                                                           //Fires a spell prefab
+        string spellName = "Spells/" + name;
+        GameObject spell = Instantiate(Resources.Load(spellName)) as GameObject;
+        spell.transform.position = loc;
+        spell.SetActive(true);
+
     }
 }
 

@@ -6,14 +6,6 @@ using UnityEngine;
 public class spellSelector : MonoBehaviour
 {
    
-    public void selectSpell(char[] runes, Vector2 loc, dLRS list) //This method takes the runes from the buffer and based upon them
-    {                                                               //Fires a spell prefab
-        string spellName = "Spells/" + spellSelect(runes, list);
-        GameObject spell = Instantiate(Resources.Load(spellName)) as GameObject;
-        spell.transform.position = loc;
-        spell.SetActive(true);
-    }
-
     public string spellSelect(char[] runes, dLRS list) //This method shound return the string of the rune type
     {                                                  //that has the most runes on the rune chart
         int Tcount = 0;

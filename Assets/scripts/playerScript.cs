@@ -6,7 +6,7 @@ using UnityEngine;
 public class playerScript : MonoBehaviour
 {
     private float speed = 5.0f;
-    private int health;
+    public float health = 100.0f;
     private Animator animator;
 
 
@@ -14,6 +14,7 @@ public class playerScript : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        healthBar.setHealthBarValue(health);
     }
 
     // Update is called once per frame
@@ -74,4 +75,19 @@ public class playerScript : MonoBehaviour
     }
 
     public void Charge() { animator.SetTrigger("Player Charge"); }
+
+    public void takeDamage(float damage)
+    {
+        animator.SetTrigger("Player Hit");
+        health -= damage;
+        if(health < 0) { health = 0; die(); }
+        healthBar.incrementPlayerHealth(-1.0f * damage);
+    }
+
+    public void die() { animator.SetTrigger("Player Death"); }
+    public void stop()
+    {
+        animator.speed = 0f;
+        //TODO stop movement and present game over screen
+    }
 }

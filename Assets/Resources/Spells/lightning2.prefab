@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 532631030692758285}
   - component: {fileID: 532631030692758286}
   - component: {fileID: 532631030692758283}
+  - component: {fileID: 6223218827558371670}
   m_Layer: 6
   m_Name: lightning2
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2054102035
-  m_SortingLayer: 3
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 1594501475, guid: fa190818bae74f24193d021c76962ae6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -118,3 +119,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6438159e72fb8054d9d7b0e107313047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!60 &6223218827558371670
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350982316555152034}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.32}
+    newSize: {x: 0.64, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.02, y: 0.06064242}
+      - {x: -0.20672102, y: 0.089750744}
+      - {x: -0.26570472, y: 0.07342283}
+      - {x: -0.29228193, y: 0.032013364}
+      - {x: -0.2924065, y: -0.027094953}
+      - {x: -0.25721958, y: -0.07342284}
+      - {x: -0.18744957, y: -0.078485146}
+      - {x: -0.15434285, y: -0.07024926}
+      - {x: 0.2784851, y: -0.009108316}
+      - {x: 0.27620324, y: 0.0135474745}

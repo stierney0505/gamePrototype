@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class dLRS //Doubly Linked-List Rune Selector Class, pretty simple
-{
+public class dLRS //Doubly Linked-List Rune Selector Class, pretty simple it will hold 5 chars for the rune types
+{                 // F for fire, W for water, L for lightning, E for earth, A for air
     public dLRSNode head;
 
     public dLRS(char type, int id)

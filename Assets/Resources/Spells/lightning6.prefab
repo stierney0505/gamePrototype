@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3588996917407426881}
   - component: {fileID: 3588996917407426880}
   - component: {fileID: 3125336732749408806}
+  - component: {fileID: 8218137570301713862}
   m_Layer: 6
   m_Name: lightning6
   m_TagString: Spell
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2054102035
-  m_SortingLayer: 3
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 137764724, guid: 00756e6ed3847514c9320a433acbd06d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -118,3 +119,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7c181f53f37a8c40848ffd80247e8f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 60
+  type: 76
+--- !u!70 &8218137570301713862
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7779148193540639982}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0040052896, y: 0.0013976939}
+  m_Size: {x: 0.4685834, y: 0.32279953}
+  m_Direction: 1

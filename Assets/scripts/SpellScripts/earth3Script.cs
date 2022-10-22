@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class earth3Script : spell
+public class earth3Script : MonoBehaviour, spell
 {
     float speed = 0.15f;
     private Animator animator;
     int loops = 0;
+    float damage;
+    char type;
     private void Start()
     {
         animator = GetComponent<Animator>();
     }
-    public override Vector3 getVector()
+    public Vector3 getVector()
     {
 
         Vector3 postion = Input.mousePosition;
@@ -19,10 +21,10 @@ public class earth3Script : spell
 
     }
 
-    public override void end()
-    {
-        Destroy(gameObject);
-    }
+    public void createOnHiteffect() { }
+
+    public void remove() { Destroy(gameObject); }
+    public void end() { }
 
     public void startIncrease()
     {
@@ -37,6 +39,9 @@ public class earth3Script : spell
     public void loop()
     {
         if (loops <= 30) { loops++; }
-        else { end(); };
+        else { remove(); };
     }
+
+    public float getDamage() { return damage; }
+    public char getType() { return type; }
 }

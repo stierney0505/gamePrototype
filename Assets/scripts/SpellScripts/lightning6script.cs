@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class lightning6script : spell
+public class lightning6script : MonoBehaviour, spell
 {
-    public override Vector3 getVector()
+    [SerializeField] float damage;
+    [SerializeField] char type; 
+    public Vector3 getVector()
     {
         
         Vector3 postion = Input.mousePosition;
@@ -12,8 +14,16 @@ public class lightning6script : spell
 
     }
 
-    public override void end()
+    public void createOnHiteffect() { }
+    public void remove() { Destroy(gameObject); }
+    public void end() { }
+    public float getDamage() { return damage; }
+    public char getType() { return type; }
+
+    public void enableCollider()
     {
-        Destroy(gameObject);
+        Collider2D col = GetComponent<Collider2D>();
+        col.enabled = true;
     }
+    public void disableCollider() { Collider2D col = GetComponent<Collider2D>(); col.enabled = false; }
 }

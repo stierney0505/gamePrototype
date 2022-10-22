@@ -4,62 +4,78 @@ using UnityEditor.U2D.Path;
 using UnityEditor.UIElements;
 using UnityEngine;
 
-public class fire1Script : spell
+public class fire1Script : MonoBehaviour, spell //A script that works for most linear traveling spells
 {
     Vector2 endLoc;
+    Vector2 startLoc;
     private Animator animator;
     int loops = 0;
+    [SerializeField] float damage;
+    [SerializeField] char type;
+    [SerializeField] float impactSpeed;
+    float step;
 
     private void Start()
     {
-        Vector2 start;
+        step = 12.5f * Time.deltaTime;
+        
         endLoc = transform.position;
-        GameObject player = GameObject.Find("PlayerCharacter");
-        start = player.transform.position;
+        GameObject player = GameObject.Find("WWPlayerCharacter");
+        startLoc = player.transform.position;
         animator = GetComponent<Animator>();
-        transform.position = start;
-        rotate(start, endLoc);
+        transform.position = startLoc;
+        rotateExtend(startLoc, endLoc, true);
+
     }
 
     private void Update() //make fireball keep traveling in the direction
-    {
-        float step = 7.5f * Time.deltaTime;
-        if (transform.position.Equals(endLoc)) { animator.SetTrigger("fade"); }
-        transform.position = Vector2.MoveTowards(transform.position, endLoc, step);
+    {   
+        if (transform.position.Equals(endLoc)) { rotateExtend(startLoc, endLoc, false); }
+        if (loops != -1) { transform.position = Vector2.MoveTowards(transform.position, endLoc, step); }
+        else if(loops == -1) { transform.position = Vector2.MoveTowards(transform.position, endLoc, (step / 4.0f)); }
         
     }
-    public override Vector3 getVector()
+    public Vector3 getVector()
     {
-
         Vector3 postion = Input.mousePosition;
         return postion;
-
     }
 
-    public override void end()
-    {
-        Destroy(gameObject);
-    }
+    public void end() { step = impactSpeed; animator.SetTrigger("fade"); }
 
+    public void remove() { Destroy(gameObject); }
+
+    public void createOnHiteffect() { }
     public void loop()
     {
-        if (loops < 7) { loops++; }
-        else { animator.SetTrigger("fade"); }
+        if (loops < 3) { loops++; }
+        else { end(); }
     }
 
-    public void rotate(Vector2 start, Vector2 end)
+    public void rotateExtend(Vector2 start, Vector2 end, bool rotate)
     {
         float startX = start.x;
         float startY = start.y;
         float endX = end.x;
         float endY = end.y;
-        float slope = (endY - startY) / (endX - startX);
-        float rotation = Mathf.Rad2Deg*Mathf.Atan(slope);
-        transform.Rotate(0, 0, rotation);
-
-        if(endX < startX) { transform.localScale = new Vector2(transform.localScale.x * -1.0f, transform.localScale.y); }
         
+        if (rotate)
+        {
+            float slope = (endY - startY) / (endX - startX);
+            float rotation = Mathf.Rad2Deg * Mathf.Atan(slope);
+            transform.Rotate(0, 0, rotation);
+
+            if (endX < startX) { transform.localScale = new Vector2(transform.localScale.x * -1.0f, transform.localScale.y); }
+        }
+        else 
+        {
+            float rise = endY - startY;
+            float run = endX - startX;
+            endLoc = new Vector2(endLoc.x + (run * 3.0f), startLoc.y + (rise*3.0f));
+        }
     }
+    public float getDamage() { return damage; }
+    public char getType() { return type; }
 }
 
 

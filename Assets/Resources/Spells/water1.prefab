@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 2491584241887861098}
   - component: {fileID: 2491584241887861099}
   - component: {fileID: 2491584241887861108}
+  - component: {fileID: 7156234697847523884}
   m_Layer: 6
   m_Name: water1
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2054102035
-  m_SortingLayer: 3
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 885171763, guid: 8e8fe492b84d6ee458b6f7fba26a3445, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -118,3 +119,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d19575121b4f34abb52f75812bc1a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
+  type: 87
+  impactSpeed: 0.25
+--- !u!68 &7156234697847523884
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996525319573182724}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 0.034921944, y: 0.048691113}
+  - {x: 0.24616018, y: 0.007055099}
+  - {x: 0.05159159, y: -0.04243076}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0

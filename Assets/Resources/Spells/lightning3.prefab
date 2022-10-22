@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8414784410020668377}
   m_Layer: 6
   m_Name: lightning3
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 150555714918614456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.3158, y: 0.139, z: 5.6306534}
-  m_LocalScale: {x: 31.858002, y: 11.371, z: 1}
+  m_LocalPosition: {x: 8.0943, y: 0.47, z: 5.6306534}
+  m_LocalScale: {x: 68.16644, y: 11, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2054102035
-  m_SortingLayer: 3
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 1031600857, guid: 6c2da3632cf355e4da9b832909568f98, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 2555958321779912236}
   - component: {fileID: 2555958321779912227}
   - component: {fileID: 2555958321779912226}
+  - component: {fileID: 5391542163282372040}
   m_Layer: 6
   m_Name: fire2
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2054102035
-  m_SortingLayer: 3
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -229584745, guid: dc321b4fa4e01b14b93f9e72619f594c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -118,3 +119,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d19575121b4f34abb52f75812bc1a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 17.5
+  type: 70
+--- !u!70 &5391542163282372040
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3764996053896452292}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.06767156, y: -0.00020171642}
+  m_Size: {x: 0.27717653, y: 0.11155672}
+  m_Direction: 1

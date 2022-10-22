@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class playerScript : MonoBehaviour
+public class playerScript : MonoBehaviour, unitInterface
 {
     private float speed = 5.0f;
     public float health = 100.0f;
@@ -61,14 +61,14 @@ public class playerScript : MonoBehaviour
         if (moveLeft)
         {
             animator.SetTrigger("Player Move");
-            gameObject.transform.localScale = new Vector3(-6, 6, 10); //These are currenty hardcoded to flip the sprite 
+            gameObject.transform.localScale = new Vector3(-5, 5, 10); //These are currenty hardcoded to flip the sprite 
             Vector3 movement = new Vector2(-1.0f, 0);
             transform.Translate(movement * speed * Time.deltaTime);
         }
         if (moveRight)
         {
             animator.SetTrigger("Player Move");
-            gameObject.transform.localScale = new Vector3(6, 6, 10);//These are currently hardcode to flip the sprite
+            gameObject.transform.localScale = new Vector3(5, 5, 10);//These are currently hardcode to flip the sprite
             Vector3 movement = new Vector2(1.0f, 0);
             transform.Translate(movement * speed * Time.deltaTime);
         }

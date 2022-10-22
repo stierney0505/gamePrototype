@@ -6,7 +6,7 @@ using Unity.UI;
 public class runeSelector : MonoBehaviour //This class manages the rune selection by the player
 {
     spellSelector selector;
-    public char[] runes;
+    private char[] runes;
     private int runeCount;
     private GameObject FireIcon;
     private GameObject AirIcon;
@@ -19,10 +19,15 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     private const char Water = 'W';
     private const char Air = 'A';
     public dLRS list;
+    public bool locked = false;
+    Vector2 mousePos;
+    string spellName;
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {   
+        animator = GetComponent<Animator>();
         selector = GetComponent<spellSelector>(); //Set up for rune buffer
         runes = new char[5];
         runes[0] = 'X';
@@ -59,12 +64,18 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     }
 
     void Update()
-    {   
-        
-        Vector2 pos = new Vector2(0, 0); //This block of code just checks if the player clicked or scrolled
-        pos.y += Input.mouseScrollDelta.y * 1.0f; //if they scrolled switches rune, if they clicked they lauch a spell
-        if (pos.y > 0 || pos.y < 0) { switchIcon(pos.y > 0); }
-        if (Input.GetMouseButtonDown(0)) { lauchSpell(); } 
+    {
+        if (!locked)
+        {
+            Vector2 pos = new Vector2(0, 0); //This block of code just checks if the player clicked or scrolled
+            pos.y += Input.mouseScrollDelta.y * 1.0f; //if they scrolled switches rune, if they clicked they lauch a spell
+            if (pos.y > 0 || pos.y < 0) { switchIcon(pos.y > 0); }
+            if (Input.GetMouseButtonDown(0)) { mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                spellName = selector.spellSelect(runes, list);
+                if (runes[0] != 'X') { animator.SetTrigger(getAttackType(spellName[0])); }
+                else { animator.SetTrigger(getAttackType(list.getData())); }
+            }
+        }
     }
 
     public void switchIcon(bool next)//This just switches between icons based off the parameter
@@ -93,7 +104,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
             runeCount = 0;
     }
 
-    public void setIcon(char type) 
+    public void setIcon(char type) //Currently I have my gui elements all overlaping and disable them and enable them as need be, on the backlog for refactoring but it ain't broken right now so I don't need to fix it
     {   
         if (type == 'L') { LightningIcon.SetActive(true); }
         else if (type == 'A') { AirIcon.SetActive(true); }
@@ -111,7 +122,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         else if (type == 'F') { FireIcon.SetActive(false); }
     }
 
-    public void AddRune() //This method adds a rune to the rune buffer
+    public void AddRune() //This method adds a rune to the rune buffer based on what rune is selected in the rune selector
     {
         int runeGroup = 0;
         if (runeCount >= 5)
@@ -132,23 +143,34 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     public void lauchSpell() //This method current triggers the spellSelector's lauch spell method and give it the camera
     {                        //Position of where the player clicked
 
-        Vector2 loc = new Vector2(0, 0);
-        loc = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        string spellName = selector.spellSelect(runes, list);
-        lauchSpell(spellName, loc, list);
+        if (mousePos.x < transform.position.x && transform.localScale.x > 0) { gameObject.transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y); }
+        else if (mousePos.x > transform.position.x && transform.localScale.x < 0) { gameObject.transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y); };
+        createSpell(spellName, mousePos, list);
         for(int i = 0; i < runes.Length; i++) { runes[i] = 'X'; };
         disableRuneIcons();
       
     }
 
-    public void lauchSpell(string name, Vector2 loc, dLRS list) //This method takes the runes from the buffer and based upon them
-    {                                                           //Fires a spell prefab
+    public void createSpell(string name, Vector2 loc, dLRS list) //This method takes the runes from the buffer and based upon them
+    {                                                           //Fires a spell prefab based on parameters
         string spellName = "Spells/" + name;
         GameObject spell = Instantiate(Resources.Load(spellName)) as GameObject;
         spell.transform.position = loc;
         spell.SetActive(true);
 
     }
+
+    public void unlock() { locked = false; } //unlocks the rune selector
+    public string getAttackType(char type) //This helper method takes a char and returns the animation trigger based 
+    {
+        if (type == 'F' || type == 'f') return "fAttack";
+        else if (type == 'A' || type == 'a') return "aAttack";
+        else if (type == 'L' || type == 'l') return "lAttack";
+        else if (type == 'E' || type == 'e') return "eAttack";
+        else if (type == 'W' || type == 'w') return "wAttack";
+        return null;
+    }
+
 }
 
-    
+

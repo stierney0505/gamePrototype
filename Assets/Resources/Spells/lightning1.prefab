@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 7474514926575081685}
   - component: {fileID: 6083595948737434562}
   - component: {fileID: 6083595948737434563}
-  - component: {fileID: 6083595948737434560}
+  - component: {fileID: 4031877363499642188}
+  - component: {fileID: 8863239835249848227}
   m_Layer: 6
   m_Name: lightning1
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2054102035
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -1900729496, guid: dab4f38d26526e7469fb79027d920c20, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -106,7 +107,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6083595948737434560
+--- !u!114 &4031877363499642188
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,6 +116,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 4037202548399785498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7da05723ef3aa40a45a9b7ac049f4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f849d341d8869e40bc618d0f5d12830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!68 &8863239835249848227
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4037202548399785498}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.461118, y: 0.10564686}
+  - {x: -0.3902643, y: 0.16888197}
+  - {x: -0.25848112, y: 0.0086901635}
+  - {x: -0.12625976, y: 0.0021627825}
+  - {x: -0.0045600645, y: 0.02103275}
+  - {x: -0.0033257715, y: -0.010434251}
+  - {x: -0.315202, y: -0.0783744}
+  - {x: -0.38769653, y: 0.13123052}
+  - {x: -0.45346898, y: 0.09552926}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0

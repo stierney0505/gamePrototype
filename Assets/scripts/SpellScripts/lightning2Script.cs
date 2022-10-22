@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class lightning2Script : spell
+public class lightning2Script : MonoBehaviour, spell
 {
+    float damage;
+    char type;
     private Animator animator;
     int slowOrFast = 0;
     private void Start()
     {
         animator = GetComponent<Animator>();
     }
-    public override Vector3 getVector()
+    public Vector3 getVector()
     {
 
         Vector3 postion = Input.mousePosition;
@@ -18,15 +20,17 @@ public class lightning2Script : spell
 
     }
 
-    public override void end()
-    {   
-        Destroy(gameObject);
-    }
+    public void remove() { Destroy(gameObject); }
+    public void end() { animator.speed = 1; }
 
-    public void setSpeed()
+    public void createOnHiteffect() { }
+    public void setSpeedZero() { animator.speed = 0; }
+    public float getDamage() { return damage; }
+    public char getType() { return type; }
+    public void enableCollider()
     {
-        if(slowOrFast == 0) { animator.speed = .55f; slowOrFast++; }
-        else { animator.speed = .85f; }
-        
+        Collider2D col = GetComponent<Collider2D>();
+        col.enabled = true;
     }
+    public void disableCollider() { Collider2D col = GetComponent<Collider2D>(); col.enabled = false; }
 }

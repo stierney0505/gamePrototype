@@ -57,7 +57,7 @@ public class pursueState : state
 
         Vector2 playerDist = player.position - npc.transform.position; //to get the distance between the player and the AI
 
-        if (currentWayPoint >= path.vectorPath.Count || playerDist.sqrMagnitude > 4 ) //This checks if the waypoint is not the last, and also if the AI is closer than 2 units away
+        if (currentWayPoint >= path.vectorPath.Count || playerDist.sqrMagnitude < 4 ) //This checks if the waypoint is not the last, and also if the AI is closer than 2 units away
         { endPath = true; return; }
         else { endPath = false; } //otherwise we arent at the end of our path
 

@@ -7,7 +7,6 @@ public class lightning2Script : MonoBehaviour, spell
     float damage;
     char type;
     private Animator animator;
-    int slowOrFast = 0;
     private void Start()
     {
         animator = GetComponent<Animator>();

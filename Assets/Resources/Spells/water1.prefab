@@ -121,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   type: 87
-  impactSpeed: 0.25
+  impactSpeed: 0.001
 --- !u!68 &7156234697847523884
 EdgeCollider2D:
   m_ObjectHideFlags: 0

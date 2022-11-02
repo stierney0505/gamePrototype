@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.UI;
+using UnityEngine.UI;
 
 public class runeSelector : MonoBehaviour //This class manages the rune selection by the player
 {
@@ -143,8 +143,8 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     public void lauchSpell() //This method current triggers the spellSelector's lauch spell method and give it the camera
     {                        //Position of where the player clicked
 
-        if (mousePos.x < transform.position.x && transform.localScale.x > 0) { gameObject.transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y); }
-        else if (mousePos.x > transform.position.x && transform.localScale.x < 0) { gameObject.transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y); };
+        if (mousePos.x < transform.position.x && transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); }
+        else if (mousePos.x > transform.position.x && transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); };
         createSpell(spellName, mousePos, list);
         for(int i = 0; i < runes.Length; i++) { runes[i] = 'X'; };
         disableRuneIcons();

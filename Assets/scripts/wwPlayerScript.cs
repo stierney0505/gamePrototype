@@ -10,7 +10,8 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
     private Animator animator;
     runeSelector runeSelector;
     bool movementDisabled = false;
-   
+    bool dead = false;
+    Rigidbody2D body;
 
     
     void Start()
@@ -18,7 +19,7 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
         runeSelector = GetComponent<runeSelector>();
         animator = GetComponent<Animator>();
         healthBar.setHealthBarValue(health);
-
+        body = GetComponent<Rigidbody2D>();
     }
 
     
@@ -41,13 +42,13 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
         Move(up, down, left, right);
 
         if (!(up || down || left || right)) //This stops the character's move animation the moment they stop
-            animator.SetTrigger("still");
+            animator.SetBool("running", false);
 
     }
 
     public void Move(bool up, bool down, bool left, bool right) //Movement method, just takes the bools for movement directions
     {                                                           //and moves the character based upon that
-        if(movementDisabled)
+        if(movementDisabled || dead)
             return;
         bool moveUp = (up && !down); //these bools determine if the character should move up, i.e. if up is pressed and not down etc.
         bool moveDown = (down && !up);
@@ -56,29 +57,27 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
 
         if (moveUp) //these if statements move the player based on the previous bools
         {
-            animator.SetTrigger("playerMove");
-            Vector3 movement = new Vector3(0, 1.0f, 1.0f);
+            animator.SetBool("running", true);
+            Vector2 movement = new Vector3(0, 1.0f, 1.0f);
             transform.Translate(movement * speed * Time.deltaTime);
         }
         if (moveDown)
         {
-            animator.SetTrigger("playerMove");
-            Vector3 movement = new Vector3(0, -1.0f, -1.0f);
+            animator.SetBool("running", true);
+            Vector2 movement = new Vector3(0, -1.0f, -1.0f);
             transform.Translate(movement * speed * Time.deltaTime);
         }
         if (moveLeft)
         {
-            if(transform.localScale.x > 0) { gameObject.transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z); }
-            animator.SetTrigger("playerMove");
-            Vector3 movement = new Vector2(-1.0f, 0);
-            transform.Translate(movement * speed * Time.deltaTime);
+            if (transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); }
+            animator.SetBool("running", true);
+            transform.Translate(-transform.right.normalized * speed * Time.deltaTime);
         }
         if (moveRight)
         {
-            if (transform.localScale.x < 0) { gameObject.transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z); }
-            animator.SetTrigger("playerMove");
-            Vector3 movement = new Vector2(1.0f, 0);
-            transform.Translate(movement * speed * Time.deltaTime);
+            if (transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); }
+            animator.SetBool("running", true);
+            transform.Translate(transform.right.normalized * speed * Time.deltaTime);
         }
     }
 
@@ -93,7 +92,7 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
             healthBar.healthBarColor();
     }
 
-    public void die() { animator.SetTrigger("dead"); } 
+    public void die() { animator.SetTrigger("dead"); dead = true; } 
     public void stopMovement() { movementDisabled = true; } //Stops the player from moving 
     public void allowMovement() { movementDisabled = false; } //Enables moving
 
@@ -110,4 +109,18 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
     
     public void turnRed() { SpriteRenderer sprite = GetComponent<SpriteRenderer>(); sprite.color = Color.red; }
     public void turnWhite() { SpriteRenderer sprite = GetComponent<SpriteRenderer>(); sprite.color = Color.white; }
+    
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.tag == ("Enemy") && col.gameObject.TryGetComponent<Unit>(out Unit enemyComponent))
+        {
+            float damage = enemyComponent.getDamage();
+            // char type = spellComponent.getType(); TODO add enemy type
+            takeDamage(damage);
+            //GameObject hitEffect = Instantiate(Resources.Load(spellTypeHelper.getOnHitEffect(enemyComponent.getType()))) as GameObject; TODO add on hit effects for enemies
+            //hitEffect.transform.position = transform.position;
+            Vector2 forceDirection = transform.position - col.transform.position;
+            body.AddForce(forceDirection.normalized * enemyComponent.getKnockBack(), ForceMode2D.Impulse);
+        }
+    }
 }

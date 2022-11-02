@@ -10,11 +10,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Floor
   - Water
   - UI
   - Blocking Layer
-  - 
+  - Obstacle
   - 
   - 
   - 

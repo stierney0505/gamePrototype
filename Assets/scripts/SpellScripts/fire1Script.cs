@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.U2D.Path;
 using UnityEditor.UIElements;
 using UnityEngine;
 
@@ -17,7 +16,6 @@ public class fire1Script : MonoBehaviour, spell //A script that works for most l
 
     private void Start()
     {
-        step = 12.5f * Time.deltaTime;
         
         endLoc = transform.position;
         GameObject player = GameObject.Find("WWPlayerCharacter");
@@ -29,7 +27,8 @@ public class fire1Script : MonoBehaviour, spell //A script that works for most l
     }
 
     private void Update() //make fireball keep traveling in the direction
-    {   
+    {
+        step = 12.5f * Time.deltaTime;
         if (transform.position.Equals(endLoc)) { rotateExtend(startLoc, endLoc, false); }
         if (loops != -1) { transform.position = Vector2.MoveTowards(transform.position, endLoc, step); }
         else if(loops == -1) { transform.position = Vector2.MoveTowards(transform.position, endLoc, (step / 4.0f)); }

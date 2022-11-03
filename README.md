@@ -12,7 +12,7 @@ This work is licensed under a
 [cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
 
 <br>This project is a game prototype as the name implies.
-The art is not mine, the sources are below
+The art is not mine, the sources are below:
 <br>
 <br>Spell effects by Pimen https://pimen.itch.io/
 <br>Character sprite by 9E0 https://9e0.itch.io/

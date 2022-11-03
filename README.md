@@ -11,9 +11,10 @@ This work is licensed under a
 [cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
 [cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
 
-This project is a game prototype as the name implies.
+<br>This project is a game prototype as the name implies.
 The art is not mine, the sources are below
-spell effects by Pimen https://pimen.itch.io/
-Character sprite by 9E0 https://9e0.itch.io/
-UI Border by GX310 https://gx310.itch.io/ 
-The tileset was created by https://cainos.itch.io/
+<br>
+<br>Spell effects by Pimen https://pimen.itch.io/
+<br>Character sprite by 9E0 https://9e0.itch.io/
+<br>UI Border by GX310 https://gx310.itch.io/ 
+<br>Tileset was created by https://cainos.itch.io/

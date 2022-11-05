@@ -13,14 +13,25 @@ public class spellSelector : MonoBehaviour
 
         for(int i = 0; i < runes.Length; i++)
         {
-            if(runes[i] == 'L') { runeCount[0]++; Tcount++; }
-            else if (runes[i] == 'F') { runeCount[1]++; Tcount++; }
-            else if (runes[i] == 'A') { runeCount[2]++; Tcount++; }
-            else if (runes[i] == 'E') { runeCount[3]++; Tcount++; }
-            else if (runes[i] == 'W') { runeCount[4]++; Tcount++; }
+            switch (runes[i])//This checks what runes[i] is and increments the runecount for that type
+            {
+                case 'L':
+                    runeCount[0]++; Tcount++;
+                    break;
+                case 'F':
+                    runeCount[1]++; Tcount++;
+                    break;
+                case 'A':
+                    runeCount[2]++; Tcount++;
+                    break;
+                case 'E':
+                    runeCount[3]++; Tcount++;
+                    break;
+                case 'W':
+                    runeCount[4]++; Tcount++;
+                    break;
+            }
         }
-
-        
         return highestCount(runeCount, list) + (Tcount + 1);   
     }
 
@@ -59,12 +70,21 @@ public class spellSelector : MonoBehaviour
 
     public string convertIndexToString(int index) //this helper methods converts the index from the rune array
     {                                             //to a string of the rune type based on the criteria on line 12 for the rune count array
-        if(index == 0) { return "lightning"; }
-        else if (index == 1) { return "fire"; }
-        else if (index == 2) { return "air"; }
-        else if (index == 3) { return "earth"; }
-        else if (index == 4) { return "water"; }
-        return null; //if this returns I indeed have messed up
+        switch (index)
+        {
+            case 0:
+                return "lightning";
+            case 1:
+                return "fire";
+            case 2:
+                return "air";
+            case 3:
+                return "earth";
+            case 4:
+                return "water";
+            default:
+                return null;//if this returns I indeed have messed up
+        }
     }
 
 }

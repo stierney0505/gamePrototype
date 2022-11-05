@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class runeSelector : MonoBehaviour //This class manages the rune selection by the player
 {
@@ -19,14 +16,14 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     private const char Water = 'W';
     private const char Air = 'A';
     public dLRS list;
-    public bool locked = false;
+    private bool locked = false, chargeActive = false; 
     Vector2 mousePos;
     string spellName;
     Animator animator;
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
         animator = GetComponent<Animator>();
         selector = GetComponent<spellSelector>(); //Set up for rune buffer
         runes = new char[5];
@@ -105,21 +102,47 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     }
 
     public void setIcon(char type) //Currently I have my gui elements all overlaping and disable them and enable them as need be, on the backlog for refactoring but it ain't broken right now so I don't need to fix it
-    {   
-        if (type == 'L') { LightningIcon.SetActive(true); }
-        else if (type == 'A') { AirIcon.SetActive(true); }
-        else if (type == 'E') { EarthIcon.SetActive(true); }
-        else if (type == 'W') { WaterIcon.SetActive(true); }
-        else if (type == 'F') { FireIcon.SetActive(true); }
+    {
+        switch (type)
+        {
+            case 'F':
+                FireIcon.SetActive(true);
+                break;
+            case 'E':
+                EarthIcon.SetActive(true);
+                break;
+            case 'W':
+                WaterIcon.SetActive(true);
+                break;
+            case 'A':
+                AirIcon.SetActive(true);
+                break;
+            case 'L':
+                LightningIcon.SetActive(true);
+                break;
+        }
     }
 
     public void disableIcon(char type)
     {
-        if (type == 'L') { LightningIcon.SetActive(false); }
-        else if (type == 'A') { AirIcon.SetActive(false); }
-        else if (type == 'E') { EarthIcon.SetActive(false); }
-        else if (type == 'W') { WaterIcon.SetActive(false); }
-        else if (type == 'F') { FireIcon.SetActive(false); }
+        switch (type)
+        {
+            case 'F':
+                FireIcon.SetActive(false);
+                break;
+            case 'E':
+                EarthIcon.SetActive(false);
+                break;
+            case 'W':
+                WaterIcon.SetActive(false);
+                break;
+            case 'A':
+                AirIcon.SetActive(false);
+                break;
+            case 'L':
+                LightningIcon.SetActive(false);
+                break;
+        }
     }
 
     public void AddRune() //This method adds a rune to the rune buffer based on what rune is selected in the rune selector
@@ -128,12 +151,56 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         if (runeCount >= 5)
             return;
         char type = list.getData();
-        if (type == 'F') { runeGroup = 1; }
-        else if (type == 'E') { runeGroup = 2; }
-        else if (type == 'W') { runeGroup = 3; }
-        else if (type == 'A') { runeGroup = 4; }
-        else if (type == 'L') { runeGroup = 5; }
+        switch (type)
+        {
+            case 'F':
+                runeGroup = 1;
+                break;
+            case 'E':
+                runeGroup = 2;
+                break;
+            case 'W':
+                runeGroup = 3;
+                break;
+            case 'A':
+                runeGroup = 4;
+                break;
+            case 'L':
+                runeGroup = 5;
+                break;
+        }
 
+        GameObject currentRunes = GameObject.Find("Runes" + runeGroup);
+        currentRunes.transform.GetChild(runeCount).gameObject.SetActive(true);
+        runes[runeCount] = list.getData();
+        runeCount++;
+    }
+
+    public void AddRune(char rune) //This method adds a rune to the rune buffer based on what rune is selected in the rune selector
+    {
+        int runeGroup = 0;
+        if (runeCount >= 5)
+            return;
+        char type = rune;
+
+        switch (type)
+        {
+            case 'F' :
+                runeGroup = 1;
+                break;
+            case 'E':
+                runeGroup = 2;
+                break;
+            case 'W':
+                runeGroup = 3;
+                break;
+            case 'A':
+                runeGroup = 4;
+                break;
+            case 'L':
+                runeGroup = 5;
+                break;
+        }
         GameObject currentRunes = GameObject.Find("Runes" + runeGroup);
         currentRunes.transform.GetChild(runeCount).gameObject.SetActive(true);
         runes[runeCount] = list.getData();
@@ -160,15 +227,31 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
 
     }
 
-    public void unlock() { locked = false; } //unlocks the rune selector
-    public string getAttackType(char type) //This helper method takes a char and returns the animation trigger based 
+    public void switchLocked() { locked = !locked; chargeActive = !chargeActive; }
+    public void unlock() { locked = false; } //This method just 'unlocks' the rune selector and is called on the first run frame so that the player can quickly cancel the charge if they are doing so
+    public bool isChargeActive() { return chargeActive; }
+    public string getAttackType(char type) //This helper method takes a char and returns the animation trigger based upon the char type 
     {
-        if (type == 'F' || type == 'f') return "fAttack";
-        else if (type == 'A' || type == 'a') return "aAttack";
-        else if (type == 'L' || type == 'l') return "lAttack";
-        else if (type == 'E' || type == 'e') return "eAttack";
-        else if (type == 'W' || type == 'w') return "wAttack";
-        return null;
+        switch (type)
+        {
+            case 'F':
+            case 'f':
+                return "fAttack";
+            case 'E':
+            case 'e':
+                return "eAttack";
+            case 'W':
+            case 'w':
+                return "wAttack";
+            case 'A':
+            case 'a':
+                return "aAttack";
+            case 'L':
+            case 'l':
+                return "lAttack";
+            default:
+                return null;
+        }
     }
 
 }

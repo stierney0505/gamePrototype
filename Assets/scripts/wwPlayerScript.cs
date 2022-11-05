@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player script with extra animations, now the main character 10/20/2022
 {
-
     private float speed = 5.0f;
     public float health = 100.0f;
     private Animator animator;
     runeSelector runeSelector;
-    bool movementDisabled = false;
-    bool dead = false;
+    bool movementDisabled = false, dead = false, barrierActive = false; 
     Rigidbody2D body;
+    GameObject barrier;
 
-    
     void Start()
     {   //get needed components
         runeSelector = GetComponent<runeSelector>();
@@ -25,7 +23,6 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
     
     void Update()
     {
-        
         bool up = false, down = false, left = false, right = false; //I used 4 bools to determine what directions the player is pressing
 
         if (Input.GetKeyDown(KeyCode.E) && !movementDisabled) //The E button currently turns the character into a charge state where they 
@@ -39,11 +36,15 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
             left = true;
         if (Input.GetKey(KeyCode.D))
             right = true;
-        Move(up, down, left, right);
+        Move(up, down, left, right); 
 
         if (!(up || down || left || right)) //This stops the character's move animation the moment they stop
             animator.SetBool("running", false);
 
+        
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !runeSelector.isChargeActive()) { createBlock(); } //TODO ADD BOOL FOR IF HIT/KNOCKBACK AND MAKE ALL ACTIONS NOT POSSIBLE DURING
+        if (barrierActive && !Input.GetKey(KeyCode.LeftShift)) { destroyBlock(); }
+        if(barrier == null) { movementDisabled = false; }
     }
 
     public void Move(bool up, bool down, bool left, bool right) //Movement method, just takes the bools for movement directions
@@ -81,7 +82,7 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
         }
     }
 
-    public void Charge() { animator.SetTrigger(getChargeType()); runeSelector.locked = true; } //simple method to trigger charge animation 
+    public void Charge() { animator.SetTrigger(getChargeType()); } //simple method to trigger charge animation 
     
     public void takeDamage(float damage) //Damage method, triggers hit animation and modifies the player health bar
     {
@@ -95,17 +96,6 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
     public void die() { animator.SetTrigger("dead"); dead = true; } 
     public void stopMovement() { movementDisabled = true; } //Stops the player from moving 
     public void allowMovement() { movementDisabled = false; } //Enables moving
-
-    public string getChargeType() //This is a helper method to determine which charge animation to play based on the rune
-    {
-        char type = runeSelector.list.getData();
-        if (type == 'F') return "fCharge";
-        else if (type == 'A') return "aCharge";
-        else if (type == 'L') return "lCharge";
-        else if (type == 'E') return "eCharge";
-        else if (type == 'W') return "wCharge";
-        return null;
-    }
     
     public void turnRed() { SpriteRenderer sprite = GetComponent<SpriteRenderer>(); sprite.color = Color.red; }
     public void turnWhite() { SpriteRenderer sprite = GetComponent<SpriteRenderer>(); sprite.color = Color.white; }
@@ -113,14 +103,85 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag == ("Enemy") && col.gameObject.TryGetComponent<Unit>(out Unit enemyComponent))
-        {
+        {   
             float damage = enemyComponent.getDamage();
+            char type = enemyComponent.getType();
+            if (barrier != null)
+            {
+                barrierScript barrierScr = barrier.GetComponent<barrierScript>();
+                switch (barrierScr.getParryState())
+                {   //TODO add knock back and some sort of parry reflect damage
+                    case 2 :
+                        runeSelector.AddRune(type);
+                        runeSelector.AddRune(type);
+                        runeSelector.AddRune(type);
+                        return;
+                    case 1 :
+                        barrierScr.setHealth(barrierScr.getHealth() - (damage / 2));
+                        damage /= 2;
+                        damage -= barrierScr.getHealth();
+                        if (barrier.GetComponent<barrierScript>().getHealth() > 0)
+                        {
+                            runeSelector.AddRune(type);
+                            runeSelector.AddRune(type);
+                            return;
+                        }
+                        barrierActive = false;
+                        break;
+
+                    default:
+                        barrierScr.setHealth(barrierScr.getHealth() - (damage));
+                        damage -= barrierScr.getHealth();
+                        if (barrierScr.getHealth() > 0)
+                        {
+                            runeSelector.AddRune(type);
+                            return;
+                        }
+                        barrierActive = false;
+                        break;
+                }
+            }
             // char type = spellComponent.getType(); TODO add enemy type
             takeDamage(damage);
-            //GameObject hitEffect = Instantiate(Resources.Load(spellTypeHelper.getOnHitEffect(enemyComponent.getType()))) as GameObject; TODO add on hit effects for enemies
-            //hitEffect.transform.position = transform.position;
             Vector2 forceDirection = transform.position - col.transform.position;
             body.AddForce(forceDirection.normalized * enemyComponent.getKnockBack(), ForceMode2D.Impulse);
+        }
+    }
+    private void createBlock()
+    {
+        barrierActive = true;
+        char type = runeSelector.list.getData();
+        runeSelector.switchLocked();
+        barrier = Instantiate(Resources.Load("Barriers/" + type + "Barrier")) as GameObject;
+        barrier.GetComponent<barrierScript>().setPos(transform);
+        stopMovement();
+    }
+    private void destroyBlock()
+    {
+        barrierActive = false;
+        if (barrier != null)
+            Destroy(barrier.gameObject); allowMovement();
+        runeSelector.switchLocked();
+    }
+
+    public string getChargeType() //This is a helper method to determine which charge animation to play based on the rune
+    {
+        char type = runeSelector.list.getData();
+
+        switch (type)
+        {
+            case 'F':
+                return "fCharge";
+            case 'E':
+                return "eCharge";
+            case 'W':
+                return "wCharge";
+            case 'A':
+                return "aCharge";
+            case 'L':
+                return "lCharge";
+            default:
+                return null;
         }
     }
 }

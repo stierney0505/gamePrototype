@@ -87,7 +87,7 @@ public class wanderState : state //This wander state has a 1 in 4 chance to trav
 
     public Vector3 getWanderTarget() //This method gets a vector to a random point around the ai and returns that vector
     {
-        float wanderRadius = Random.Range(1f, 12f); //This is the radius of the circle for the AI to wander to
+        float wanderRadius = Random.Range(4f, 12f); //This is the radius of the circle for the AI to wander to
         Vector2  wanderTarget = new Vector2(Random.Range(-1.00f, 1.00f), Random.Range(-1.00f, 1.00f)); //This creates a vector with a random direction
 
         wanderTarget.Normalize(); //normalizes the vector so we can use it as a direction

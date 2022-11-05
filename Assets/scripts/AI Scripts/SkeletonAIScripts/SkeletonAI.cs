@@ -9,9 +9,9 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
     state currentState;
     Transform player;
     Seeker seeker;
-    float damage = 10.0f, health = 100.0f, attackCD = 3f, knockBack = 15f;
-    float time;
-    public bool attackEnd = false, canAttack = true, aiTriggerd = false; //TODO make these private and add methods to access them 
+    float damage = 10.0f, health = 100.0f, attackCD = 3f, knockBack = 15f, time;
+    char type = 'E'; public char getType() { return type; }
+    internal bool attackEnd = false, canAttack = true, aiTriggerd = false; //TODO make these private and add methods to access them 
     
     private float speed;
     public float Speed { get { return speed; } set { speed = value; } }

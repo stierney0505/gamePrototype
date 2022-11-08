@@ -9,7 +9,8 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
     state currentState;
     Transform player;
     Seeker seeker;
-    float damage = 10.0f, health = 100.0f, attackCD = 3f, knockBack = 15f, time;
+    Rigidbody2D body;
+    public float damage = 10.0f, health = 100.0f, attackCD = 3f, knockBack = 15f, time;
     char type = 'E'; public char getType() { return type; }
     internal bool attackEnd = false, canAttack = true, aiTriggerd = false; //TODO make these private and add methods to access them 
     
@@ -18,6 +19,7 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
 
     void Start()
     {
+        body = gameObject.GetComponent<Rigidbody2D>();  
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player"); 
         seeker = GetComponent<Seeker>();
         animator = GetComponent<Animator>();
@@ -48,17 +50,20 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
     {
         if (col.gameObject.TryGetComponent<spell>(out spell spellComponent))
         {
-            float damage = spellComponent.getDamage();
-            char type = spellComponent.getType();
             spellComponent.end();
-            takeDamage(damage);
-            GameObject hitEffect = Instantiate(Resources.Load(spellTypeHelper.getOnHitEffect(spellComponent.getType()))) as GameObject;
-            hitEffect.transform.position = transform.position;
+            takeDamage(spellComponent);
+            Vector2 forceDirection = transform.position - col.transform.position;
+            body.AddForce(forceDirection.normalized * spellComponent.getKnockBack(), ForceMode2D.Impulse);
         }
     }
 
-    public void takeDamage(float damage) //takes damage and if health is less than or equal to 0 it starts the death animation/sequence
-    { 
+    public void takeDamage(spell spell) //takes damage and if health is less than or equal to 0 it starts the death animation/sequence
+    {
+        float damage = spell.getDamage();
+        char type = spell.getType();
+
+        GameObject hitEffect = Instantiate(Resources.Load(spellTypeHelper.getOnHitEffect(spell.getType()))) as GameObject;
+        hitEffect.transform.position = transform.position;
         health -= damage;
         aiTriggerd = true;
         if( health <= 0)

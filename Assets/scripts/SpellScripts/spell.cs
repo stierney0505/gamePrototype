@@ -11,7 +11,7 @@ public interface spell // Abstract class for the spells controlled by the player
     public void remove(); //This methods removes the spell from the game, destroys it
     public float getDamage(); //Currently, this method should only be called to get the damage of a spell during a collison
     public char getType();
-    public void createOnHiteffect();
+    public float getKnockBack();
 
 
 }

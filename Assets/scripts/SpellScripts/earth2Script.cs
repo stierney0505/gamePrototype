@@ -5,7 +5,7 @@ using UnityEngine;
 public class earth2Script : MonoBehaviour, spell
 {
     int loops = 0;
-    float damage;
+    float damage, knockBack;
     char type;
     public Vector3 getVector()
     {
@@ -17,9 +17,6 @@ public class earth2Script : MonoBehaviour, spell
 
     public void remove() { Destroy(gameObject); }
     public void end() { }
-
-    public void createOnHiteffect() { }
-
     public void loop()
     {
         if(loops < 10) { loops++; }
@@ -28,4 +25,5 @@ public class earth2Script : MonoBehaviour, spell
 
     public float getDamage() { return damage; }
     public char getType() { return type; }
+    public float getKnockBack() { return knockBack; }
 }

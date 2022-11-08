@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class lightning1Script : MonoBehaviour, spell
 {
-    float damage;
+    float damage, knockBack;
     char type;
     
 
@@ -26,8 +26,6 @@ public class lightning1Script : MonoBehaviour, spell
     public void end() { }
     public float getDamage() { return damage; }
     public char getType() { return type; }
-    public void createOnHiteffect() { }
-
     public void rotate(Vector2 start, Vector2 end)
     {
         if (start.x > end.x) { transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y); }
@@ -42,4 +40,5 @@ public class lightning1Script : MonoBehaviour, spell
     
     public void enableCollider() { EdgeCollider2D col = GetComponent<EdgeCollider2D>(); col.enabled = true; }
     public void disableCollider() { Collider2D col = GetComponent<Collider2D>(); col.enabled = false; }
+    public float getKnockBack() { return knockBack; }
 }

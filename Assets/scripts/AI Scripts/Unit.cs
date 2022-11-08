@@ -7,7 +7,7 @@ public interface Unit //Unit base class for enemies WIP and incomplete
     public float getDamage();
     public char getType();
     public float getKnockBack();
-    public void takeDamage(float damage);
+    public void takeDamage(spell spell);
 }
 
 

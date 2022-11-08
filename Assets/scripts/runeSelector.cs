@@ -183,7 +183,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
             return;
         char type = rune;
 
-        switch (type)
+        switch (rune)
         {
             case 'F' :
                 runeGroup = 1;
@@ -203,22 +203,22 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         }
         GameObject currentRunes = GameObject.Find("Runes" + runeGroup);
         currentRunes.transform.GetChild(runeCount).gameObject.SetActive(true);
-        runes[runeCount] = list.getData();
+        runes[runeCount] = rune;
         runeCount++;
     }
 
     public void lauchSpell() //This method current triggers the spellSelector's lauch spell method and give it the camera
-    {                        //Position of where the player clicked
+    {                        //Position of where the player clicked. Called through the animator
 
         if (mousePos.x < transform.position.x && transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); }
         else if (mousePos.x > transform.position.x && transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); };
-        createSpell(spellName, mousePos, list);
+        createSpell(spellName, mousePos);
         for(int i = 0; i < runes.Length; i++) { runes[i] = 'X'; };
         disableRuneIcons();
       
     }
 
-    public void createSpell(string name, Vector2 loc, dLRS list) //This method takes the runes from the buffer and based upon them
+    public void createSpell(string name, Vector2 loc) //This method takes the runes from the buffer and based upon them
     {                                                           //Fires a spell prefab based on parameters
         string spellName = "Spells/" + name;
         GameObject spell = Instantiate(Resources.Load(spellName)) as GameObject;

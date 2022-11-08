@@ -6,6 +6,7 @@ public class water5Script : MonoBehaviour, spell
 {
     float damage;
     char type;
+    float knockBack;
     public Vector3 getVector()
     {
 
@@ -13,7 +14,6 @@ public class water5Script : MonoBehaviour, spell
         return postion;
 
     }
-    public void createOnHiteffect() { }
     public void remove() { Destroy(gameObject); }
     public void end() { }
 
@@ -25,4 +25,6 @@ public class water5Script : MonoBehaviour, spell
 
     public float getDamage() { return damage; }
     public char getType() { return type; }
+
+    public float getKnockBack() { return knockBack;}
 }

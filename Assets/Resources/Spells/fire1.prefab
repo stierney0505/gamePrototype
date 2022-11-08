@@ -120,8 +120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+  knockBack: 5
   type: 70
-  impactSpeed: 0.001
 --- !u!70 &1950939586677646593
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

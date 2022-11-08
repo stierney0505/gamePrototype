@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class lightning6script : MonoBehaviour, spell
 {
-    [SerializeField] float damage;
+    [SerializeField] float damage, knockBack;
     [SerializeField] char type; 
     public Vector3 getVector()
     {
@@ -13,8 +13,6 @@ public class lightning6script : MonoBehaviour, spell
         return postion;
 
     }
-
-    public void createOnHiteffect() { }
     public void remove() { Destroy(gameObject); }
     public void end() { }
     public float getDamage() { return damage; }
@@ -26,4 +24,5 @@ public class lightning6script : MonoBehaviour, spell
         col.enabled = true;
     }
     public void disableCollider() { Collider2D col = GetComponent<Collider2D>(); col.enabled = false; }
+    public float getKnockBack() { return knockBack; }
 }

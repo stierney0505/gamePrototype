@@ -9,7 +9,7 @@ public class spellSelector : MonoBehaviour
     public string spellSelect(char[] runes, dLRS list) //This method shound return the string of the rune type
     {                                                  //that has the most runes on the rune chart
         int Tcount = 0;
-        int[] runeCount = {0,0,0,0,0}; //this array counts the number of each rune, Lightning being 1, fire being 2 and so on and so forth
+        int[] runeCount = {0,0,0,0,0}; //this array counts the number of each rune, Lightning being 0, fire being 1 and so on and so forth
 
         for(int i = 0; i < runes.Length; i++)
         {
@@ -37,8 +37,16 @@ public class spellSelector : MonoBehaviour
 
     public string highestCount(int[] runeCount, dLRS list) //This method returns the string of the type of rune that has the highest count
     {                                                      //If there is an equally high amount of runes then it chooses a random rune
-        int[] checkArr = { 0, 0, 0, 0, 0 };
-        if(Enumerable.SequenceEqual(checkArr, runeCount)) { return convertIndexToString(list.getId()); }
+        bool empty = true;
+        for (int i = 0; i < runeCount.Length; i++)
+        {
+            if (runeCount[i] != 0)
+            {
+                empty = false;
+                break;
+            }
+        }
+        if(empty) { return convertIndexToString(list.getId()); }
 
         int indexOfMax = -1; 
         int indexOf2nd = -1;

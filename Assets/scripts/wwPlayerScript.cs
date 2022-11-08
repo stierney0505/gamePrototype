@@ -8,9 +8,10 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
     public float health = 100.0f;
     private Animator animator;
     runeSelector runeSelector;
-    bool movementDisabled = false, dead = false, barrierActive = false; 
+    bool movementDisabled = false, dead = false, barrierActive = false, barrierDisabled = false; 
     Rigidbody2D body;
     GameObject barrier;
+    SpriteRenderer sprite;
 
     void Start()
     {   //get needed components
@@ -18,6 +19,7 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
         animator = GetComponent<Animator>();
         healthBar.setHealthBarValue(health);
         body = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     
@@ -42,7 +44,7 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
             animator.SetBool("running", false);
 
         
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !runeSelector.isChargeActive()) { createBlock(); } //TODO ADD BOOL FOR IF HIT/KNOCKBACK AND MAKE ALL ACTIONS NOT POSSIBLE DURING
+        if (!barrierDisabled && Input.GetKeyDown(KeyCode.LeftShift) && !runeSelector.isChargeActive()) { createBlock(); } //TODO ADD BOOL FOR IF HIT/KNOCKBACK AND MAKE ALL ACTIONS NOT POSSIBLE DURING
         if (barrierActive && !Input.GetKey(KeyCode.LeftShift)) { destroyBlock(); }
         if(barrier == null) { movementDisabled = false; }
     }
@@ -86,9 +88,11 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
     
     public void takeDamage(float damage) //Damage method, triggers hit animation and modifies the player health bar
     {
-            animator.SetTrigger("hit");
+            
             health -= damage;
             if (health < 0) { health = 0; die(); }
+            else
+                animator.SetTrigger("hit");
             healthBar.incrementPlayerHealth(-damage);
             healthBar.healthBarColor();
     }
@@ -97,8 +101,8 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
     public void stopMovement() { movementDisabled = true; } //Stops the player from moving 
     public void allowMovement() { movementDisabled = false; } //Enables moving
     
-    public void turnRed() { SpriteRenderer sprite = GetComponent<SpriteRenderer>(); sprite.color = Color.red; }
-    public void turnWhite() { SpriteRenderer sprite = GetComponent<SpriteRenderer>(); sprite.color = Color.white; }
+    public void turnRed() { sprite = GetComponent<SpriteRenderer>(); sprite.color = Color.red; stopMovement(); barrierDisabled = true; }
+    public void turnWhite() {  sprite = GetComponent<SpriteRenderer>(); sprite.color = Color.white; allowMovement(); barrierDisabled = false; }
     
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -106,6 +110,7 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
         {   
             float damage = enemyComponent.getDamage();
             char type = enemyComponent.getType();
+            float tempDmg = 0;
             if (barrier != null)
             {
                 barrierScript barrierScr = barrier.GetComponent<barrierScript>();
@@ -117,38 +122,43 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
                         runeSelector.AddRune(type);
                         return;
                     case 1 :
+                        tempDmg = (damage / 2) - barrierScr.getHealth();
                         barrierScr.setHealth(barrierScr.getHealth() - (damage / 2));
-                        damage /= 2;
-                        damage -= barrierScr.getHealth();
-                        if (barrier.GetComponent<barrierScript>().getHealth() > 0)
+                        if (tempDmg <= 0)
                         {
                             runeSelector.AddRune(type);
                             runeSelector.AddRune(type);
                             return;
                         }
-                        barrierActive = false;
+                        damage = tempDmg;
+                        destroyBlock();
                         break;
 
                     default:
+                        tempDmg = damage - barrierScr.getHealth();
                         barrierScr.setHealth(barrierScr.getHealth() - (damage));
-                        damage -= barrierScr.getHealth();
-                        if (barrierScr.getHealth() > 0)
+                        if (tempDmg <= 0)
                         {
                             runeSelector.AddRune(type);
                             return;
                         }
-                        barrierActive = false;
+                        destroyBlock();
                         break;
                 }
             }
+            
             // char type = spellComponent.getType(); TODO add enemy type
-            takeDamage(damage);
+            if(tempDmg > 0)  
+                takeDamage(tempDmg); 
+            else
+                takeDamage(damage);
             Vector2 forceDirection = transform.position - col.transform.position;
             body.AddForce(forceDirection.normalized * enemyComponent.getKnockBack(), ForceMode2D.Impulse);
         }
     }
     private void createBlock()
     {
+        animator.SetBool("running", false);
         barrierActive = true;
         char type = runeSelector.list.getData();
         runeSelector.switchLocked();
@@ -160,7 +170,8 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
     {
         barrierActive = false;
         if (barrier != null)
-            Destroy(barrier.gameObject); allowMovement();
+            Destroy(barrier.gameObject); 
+        allowMovement();
         runeSelector.switchLocked();
     }
 
@@ -184,4 +195,7 @@ public class wwPlayerScript : MonoBehaviour //Mostly A copy paste of the player 
                 return null;
         }
     }
+
+    public void stopAnimation() { 
+        animator.speed = 0f; }
 }

@@ -11,8 +11,8 @@ public class onPosScript : MonoBehaviour, spell
 
     private void Start()
     {
-        
-        GameObject player = GameObject.Find("WWPlayerCharacter");
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
         if(transform.position.x < player.transform.position.x)
             transform.eulerAngles = new Vector2(0, 180);
 

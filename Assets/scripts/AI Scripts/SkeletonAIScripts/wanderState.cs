@@ -11,8 +11,8 @@ public class wanderState : state //This wander state has a 1 in 4 chance to trav
     float wanderIdleTimer = 3.5f, time = 0f, speed = 2f; //The wanderIdle Timer is the time limit beyond wanders, the time float is to measure the time between wanders and speed is the wander speed
     
     
-    public wanderState(GameObject _npc, Seeker _seeker, Animator _anim, Transform _player)
-        : base(_npc, _seeker, _anim, _player)
+    public wanderState(GameObject _npc, Seeker _seeker, Animator _anim, Transform _player, PlayerScript _playerScr)
+        : base(_npc, _seeker, _anim, _player, _playerScr)
     {
         name = STATE.WANDER;
     }
@@ -26,9 +26,9 @@ public class wanderState : state //This wander state has a 1 in 4 chance to trav
 
     public override void Update() //each update the AI checks if it can see the player, and if not either travels along the wander path or checks if it should get a new path
     {   
-        if (canSeePlayer() || npc.GetComponent<SkeletonAI>().aiTriggerd)
+        if ((canSeePlayer() || npc.GetComponent<SkeletonAI>().aiTriggerd) && !playerScr.isDead())
         {
-            nextState = new pursueState(npc, seeker, animator, player);
+            nextState = new pursueState(npc, seeker, animator, player, playerScr);
             stage = EVENT.EXIT;
             return;
         }

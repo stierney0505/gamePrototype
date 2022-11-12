@@ -9,8 +9,8 @@ public class pursueState : state
     Path path; //the path the AI has
     int currentWayPoint = 0; //The current waypoint of the path they are on
     bool endPath = false; //To check if the AI is at the end of their path
-    public pursueState(GameObject _npc, Seeker _seeker, Animator _anim, Transform _player)
-        : base(_npc, _seeker, _anim, _player)
+    public pursueState(GameObject _npc, Seeker _seeker, Animator _anim, Transform _player, PlayerScript _playerScr)
+        : base(_npc, _seeker, _anim, _player, _playerScr)
     {
         name = STATE.PURSUE;
     }
@@ -24,7 +24,13 @@ public class pursueState : state
         
     }
     public override void Update()
-    {   
+    {
+        if (playerScr.isDead())
+        {
+            nextState = new idleState(npc, seeker, animator, player, playerScr);
+            stage = EVENT.EXIT;
+        }
+
         time += Time.deltaTime;
         if(time >= createPathTimer) { time = time - createPathTimer; createPath(); } //These lines just check if the time between calculations is .5 seconds or more and then calculates a new path to the player
 
@@ -32,7 +38,7 @@ public class pursueState : state
 
         if (canAttack() && npc.GetComponent<SkeletonAI>().canAttack)//Checks if the player is in range to attack and if the cooldown for the attack is ready, then switches to attack state
         {
-            nextState = new attackState(npc, seeker, animator, player);
+            nextState = new attackState(npc, seeker, animator, player, playerScr);
             stage = EVENT.EXIT;
         }
     }

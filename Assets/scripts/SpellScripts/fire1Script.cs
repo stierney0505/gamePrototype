@@ -17,7 +17,7 @@ public class fire1Script : MonoBehaviour, spell //A script that works for most l
     {
         step = 12.5f;
         endLoc = transform.position;
-        GameObject player = GameObject.Find("WWPlayerCharacter");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
         startLoc = player.transform.position;
         animator = GetComponent<Animator>();
         transform.position = startLoc;

@@ -6,8 +6,8 @@ using Pathfinding;
 public class idleState : state //Simple idle state, is the starting state of the machine
 {
     float time = 0;
-    public idleState(GameObject _npc, Seeker _seeker, Animator _anim, Transform _player)
-        : base(_npc, _seeker, _anim, _player)
+    public idleState(GameObject _npc, Seeker _seeker, Animator _anim, Transform _player, PlayerScript _playerScr)
+        : base(_npc, _seeker, _anim, _player, _playerScr)
     {
         name = STATE.IDLE;
     }
@@ -19,17 +19,17 @@ public class idleState : state //Simple idle state, is the starting state of the
     }
 
     public override void Update() //Either if the player is already in view switches to pursueState if not, waits 5 seconds and goes to wanderState
-    {   
-        if (canSeePlayer())
+    {
+        if (canSeePlayer() && !playerScr.isDead())
         {
-            nextState = new pursueState(npc, seeker, animator, player);
+            nextState = new pursueState(npc, seeker, animator, player, playerScr);
             stage = EVENT.EXIT;
         }
 
         time += Time.deltaTime;
         if (time >= 5f)
         {
-            nextState = new wanderState(npc, seeker, animator, player);
+            nextState = new wanderState(npc, seeker, animator, player, playerScr);
             stage = EVENT.EXIT;
         }
     }

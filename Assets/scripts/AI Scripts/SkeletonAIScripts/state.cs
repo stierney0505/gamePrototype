@@ -22,18 +22,19 @@ public class state //This is a base class for the finite State machine used for 
     protected Transform player; 
     protected state nextState; //this will hold the next stage the state machine will move to
     protected Seeker seeker; //This is a seeker script from the Astart Pathfinding project, it simplfies the pathfinding process
-
+    protected PlayerScript playerScr; 
     float visDist = 10.0f; //Dist for the AI to activate
     float visAngle = 30.0f; //Half the angle for the ai to be able to view
     float attackDist = 2.75f; //The dist from which the ai can begin attacking
 
-    public state(GameObject _npc, Seeker _seeker, Animator _anim, Transform _player) 
+    public state(GameObject _npc, Seeker _seeker, Animator _anim, Transform _player, PlayerScript _playerScr) 
     {
         npc = _npc;
         seeker = _seeker;
         animator = _anim;
         stage = EVENT.ENTER;
         player = _player;
+        playerScr = _playerScr;
     }
 
     public virtual void Enter() { stage = EVENT.UPDATE; } //These methods get overriden by the substate classes, and when called through 'base.' move the state machine to the next stage

@@ -8,6 +8,7 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
     Animator animator;
     state currentState;
     Transform player;
+    PlayerScript playerScr;
     Seeker seeker;
     Rigidbody2D body;
     public float damage = 10.0f, health = 100.0f, attackCD = 3f, knockBack = 15f, time;
@@ -26,7 +27,8 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
         if (players[0] != null) //If there are no players for whatever reason the AI will just not create a state machine and stand there
         {
             player = players[0].transform;
-            currentState = new idleState(this.gameObject, seeker, animator, player);
+            playerScr = players[0].GetComponent<PlayerScript>();
+            currentState = new idleState(this.gameObject, seeker, animator, player, playerScr);
         }
         
     }
@@ -68,7 +70,7 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
         aiTriggerd = true;
         if( health <= 0)
         {
-            currentState = new deathState(this.gameObject, seeker, animator, player);
+            currentState = new deathState(this.gameObject, seeker, animator, player, playerScr);
         }
     }
     public float getKnockBack() { return knockBack; }

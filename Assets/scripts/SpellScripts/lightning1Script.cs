@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class lightning1Script : MonoBehaviour, spell
 {
-    float damage, knockBack;
-    char type;
+    public float damage, knockBack;
+    public char type;
     
 
     private void Start()
     {
-        type = 'L';
-        damage = 10;
-        GameObject player = GameObject.Find("WWPlayerCharacter");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
         Vector2 startLoc = player.transform.position;
         rotate(startLoc, transform.position);
     }
@@ -38,7 +36,7 @@ public class lightning1Script : MonoBehaviour, spell
         transform.Rotate(0, 0, rotation);
     }
     
-    public void enableCollider() { EdgeCollider2D col = GetComponent<EdgeCollider2D>(); col.enabled = true; }
+    public void enableCollider() {Collider2D col = GetComponent<Collider2D>(); col.enabled = true; }
     public void disableCollider() { Collider2D col = GetComponent<Collider2D>(); col.enabled = false; }
     public float getKnockBack() { return knockBack; }
 }

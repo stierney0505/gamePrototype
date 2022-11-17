@@ -5,11 +5,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     spellSelector selector;
     private char[] runes;
     private int runeCount;
-    private GameObject FireIcon;
-    private GameObject AirIcon;
-    private GameObject LightningIcon;
-    private GameObject WaterIcon;
-    private GameObject EarthIcon;
+    private GameObject FireIcon, EarthIcon, AirIcon, LightningIcon, DarkIcon, WaterIcon;
     public dLRS list;
     private bool locked = false, chargeActive = false; 
     Vector2 mousePos;
@@ -34,6 +30,8 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         EarthIcon.SetActive(false);
         AirIcon = GameObject.Find("AirIcon");
         AirIcon.SetActive(false);
+        DarkIcon = GameObject.Find("DarkIcon");
+        DarkIcon.SetActive(false);
         LightningIcon = GameObject.Find("LightningIcon");
         LightningIcon.SetActive(false);
 
@@ -97,7 +95,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
 
     public void disableRuneIcons() //this removes the rune icons in the rune buffer
     {  
-            for (int j = 1; j < 6; j++)
+            for (int j = 1; j < 7; j++)
             {
                 GameObject currentRunes = GameObject.Find("Runes" + j);
                 for (int i = 1; i < 6; i++)
@@ -125,6 +123,9 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
             case 'L':
                 LightningIcon.SetActive(true);
                 break;
+            case 'D':
+                DarkIcon.SetActive(true);
+                break;
         }
     }
 
@@ -146,6 +147,9 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
                 break;
             case 'L':
                 LightningIcon.SetActive(false);
+                break;
+            case 'D':
+                DarkIcon.SetActive(false);
                 break;
         }
     }
@@ -172,6 +176,9 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
                 break;
             case 'L':
                 runeGroup = 5;
+                break;
+            case 'D':
+                runeGroup = 6;
                 break;
         }
 
@@ -204,6 +211,9 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
                 break;
             case 'L':
                 runeGroup = 5;
+                break;
+            case 'D':
+                runeGroup = 6;
                 break;
         }
         GameObject currentRunes = GameObject.Find("Runes" + runeGroup);
@@ -251,6 +261,9 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
             case 'L':
             case 'l':
                 return "lAttack";
+            case 'D':
+            case 'd':
+                return "dAttack";
             default:
                 return null;
         }

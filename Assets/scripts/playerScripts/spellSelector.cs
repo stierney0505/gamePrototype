@@ -9,7 +9,7 @@ public class spellSelector : MonoBehaviour
     public string spellSelect(char[] runes, dLRS list) //This method shound return the string of the rune type
     {                                                  //that has the most runes on the rune chart
         int Tcount = 0;
-        int[] runeCount = {0,0,0,0,0}; //this array counts the number of each rune, Lightning being 0, fire being 1 and so on and so forth
+        int[] runeCount = {0,0,0,0,0,0}; //this array counts the number of each rune, Lightning being 0, fire being 1 and so on and so forth
 
         for(int i = 0; i < runes.Length; i++)
         {
@@ -29,6 +29,9 @@ public class spellSelector : MonoBehaviour
                     break;
                 case 'W':
                     runeCount[4]++; Tcount++;
+                    break;
+                case 'D':
+                    runeCount[5]++; Tcount++;
                     break;
             }
         }
@@ -92,6 +95,8 @@ public class spellSelector : MonoBehaviour
                     return "earth";
                 case 4:
                     return "water";
+                case 5:
+                    return "dark";
                 default:
                     return null;//if this returns I indeed have messed up
             }
@@ -110,6 +115,8 @@ public class spellSelector : MonoBehaviour
                     return "earth";
                 case 'W':
                     return "water";
+                case 'D':
+                    return "dark";
                 default:
                     return null;//if this returns I indeed have messed up
             }

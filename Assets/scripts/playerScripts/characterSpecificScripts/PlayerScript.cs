@@ -99,7 +99,7 @@ public class PlayerScript : MonoBehaviour //Mostly A copy paste of the player sc
     }
 
     public void die() { animator.SetTrigger("dead"); dead = true; } 
-    public void stopMovement() { movementDisabled = true; } //Stops the player from moving 
+    public void stopMovement() { movementDisabled = true; animator.SetBool("running", false); } //Stops the player from moving 
     public void allowMovement() { movementDisabled = false; } //Enables moving
     
     public void turnRed() { sprite = GetComponent<SpriteRenderer>(); sprite.color = Color.red; stopMovement(); barrierDisabled = true; }
@@ -192,6 +192,8 @@ public class PlayerScript : MonoBehaviour //Mostly A copy paste of the player sc
                 return "aCharge";
             case 'L':
                 return "lCharge";
+            case 'D':
+                return "dCharge";
             default:
                 return null;
         }

@@ -11,11 +11,12 @@ public class fire1Script : MonoBehaviour, spell //A script that works for most l
     int loops = 0;
     [SerializeField] float damage, knockBack;
     [SerializeField] char type;
-    float step;
+    public float step = 0;
 
     private void Start()
     {
-        step = 12.5f;
+        if(step == 0)
+            step = 12.5f;
         endLoc = transform.position;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         startLoc = player.transform.position;

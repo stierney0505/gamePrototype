@@ -5,121 +5,123 @@ using UnityEngine;
 
 public class spellSelector : MonoBehaviour
 {
-    
-    public string spellSelect(char[] runes, dLRS list) //This method shound return the string of the rune type
-    {                                                  //that has the most runes on the rune chart
-        int Tcount = 0;
-        int[] runeCount = {0,0,0,0,0,0}; //this array counts the number of each rune, Lightning being 0, fire being 1 and so on and so forth
+    GameObject nextSpellUI; 
 
-        for(int i = 0; i < runes.Length; i++)
-        {
-            switch (runes[i])//This checks what runes[i] is and increments the runecount for that type
-            {
-                case 'L':
-                    runeCount[0]++; Tcount++;
-                    break;
-                case 'F':
-                    runeCount[1]++; Tcount++;
-                    break;
-                case 'A':
-                    runeCount[2]++; Tcount++;
-                    break;
-                case 'E':
-                    runeCount[3]++; Tcount++;
-                    break;
-                case 'W':
-                    runeCount[4]++; Tcount++;
-                    break;
-                case 'D':
-                    runeCount[5]++; Tcount++;
-                    break;
-            }
-        }
-        return highestCount(runeCount, list) + (Tcount + 1);   
+    private void Start()
+    {
+        nextSpellUI = GameObject.Find("NextSpell");//This finds the UI element, 'NextSpell', which holds the UI icon for which spell will be next
+        disableChildren();
     }
 
-    public string highestCount(int[] runeCount, dLRS list) //This method returns the string of the type of rune that has the highest count
-    {                                                      //If there is an equally high amount of runes then it chooses a random rune
-        bool empty = true;
-        for (int i = 0; i < runeCount.Length; i++)
+    public char updateNextSpell(char[] runes, char nextSpellType, int runeCount)//This method checks the rune buffer for the latest rune, or if there is a combination and update the next spell type for the next spell cast
+    {   //It also checks for spell combinations, which happens when there is an equal amount of specific runes, i.e. X earth and X water makes a wood spell, lighting and fire makes acid, water and wind makes Ice.
+        int count1 = 0;
+        int count2 = 0;
+        char type1 = 'X';
+        char type2 = 'X';
+        char nextSpell = nextSpellType;
+
+        for (int i = 0; i < runeCount; i++)
         {
-            if (runeCount[i] != 0)
+            if (type1 == 'X')
+            {   type1 = runes[i];//This block here iteratively checks each rune in the runes array
+                count1++; //and if there is more than two than there isnt a combination so it breaks
+            }
+            else if (type1 != runes[i] && type2 == 'X')
+            {   type2 = runes[i];
+                count2++;
+            }
+            else if (type2 != runes[i])
             {
-                empty = false;
+                goto End; //If there is more than three types in the rune array then there is no need to check for combinations as there will be none
+            }
+        }
+
+        if(count1 != count2) //If there is not an equal amount of runes there is no need to check which combination it is
+            goto End;
+
+        switch (type1, type2) 
+        {
+            case ('E', 'W'): //This case checks if the types are Earth and water or vice versa for wood spell
+            case ('W', 'E'):
+                nextSpell = 'P';
                 break;
-            }
+            case ('L', 'F'): //This case checks if the types are lightning and fire or vice versa for acid spell
+            case ('F', 'L'):
+                nextSpell = 'C';
+                break;
+            case ('A', 'W'): //This case checks if the types are water and air or vice versa for ice spell
+            case ('W', 'A'):
+                nextSpell = 'I';
+                break;
         }
-        if(empty) { return convertIndexToString(-1, list.getData()); }
 
-        int indexOfMax = -1; 
-        int indexOf2nd = -1;
-        int indexOf3rd = -1;
-        int max = 0;
-
-        
-        for (int i = 0; i < runeCount.Length; i++) //this just iterates through the rune buffer and determines which rune appears the most, 2nd most, and 3rd most
+        End:
+            disableChildren();
+            nextSpellUI.transform.GetChild(getChildrenNum(nextSpell)).gameObject.SetActive(true);
+            return nextSpell;
+    }
+    public string spellSelect(char nextSpell, int runeCount) //This method shound return the string of the next spell based on the nextSpell char
+    {                     
+        switch (nextSpell)//This checks what runes[i] is and increments the runecount for that type
         {
-            if (runeCount[i] > max) { indexOfMax = i; max = runeCount[i]; indexOf2nd = -1; indexOf3rd = -1; }
-            else if (runeCount[i] == max && runeCount[i] != 0) { indexOf2nd = i; }
-            else if (runeCount[i] == max && runeCount[i] != 0 && indexOfMax == indexOf2nd) { indexOf3rd = i; }
-        }
+            case 'L': //Case L for lighting
+                return "lightning" + runeCount;
+            case 'F': //Case F for Fire
+                return "fire" + runeCount;
+            case 'A': //Case A for Air
+                return "air" + runeCount;
+            case 'E': //Case E for Earth
+                return "earth" + runeCount;
+            case 'W': //Case W for Water
+                return "water" + runeCount;
+            case 'D': //Case D for Dark
+                return "dark" + runeCount;
+            case 'C': //case C for aCid becuase a is taken
+                return "acid" + runeCount;
+            case 'P': //case P for wood because wood is from trees which is from Plants
+                return "wood" + runeCount;
+            case 'I': //case I for Ice
+                return "ice" + runeCount;
+            default:
+                return null; //Todo replace this with a placeholder spell for errors
 
-        if(indexOf2nd == -1) { return convertIndexToString(indexOfMax, 'X'); } 
-        else if(indexOf2nd != -1 && indexOf3rd == -1){
-            int rand = (int)Random.Range(1, 3);
-            if (rand == 1) {return convertIndexToString(indexOfMax, 'X'); }
-            else if(rand == 2) { return convertIndexToString(indexOf2nd, 'X'); }
         }
-        else if(indexOf3rd != -1) {
-            int rand = (int)Random.Range(1, 4);
-            if (rand == 1) { return convertIndexToString(indexOfMax, 'X'); }
-            else if (rand == 2) { return convertIndexToString(indexOf2nd, 'X'); }
-            else if (rand == 3) { return convertIndexToString(indexOf3rd, 'X'); }
-        }
-        return null; //if this returns I have messed up
     }
 
-    public string convertIndexToString(int index, char type) //this helper methods converts the index from the rune array
-    {                                             //to a string of the rune type based on the criteria on line 12 for the rune count array
-        if (type == 'X')
+    public int getChildrenNum(char type) //This method takes the spell type and returns the child number for the nextSpellUI element
+    {   
+        switch (type)
         {
-            switch (index)
-            {
-                case 0:
-                    return "lightning";
-                case 1:
-                    return "fire";
-                case 2:
-                    return "air";
-                case 3:
-                    return "earth";
-                case 4:
-                    return "water";
-                case 5:
-                    return "dark";
-                default:
-                    return null;//if this returns I indeed have messed up
-            }
+            case 'L':
+                return 0;
+            case 'F':
+                return 1;
+            case 'W':
+                return 2;
+            case 'A':
+                return 3;
+            case 'E':
+                return 4;
+            case 'D':
+                return 5;
+            case 'C':
+                return 6;
+            case 'P':
+                return 7;
+            case 'I':
+                return 8;
+            default:
+                return -1;
         }
-        else
+    }
+
+    public void disableChildren()
+    {
+        int totalChildren = nextSpellUI.transform.childCount;
+        for (int i = 0; i < totalChildren; i++)
         {
-            switch (type)
-            {
-                case 'L':
-                    return "lightning";
-                case 'F':
-                    return "fire";
-                case 'A':
-                    return "air";
-                case 'E':
-                    return "earth";
-                case 'W':
-                    return "water";
-                case 'D':
-                    return "dark";
-                default:
-                    return null;//if this returns I indeed have messed up
-            }
+            nextSpellUI.transform.GetChild(i).gameObject.SetActive(false);
         }
     }
 

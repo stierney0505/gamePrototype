@@ -11,6 +11,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     Vector2 mousePos;
     string spellName;
     Animator animator;
+    char nextSpellType;
 
     // Start is called before the first frame update
     void Start()
@@ -69,7 +70,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
             pos.y += Input.mouseScrollDelta.y * 1.0f; //if they scrolled switches rune, if they clicked they lauch a spell
             if (pos.y > 0 || pos.y < 0) { switchIcon(pos.y > 0); }
             if (Input.GetMouseButtonDown(0)) { mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                spellName = selector.spellSelect(runes, list);
+                spellName = selector.spellSelect(nextSpellType, runeCount);
                 if (runes[0] != 'X') { animator.SetTrigger(getAttackType(spellName[0])); }
                 else { animator.SetTrigger(getAttackType(list.getData())); }
                 if (mousePos.x < transform.position.x && transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); } //rotates the player towards the direction they clicked
@@ -186,6 +187,8 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         currentRunes.transform.GetChild(runeCount).gameObject.SetActive(true);
         runes[runeCount] = list.getData();
         runeCount++;
+        nextSpellType = runes[runeCount -1];
+        nextSpellType = selector.updateNextSpell(runes, nextSpellType, runeCount);
     }
 
     public void AddRune(char rune) //This method adds a rune to the rune buffer based on what rune is selected in the rune selector
@@ -220,6 +223,8 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         currentRunes.transform.GetChild(runeCount).gameObject.SetActive(true);
         runes[runeCount] = rune;
         runeCount++;
+        nextSpellType = rune;
+        nextSpellType = selector.updateNextSpell(runes, nextSpellType, runeCount);
     }
 
     public void launchSpell() //This method current triggers the spellSelector's launch spell method and give it the camera

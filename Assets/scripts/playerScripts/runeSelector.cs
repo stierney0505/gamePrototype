@@ -7,7 +7,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     private int runeCount;
     private GameObject FireIcon, EarthIcon, AirIcon, LightningIcon, DarkIcon, WaterIcon;
     public dLRS list;
-    private bool locked = false, chargeActive = false; 
+    private bool locked = false, chargeActive = false, altFire = false; 
     Vector2 mousePos;
     string spellName;
     Animator animator;
@@ -69,14 +69,28 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
             Vector2 pos = new Vector2(0, 0); //This block of code just checks if the player clicked or scrolled
             pos.y += Input.mouseScrollDelta.y * 1.0f; //if they scrolled switches rune, if they clicked they lauch a spell
             if (pos.y > 0 || pos.y < 0) { switchIcon(pos.y > 0); }
-            if (Input.GetMouseButtonDown(0)) { mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            if (Input.GetMouseButtonDown(1) && runeCount != 0)
+            {
+                altFire = true;
+                mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 spellName = selector.spellSelect(nextSpellType, runeCount);
-                if (runes[0] != 'X') { animator.SetTrigger(getAttackType(spellName[0])); }
-                else { animator.SetTrigger(getAttackType(list.getData())); }
+                animator.SetTrigger(getAttackType(nextSpellType));
                 if (mousePos.x < transform.position.x && transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); } //rotates the player towards the direction they clicked
-                else if (mousePos.x > transform.position.x && transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); };
+                else if (mousePos.x > transform.position.x && transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); }
             }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                spellName = selector.spellSelect(list.getData());
+                animator.SetTrigger(getAttackType(list.getData()));
+                if (mousePos.x < transform.position.x && transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); } //rotates the player towards the direction they clicked
+                else if (mousePos.x > transform.position.x && transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); }
+            }
+
         }
+        
     }
 
     public void switchIcon(bool next)//This just switches between icons based off the parameter
@@ -230,8 +244,14 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     public void launchSpell() //This method current triggers the spellSelector's launch spell method and give it the camera
     {                        //Position of where the player clicked. Called through the animator
         createSpell(spellName, mousePos);
-        for(int i = 0; i < runes.Length; i++) { runes[i] = 'X'; };
-        disableRuneIcons();
+        if (altFire)
+        {
+            for (int i = 0; i < runes.Length; i++) { runes[i] = 'X'; };
+            disableRuneIcons();
+            selector.disableChildren();
+            altFire = false;
+        }
+
       
     }
 

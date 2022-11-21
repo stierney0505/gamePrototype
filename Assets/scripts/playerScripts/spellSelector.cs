@@ -23,22 +23,23 @@ public class spellSelector : MonoBehaviour
 
         for (int i = 0; i < runeCount; i++)
         {
-            if (type1 == 'X')
+            if (type1 == 'X' || runes[i] == type1)
             {   type1 = runes[i];//This block here iteratively checks each rune in the runes array
                 count1++; //and if there is more than two than there isnt a combination so it breaks
             }
-            else if (type1 != runes[i] && type2 == 'X')
+            else if (type1 != runes[i] && (type2 == 'X' || runes[i] == type2))
             {   type2 = runes[i];
                 count2++;
             }
-            else if (type2 != runes[i])
+            else if (type2 != runes[i] && type1 != runes[i])
             {
                 goto End; //If there is more than three types in the rune array then there is no need to check for combinations as there will be none
             }
         }
 
-        if(count1 != count2) //If there is not an equal amount of runes there is no need to check which combination it is
+        if (count1 != count2)//If there is not an equal amount of runes there is no need to check which combination it is
             goto End;
+        
 
         switch (type1, type2) 
         {
@@ -62,7 +63,7 @@ public class spellSelector : MonoBehaviour
             return nextSpell;
     }
     public string spellSelect(char nextSpell, int runeCount) //This method shound return the string of the next spell based on the nextSpell char
-    {                     
+    {
         switch (nextSpell)//This checks what runes[i] is and increments the runecount for that type
         {
             case 'L': //Case L for lighting
@@ -85,9 +86,37 @@ public class spellSelector : MonoBehaviour
                 return "ice" + runeCount;
             default:
                 return null; //Todo replace this with a placeholder spell for errors
-
         }
     }
+
+    public string spellSelect(char nextSpell) //This method shound return the string of the next spell based on the nextSpell char
+    {
+        switch (nextSpell)//This checks what runes[i] is and increments the runecount for that type
+        {
+            case 'L': //Case L for lighting
+                return "lightning" + 1;
+            case 'F': //Case F for Fire
+                return "fire" + 1;
+            case 'A': //Case A for Air
+                return "air" + 1;
+            case 'E': //Case E for Earth
+                return "earth" + 1;
+            case 'W': //Case W for Water
+                return "water" + 1;
+            case 'D': //Case D for Dark
+                return "dark" + 1;
+            case 'C': //case C for aCid becuase a is taken
+                return "acid" + 1;
+            case 'P': //case P for wood because wood is from trees which is from Plants
+                return "wood" + 1;
+            case 'I': //case I for Ice
+                return "ice" + 1;
+            default:
+                return null; //Todo replace this with a placeholder spell for errors
+        }
+    }
+
+
 
     public int getChildrenNum(char type) //This method takes the spell type and returns the child number for the nextSpellUI element
     {   

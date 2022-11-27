@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6935513865106708026}
   - component: {fileID: 6935513865106708027}
   - component: {fileID: 6935513865106708028}
+  - component: {fileID: 4525306461698649213}
   m_Layer: 6
   m_Name: earth2
   m_TagString: Spell
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2054102035
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -1366072586, guid: 1c834f9b2c18e8d4e9c6d0443f5b2d6f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -118,3 +119,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4475cf439a3257b49989619a2ad24a2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 20
+  knockBack: 75
+  type: 69
+--- !u!60 &4525306461698649213
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4396690929147623337}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.48, y: 0.48}
+    newSize: {x: 0.48, y: 0.48}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.1738574, y: 0.06574805}
+      - {x: 0.07744701, y: 0.15215799}
+      - {x: -0.042158004, y: 0.148237}
+      - {x: -0.14882952, y: 0.094513506}
+      - {x: -0.17431599, y: -0.060395002}
+      - {x: -0.132553, y: -0.064513505}
+      - {x: 0.19215798, y: -0.063921}

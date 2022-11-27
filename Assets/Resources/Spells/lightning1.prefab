@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6083595948737434562}
   - component: {fileID: 6083595948737434563}
   - component: {fileID: 4031877363499642188}
-  - component: {fileID: 8863239835249848227}
+  - component: {fileID: 5257636411555737418}
   m_Layer: 6
   m_Name: lightning1
   m_TagString: Spell
@@ -122,8 +122,8 @@ MonoBehaviour:
   damage: 10
   knockBack: 5
   type: 76
---- !u!68 &8863239835249848227
-EdgeCollider2D:
+--- !u!60 &5257636411555737418
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -136,18 +136,23 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.09375, y: 0.5}
+    oldSize: {x: 0.64, y: 0.32}
+    newSize: {x: 0.64, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   m_Points:
-  - {x: -0.461118, y: 0.10564686}
-  - {x: -0.3902643, y: 0.16888197}
-  - {x: -0.25848112, y: 0.0086901635}
-  - {x: -0.12625976, y: 0.0021627825}
-  - {x: -0.0045600645, y: 0.02103275}
-  - {x: -0.0033257715, y: -0.010434251}
-  - {x: -0.315202, y: -0.0783744}
-  - {x: -0.38769653, y: 0.13123052}
-  - {x: -0.45346898, y: 0.09552926}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
+    m_Paths:
+    - - {x: 0.2697154, y: -0.03803076}
+      - {x: 0.13352305, y: 0.13098462}
+      - {x: 0.04126919, y: 0.065207705}
+      - {x: 0.05253847, y: 0.023807686}
+      - {x: 0.13692138, y: 0.07473408}
+      - {x: 0.19, y: -0.14098461}
+      - {x: 0.53393847, y: -0.07774615}
+      - {x: 0.57, y: -0.03}
+      - {x: 0.5129539, y: -0.019299988}

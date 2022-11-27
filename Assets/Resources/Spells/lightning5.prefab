@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2688781863139778586}
   - component: {fileID: 1922561492798946970}
   - component: {fileID: 1922561492798946971}
-  - component: {fileID: 5978367715639097592}
-  - component: {fileID: 5361326662201586049}
+  - component: {fileID: -3913042784921059544}
+  - component: {fileID: 4673585104972969680}
   m_Layer: 6
   m_Name: lightning5
   m_TagString: Spell
@@ -107,7 +107,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5978367715639097592
+--- !u!58 &-3913042784921059544
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5480786914853402652}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.16
+--- !u!114 &4673585104972969680
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,24 +132,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5480786914853402652}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7da05723ef3aa40a45a9b7ac049f4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7824b513b80a83346a322d11eae8334c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 42
+  damage: 5
+  knockBack: 0
   type: 76
---- !u!58 &5361326662201586049
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5480786914853402652}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0049066707, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.18817572

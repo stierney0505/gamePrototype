@@ -1,3 +1,4 @@
+using UnityEditorInternal;
 using UnityEngine;
 
 public class runeSelector : MonoBehaviour //This class manages the rune selection by the player
@@ -7,11 +8,12 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     private int runeCount;
     private GameObject FireIcon, EarthIcon, AirIcon, LightningIcon, DarkIcon, WaterIcon;
     public dLRS list;
-    private bool locked = false, chargeActive = false, altFire = false; 
+    private bool locked = false, chargeActive = false, altFire = false, switchActive = true, barActive = false; 
     Vector2 mousePos;
     string spellName;
     Animator animator;
     char nextSpellType;
+    float runeSwitchCD = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -64,11 +66,21 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
 
     void Update()
     {
+
+        if (switchActive) { }
+        else if (runeSwitchCD < 1f)
+        {
+            switchActive = false;
+            runeSwitchCD += (Time.deltaTime);
+        }
+        else if (runeSwitchCD >= 1f)
+            switchActive = true;
+
         if (!locked)
         {
             Vector2 pos = new Vector2(0, 0); //This block of code just checks if the player clicked or scrolled
             pos.y += Input.mouseScrollDelta.y * 1.0f; //if they scrolled switches rune, if they clicked they lauch a spell
-            if (pos.y > 0 || pos.y < 0) { switchIcon(pos.y > 0); }
+            if (switchActive && !barActive && (pos.y > 0 || pos.y < 0)) { switchIcon(pos.y > 0); }
 
             if (Input.GetMouseButtonDown(1) && runeCount != 0)
             {
@@ -95,6 +107,8 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
 
     public void switchIcon(bool next)//This just switches between icons based off the parameter
     {
+        runeSwitchCD = 0f;
+        switchActive = false;
         disableIcon(list.getData());
         if (next)
         {
@@ -243,7 +257,9 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
 
     public void launchSpell() //This method current triggers the spellSelector's launch spell method and give it the camera
     {                        //Position of where the player clicked. Called through the animator
-        createSpell(spellName, mousePos);
+        GameObject spell = Instantiate(Resources.Load("Spells/" + spellName)) as GameObject;
+        spell.transform.position = mousePos;
+        spell.SetActive(true);
         if (altFire)
         {
             for (int i = 0; i < runes.Length; i++) { runes[i] = 'X'; };
@@ -251,20 +267,10 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
             selector.disableChildren();
             altFire = false;
         }
-
-      
-    }
-
-    public void createSpell(string name, Vector2 loc) //This method takes the runes from the buffer and based upon them
-    {                                                           //Fires a spell prefab based on parameters
-        string spellName = "Spells/" + name;
-        GameObject spell = Instantiate(Resources.Load(spellName)) as GameObject;
-        spell.transform.position = loc;
-        spell.SetActive(true);
-
     }
 
     public void switchLocked() { locked = !locked; chargeActive = !chargeActive; }
+    public void setLocked(bool isLocked) { locked = isLocked; }
     public void unlock() { locked = false; } //This method just 'unlocks' the rune selector and is called on the first run frame so that the player can quickly cancel the charge if they are doing so
     public bool isChargeActive() { return chargeActive; }
     public string getAttackType(char type) //This helper method takes a char and returns the animation trigger based upon the char type 
@@ -279,6 +285,8 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
                 return "eAttack";
             case 'W':
             case 'w':
+            case 'I':
+            case 'i':
                 return "wAttack";
             case 'A':
             case 'a':
@@ -293,6 +301,8 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
                 return null;
         }
     }
+
+    public void setBarBool(bool isActive) { barActive = isActive; }
 }
 
 

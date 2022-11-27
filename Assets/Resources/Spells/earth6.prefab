@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3073778724564465772}
   - component: {fileID: 3923637426958844245}
   - component: {fileID: 1355198129655022223}
-  - component: {fileID: 7241370524030612499}
   - component: {fileID: 8985495998326589368}
+  - component: {fileID: 3447777350308728353}
   m_Layer: 6
   m_Name: earth6
   m_TagString: Spell
@@ -107,21 +107,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7241370524030612499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7772162880561875345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7da05723ef3aa40a45a9b7ac049f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 60
-  knockBack: 300
-  type: 69
 --- !u!60 &8985495998326589368
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -169,3 +154,18 @@ PolygonCollider2D:
       - {x: 0.0857344, y: -0.048318136}
       - {x: 0.057700172, y: 0.031256247}
       - {x: -0.07222017, y: 0.09083063}
+--- !u!114 &3447777350308728353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7772162880561875345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec26d2fc467f7524bb1e142b7a02664f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 60
+  knockBack: 70
+  type: 69

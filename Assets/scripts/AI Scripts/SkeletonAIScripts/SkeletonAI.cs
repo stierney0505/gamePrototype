@@ -11,9 +11,10 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
     PlayerScript playerScr;
     Seeker seeker;
     Rigidbody2D body;
-    public float damage = 10.0f, health = 100.0f, attackCD = 3f, knockBack = 15f, time;
+    public float damage = 10.0f, health = 100.0f, attackCD = 3f, knockBack = 15f;
+    private float time;
     char type = 'E'; public char getType() { return type; }
-    internal bool attackEnd = false, canAttack = true, aiTriggerd = false; //TODO make these private and add methods to access them 
+    internal bool attackEnd = false, canAttack = true, aiTriggerd = false; 
     
     private float speed;
     public float Speed { get { return speed; } set { speed = value; } }
@@ -55,8 +56,13 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
             spellComponent.end();
             takeDamage(spellComponent);
             Vector2 forceDirection = transform.position - col.transform.position;
-            body.AddForce(forceDirection.normalized * spellComponent.getKnockBack(), ForceMode2D.Impulse);
+            takeKnockBack(forceDirection, spellComponent.getKnockBack());
         }
+    }
+
+    public void takeKnockBack(Vector2 dir, float knockBack)
+    {
+        body.AddForce(dir.normalized * knockBack, ForceMode2D.Impulse);
     }
 
     public void takeDamage(spell spell) //takes damage and if health is less than or equal to 0 it starts the death animation/sequence
@@ -69,9 +75,19 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
         health -= damage;
         aiTriggerd = true;
         if( health <= 0)
-        {
             currentState = new deathState(this.gameObject, seeker, animator, player, playerScr);
-        }
+        else
+            currentState = new hitState(this.gameObject, seeker, animator, player, playerScr);
+    }
+
+    public void takeDamage(float damage)
+    {
+        health -= damage;
+        aiTriggerd = true;
+        if( health <= 0)
+            currentState = new deathState(this.gameObject, seeker, animator, player, playerScr);
+        else if(currentState.name != state.STATE.IDLE)
+            currentState = new hitState(this.gameObject, seeker, animator, player, playerScr);
     }
     public float getKnockBack() { return knockBack; }
     public void cannotAttack() { canAttack = false; } //This triggers when the attack animation plays so that the AI cannot attack again until the cd has reached its end
@@ -82,4 +98,8 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
         corpse.transform.localScale = transform.localScale;
         Destroy(gameObject);
     }
+
+    public void setAnimSpeedZero() { animator.speed = 0; }
+
+    public void moveStateToPursue() { currentState = new pursueState(this.gameObject, seeker, animator, player, playerScr); }
 }

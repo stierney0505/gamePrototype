@@ -4,24 +4,34 @@ using UnityEngine;
 
 public class earth2Script : MonoBehaviour, spell
 {
-    int loops = 0;
-    float damage, knockBack;
-    char type;
+    float time = 0;
+    [SerializeField] float damage, knockBack;
+    [SerializeField] char type;
+
+    private void Start()
+    {
+        Animator animator = GetComponent<Animator>();
+        animator.speed = 1.25f;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (transform.position.x < player.transform.position.x)
+            transform.eulerAngles = new Vector2(0, 180);
+    }
+
+    private void Update()
+    {
+        time += Time.deltaTime;
+        if (time > 10)
+            remove();
+    }
+
     public Vector3 getVector()
     {
-
         Vector3 postion = Input.mousePosition;
         return postion;
-
     }
 
     public void remove() { Destroy(gameObject); }
     public void end() { }
-    public void loop()
-    {
-        if(loops < 10) { loops++; }
-        else { remove(); }
-    }
 
     public float getDamage() { return damage; }
     public char getType() { return type; }

@@ -14,10 +14,11 @@ public class earth3Script : MonoBehaviour, spell
     {
         animator = GetComponent<Animator>();
         animator.speed = animSpeed;
-
+        
         endLoc = transform.position;
-        GameObject player = GameObject.Find("WWPlayerCharacter");
-        startLoc = player.transform.position;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Vector2 playerSource = player.transform.GetChild(0).position;
+        startLoc = playerSource;
         transform.position = startLoc;
         rotate();
     }
@@ -40,8 +41,6 @@ public class earth3Script : MonoBehaviour, spell
         animator.SetTrigger("hit");
         animator.speed = 1.25f;
         speed = 0;
-        damage = 0f; 
-        knockBack = 0f; 
     }
 
     public void rotate()
@@ -73,18 +72,19 @@ public class earth3Script : MonoBehaviour, spell
 
     public void incrementSpeed()
     {
-        speed += speed/4.75f;
-        damage += damage / 3.9f;
-        knockBack += knockBack / 3.9f;
+        speed += speed/5.75f;
+        damage += damage /4f;
+        knockBack += knockBack / 4.5f;
         if (speed >= 16 && !hit)
         {
             animator.SetTrigger("maxSpeed");
-            animSpeed += speed;
-            animator.speed = animSpeed;
+            animator.speed = 1.45f;
+            damage = 60;
         }
     }
 
     public float getDamage() { return damage; }
     public char getType() { return type; }
     public float getKnockBack() { return knockBack; }
+
 }

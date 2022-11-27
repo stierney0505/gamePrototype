@@ -7,7 +7,7 @@ public class state //This is a base class for the finite State machine used for 
 {
     public enum STATE //This enum will hold the each state | currently a WIP
     {
-        IDLE, WANDER, PURSUE, ATTACK, DEATH
+        IDLE, WANDER, PURSUE, ATTACK, DEATH, HIT
     };
 
     public enum EVENT //This just holds 'stage' of each state, i.e. whether a state has just entered, is updating, or is exiting
@@ -16,7 +16,7 @@ public class state //This is a base class for the finite State machine used for 
     };
 
     public STATE name;
-    protected EVENT stage;
+    public EVENT stage;
     protected GameObject npc;
     protected Animator animator; 
     protected Transform player; 

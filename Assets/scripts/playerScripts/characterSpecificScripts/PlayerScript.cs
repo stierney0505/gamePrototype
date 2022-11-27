@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerScript : MonoBehaviour //Mostly A copy paste of the player script with extra animations, now the main character 10/20/2022
+public class PlayerScript : MonoBehaviour
 {
     public float speed = 5.0f;
     public float health = 100.0f;
@@ -38,12 +38,11 @@ public class PlayerScript : MonoBehaviour //Mostly A copy paste of the player sc
             left = true;
         if (Input.GetKey(KeyCode.D))
             right = true;
-        Move(up, down, left, right); 
+        Move(up, down, left, right);
 
         if (!(up || down || left || right)) //This stops the character's move animation the moment they stop
             animator.SetBool("running", false);
 
-        
         if (!barrierDisabled && Input.GetKeyDown(KeyCode.LeftShift) && !runeSelector.isChargeActive()) { createBlock(); } //TODO ADD BOOL FOR IF HIT/KNOCKBACK AND MAKE ALL ACTIONS NOT POSSIBLE DURING
         if (barrierActive && !Input.GetKey(KeyCode.LeftShift)) { destroyBlock(); }
         //if (barrier == null) { movementDisabled = false; } 
@@ -53,6 +52,7 @@ public class PlayerScript : MonoBehaviour //Mostly A copy paste of the player sc
     {                                                           //and moves the character based upon that
         if(movementDisabled || dead)
             return;
+        
         bool moveUp = (up && !down); //these bools determine if the character should move up, i.e. if up is pressed and not down etc.
         bool moveDown = (down && !up);
         bool moveLeft = (left && !right);
@@ -162,7 +162,7 @@ public class PlayerScript : MonoBehaviour //Mostly A copy paste of the player sc
         animator.SetBool("running", false);
         barrierActive = true;
         char type = runeSelector.list.getData();
-        runeSelector.switchLocked();
+        runeSelector.setBarBool(true);
         barrier = Instantiate(Resources.Load("Barriers/" + type + "Barrier")) as GameObject;
         barrier.GetComponent<barrierScript>().setPos(transform);
         stopMovement();
@@ -173,7 +173,7 @@ public class PlayerScript : MonoBehaviour //Mostly A copy paste of the player sc
         if (barrier != null)
             Destroy(barrier.gameObject); 
         allowMovement();
-        runeSelector.switchLocked();
+        runeSelector.setBarBool(false);
     }
 
     public string getChargeType() //This is a helper method to determine which charge animation to play based on the rune

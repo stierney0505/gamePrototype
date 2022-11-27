@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 7138309216426541705}
   - component: {fileID: 8414784410020668379}
   - component: {fileID: 8414784410020668378}
-  - component: {fileID: 8414784410020668377}
+  - component: {fileID: 8258884198500877121}
+  - component: {fileID: 5134588761361289763}
   m_Layer: 6
   m_Name: lightning3
   m_TagString: Spell
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 150555714918614456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.0943, y: 0.47, z: 5.6306534}
-  m_LocalScale: {x: 68.16644, y: 11, z: 1}
+  m_LocalScale: {x: 20, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -106,7 +107,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8414784410020668377
+--- !u!114 &8258884198500877121
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,6 +116,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 150555714918614456}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7da05723ef3aa40a45a9b7ac049f4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f849d341d8869e40bc618d0f5d12830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 40
+  knockBack: 30
+  type: 76
+--- !u!60 &5134588761361289763
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150555714918614456}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.1036, y: 0.5}
+    oldSize: {x: 0.48, y: 0.48}
+    newSize: {x: 0.48, y: 0.48}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.045395494, y: 0.19899897}
+      - {x: 0.03396347, y: -0.14483407}
+      - {x: 0.42385775, y: -0.19470136}
+      - {x: 0.4153051, y: 0.17305472}

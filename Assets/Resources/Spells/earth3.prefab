@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  knockBack: 10
+  knockBack: 17
   type: 69
 --- !u!58 &5597142862057141692
 CircleCollider2D:
@@ -135,6 +135,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.009809971, y: -0.011036238}
+  m_Offset: {x: 0.009810011, y: -0.011036238}
   serializedVersion: 2
-  m_Radius: 0.2157691
+  m_Radius: 0.17654955

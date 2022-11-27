@@ -62,8 +62,9 @@ public class spellSelector : MonoBehaviour
             nextSpellUI.transform.GetChild(getChildrenNum(nextSpell)).gameObject.SetActive(true);
             return nextSpell;
     }
-    public string spellSelect(char nextSpell, int runeCount) //This method shound return the string of the next spell based on the nextSpell char
+    public string spellSelect(char nextSpell, int runes) //This method shound return the string of the next spell based on the nextSpell char
     {
+        int runeCount = runes + 1;
         switch (nextSpell)//This checks what runes[i] is and increments the runecount for that type
         {
             case 'L': //Case L for lighting
@@ -145,7 +146,7 @@ public class spellSelector : MonoBehaviour
         }
     }
 
-    public void disableChildren()
+    public void disableChildren() //This method disables the children of the NextSpell UI object
     {
         int totalChildren = nextSpellUI.transform.childCount;
         for (int i = 0; i < totalChildren; i++)

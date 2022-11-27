@@ -11,8 +11,9 @@ public class lightning1Script : MonoBehaviour, spell
     private void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        Vector2 startLoc = player.transform.position;
-        rotate(startLoc, transform.position);
+        Vector2 playerSource = player.transform.GetChild(0).position;
+        rotate(playerSource, transform.position);
+        transform.position = playerSource;
     }
     public Vector3 getVector()
     {

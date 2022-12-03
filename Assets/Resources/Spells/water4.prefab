@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2183854827375278910}
   - component: {fileID: 2487697814835238143}
   - component: {fileID: 1946121385436064515}
-  - component: {fileID: 6791112287513306481}
-  - component: {fileID: 870545153471550342}
+  - component: {fileID: 3694263859303142130}
+  - component: {fileID: 240412066983889115}
   m_Layer: 0
   m_Name: water4
   m_TagString: Spell
@@ -107,7 +107,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6791112287513306481
+--- !u!114 &3694263859303142130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,13 +116,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3342476584787262423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7da05723ef3aa40a45a9b7ac049f4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 78102fefa4e38424d9c84181fd9e32b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
-  knockBack: 300
+  damage: 10
+  knockBack: 30
   type: 87
---- !u!60 &870545153471550342
+  spellCount: 1
+  limit: 5
+--- !u!60 &240412066983889115
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,7 +140,7 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.1411726}
+    pivot: {x: 0.5, y: 0.4}
     oldSize: {x: 1.28, y: 1.28}
     newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
@@ -147,23 +149,7 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.1432895, y: 0.27336574}
-      - {x: 0.1582187, y: 0.3206042}
-      - {x: 0.20821868, y: 0.599299}
-      - {x: 0.22, y: 0.729299}
-      - {x: 0.16, y: 0.769299}
-      - {x: 0.049999997, y: 0.779299}
-      - {x: -0.06586726, y: 0.77510536}
-      - {x: -0.16073051, y: 0.7704224}
-      - {x: -0.21443833, y: 0.7333997}
-      - {x: -0.21258439, y: 0.59452313}
-      - {x: -0.16699088, y: 0.3915934}
-      - {x: -0.15775318, y: 0.35047778}
-      - {x: -0.11871271, y: 0.10449718}
-      - {x: -0.09485096, y: -0.01591552}
-      - {x: 0.009885475, y: -0.018539185}
-      - {x: 0.089619994, y: -0.015931921}
-      - {x: 0.102482796, y: 0.01724248}
-      - {x: 0.12355417, y: 0.14612609}
-      - {x: 0.12752461, y: 0.19837283}
-      - {x: 0.13341528, y: 0.23224409}
+    - - {x: 0.09105463, y: -0.34572276}
+      - {x: 0.18053995, y: 0.29062384}
+      - {x: -0.1814041, y: 0.2865894}
+      - {x: -0.08315123, y: -0.34045613}

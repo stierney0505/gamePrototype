@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 366697631762499655}
   - component: {fileID: 4465397170418809707}
   - component: {fileID: 7516902709919639053}
-  - component: {fileID: 4958866359796553468}
+  - component: {fileID: 1704089626869116827}
   - component: {fileID: 4901285319113437790}
   m_Layer: 0
   m_Name: water1
@@ -107,7 +107,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4958866359796553468
+--- !u!114 &1704089626869116827
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,13 +116,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 451276002483453240}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d19575121b4f34abb52f75812bc1a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 207a5d01628355b49b3d8a5c23a7c55a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
   knockBack: 40
   type: 87
-  step: 10
+  step: 6
 --- !u!70 &4901285319113437790
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

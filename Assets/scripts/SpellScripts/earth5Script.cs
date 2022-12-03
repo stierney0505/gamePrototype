@@ -9,8 +9,8 @@ public class earth5Script : MonoBehaviour, spell
     public int spellCount;
     Vector2 endLoc, startLoc;
     float rise, run;
-    bool left;
-    
+    bool left;//if the spell is to the left of the player this is true
+
 
     private void Start()
     {
@@ -67,7 +67,6 @@ public class earth5Script : MonoBehaviour, spell
             construct.transform.eulerAngles = new Vector2(0, 180);
         construct.GetComponent<construct>().setDamageType(damage, type);
         construct.transform.position = new Vector2(transform.position.x, transform.position.y);
-
     }
 
     public string getName(string objName)

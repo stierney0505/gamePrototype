@@ -9,6 +9,7 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
     state currentState;
     Transform player;
     PlayerScript playerScr;
+    PolygonCollider2D attackBox;
     Seeker seeker;
     Rigidbody2D body;
     public float damage = 10.0f, health = 100.0f, attackCD = 3f, knockBack = 15f;
@@ -21,6 +22,7 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
 
     void Start()
     {
+        attackBox = GetComponent<PolygonCollider2D>();
         body = gameObject.GetComponent<Rigidbody2D>();  
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player"); 
         seeker = GetComponent<Seeker>();
@@ -44,19 +46,24 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
 
     public void endAttack() { attackEnd = !attackEnd; } //This method is only called when the attack ends to let the state machine know the attack finished
     public void enableHitBox() { //This method just switches the hitbox on and off, only used during the animation to turn the axe attack box on and off
-        PolygonCollider2D attackBox = GetComponent<PolygonCollider2D>(); 
-        attackBox.enabled = !attackBox.isActiveAndEnabled;
+        attackBox.enabled = true;
         time = 0; //this ensures the time between attacks is 3 seconds by setting time to 0 during the attack
     }
+
+    public void disableHitBox() { attackBox.enabled = false; }
+
     public float getDamage() { return damage; }
     private void OnTriggerEnter2D(Collider2D col) //This decrements the HP of the ai, and generates a hit effect | TODO put this into a helper method and add damage calculation based upon damage type
     {
         if (col.gameObject.TryGetComponent<spell>(out spell spellComponent))
         {
             spellComponent.end();
-            takeDamage(spellComponent);
-            Vector2 forceDirection = transform.position - col.transform.position;
-            takeKnockBack(forceDirection, spellComponent.getKnockBack());
+            if (spellComponent.getDamage() > 0)
+            {
+                takeDamage(spellComponent);
+                Vector2 forceDirection = transform.position - col.transform.position;
+                takeKnockBack(forceDirection, spellComponent.getKnockBack());
+            }
         }
     }
 
@@ -67,6 +74,7 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
 
     public void takeDamage(spell spell) //takes damage and if health is less than or equal to 0 it starts the death animation/sequence
     {
+        attackBox.enabled = false;
         float damage = spell.getDamage();
         char type = spell.getType();
 
@@ -82,6 +90,7 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
 
     public void takeDamage(float damage)
     {
+        attackBox.enabled = false;
         health -= damage;
         aiTriggerd = true;
         if( health <= 0)

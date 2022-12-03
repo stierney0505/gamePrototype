@@ -87,6 +87,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
                 altFire = true;
                 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 spellName = selector.spellSelect(nextSpellType, runeCount);
+                selector.createSpellCircle(nextSpellType);
                 animator.SetTrigger(getAttackType(nextSpellType));
                 if (mousePos.x < transform.position.x && transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); } //rotates the player towards the direction they clicked
                 else if (mousePos.x > transform.position.x && transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); }
@@ -96,6 +97,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
             {
                 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 spellName = selector.spellSelect(list.getData());
+                selector.createSpellCircle(list.getData());
                 animator.SetTrigger(getAttackType(list.getData()));
                 if (mousePos.x < transform.position.x && transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); } //rotates the player towards the direction they clicked
                 else if (mousePos.x > transform.position.x && transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); }

@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class spellSelector : MonoBehaviour
 {
-    GameObject nextSpellUI; 
-
+    GameObject nextSpellUI;
+    GameObject circle;
+    Transform beneath;
     private void Start()
     {
         nextSpellUI = GameObject.Find("NextSpell");//This finds the UI element, 'NextSpell', which holds the UI icon for which spell will be next
         disableChildren();
+        beneath = transform.GetChild(1);
     }
 
     public char updateNextSpell(char[] runes, char nextSpellType, int runeCount)//This method checks the rune buffer for the latest rune, or if there is a combination and update the next spell type for the next spell cast
@@ -60,6 +62,7 @@ public class spellSelector : MonoBehaviour
         End:
             disableChildren();
             nextSpellUI.transform.GetChild(getChildrenNum(nextSpell)).gameObject.SetActive(true);
+            nextSpellType = nextSpell;
             return nextSpell;
     }
     public string spellSelect(char nextSpell, int runes) //This method shound return the string of the next spell based on the nextSpell char
@@ -155,4 +158,39 @@ public class spellSelector : MonoBehaviour
         }
     }
 
+    public void createSpellCircle(char spellType)
+    {
+        if (circle == null)
+        {
+            string starter = "aura";
+            switch (spellType)
+            {
+                case 'F':
+                    circle = Instantiate(Resources.Load("MagicCircles/" + starter + "Fire")) as GameObject;
+                    break;
+                case 'E':
+                    circle = Instantiate(Resources.Load("MagicCircles/" + starter + "Earth")) as GameObject;
+                    break;
+                case 'W':
+                case 'I':
+                    circle = Instantiate(Resources.Load("MagicCircles/" + starter + "Water")) as GameObject;
+                    break;
+                case 'A':
+                    circle = Instantiate(Resources.Load("MagicCircles/" + starter + "Air")) as GameObject;
+                    break;
+                case 'L':
+                    circle = Instantiate(Resources.Load("MagicCircles/" + starter + "Lightning")) as GameObject;
+                    break;
+                case 'D':
+                    circle = Instantiate(Resources.Load("MagicCircles/" + starter + "Dark")) as GameObject;
+                    break;
+                default:
+                    break;
+            }
+            magicCircleRotationScript circleScript = circle.GetComponent<magicCircleRotationScript>();
+            circleScript.location = beneath;
+        }
+    }
+
+    public void destoryCircle() { Destroy(circle); } //TODO make a graceful exit animation or something
 }

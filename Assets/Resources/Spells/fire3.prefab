@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3459251489280017651}
   - component: {fileID: 4708639059015565284}
   - component: {fileID: 4708639059015565285}
-  - component: {fileID: 4708639059015565286}
+  - component: {fileID: 8183861367159531137}
   - component: {fileID: 308226796026119855}
   m_Layer: 6
   m_Name: fire3
@@ -107,7 +107,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4708639059015565286
+--- !u!114 &8183861367159531137
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,11 +116,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3858480925888298624}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7da05723ef3aa40a45a9b7ac049f4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 287b0261446f69e40b2721f874961f04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 27
+  damage: 12
+  knockBack: 2
   type: 70
+  spellCount: 1
+  limit: 7
+  startLoc: {x: 0, y: 0}
 --- !u!58 &308226796026119855
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -134,6 +138,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0143944025, y: 0.00681897}
+  m_Offset: {x: 0.0063528223, y: 0.00681897}
   serializedVersion: 2
-  m_Radius: 0.15046544
+  m_Radius: 0.1998636

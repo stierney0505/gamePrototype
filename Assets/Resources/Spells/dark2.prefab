@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7112085278078332815}
   - component: {fileID: 7112085278078332814}
   - component: {fileID: 7112085278078332813}
+  - component: {fileID: 7045297396813620504}
   - component: {fileID: 7112085278078332812}
-  - component: {fileID: 7112085278078332803}
   m_Layer: 0
   m_Name: dark2
   m_TagString: Spell
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7112085278078332802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.34, y: -1.06, z: -2.749629}
-  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_LocalScale: {x: 12, y: 6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -107,6 +107,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7045297396813620504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7112085278078332802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a160b83814168fc41919fd29bc6d9b55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 24
+  knockBack: 15
+  type: 68
+  spellCount: 1
+  limit: 2
 --- !u!70 &7112085278078332812
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -123,18 +140,3 @@ CapsuleCollider2D:
   m_Offset: {x: 0.15157452, y: -0.004674374}
   m_Size: {x: 0.6398637, y: 0.29774177}
   m_Direction: 1
---- !u!114 &7112085278078332803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7112085278078332802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f849d341d8869e40bc618d0f5d12830, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 30
-  knockBack: 10
-  type: 68

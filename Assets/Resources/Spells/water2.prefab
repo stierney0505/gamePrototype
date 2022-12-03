@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1911492262378379095}
   - component: {fileID: 7136192168962421759}
   - component: {fileID: 7136192168962421744}
-  - component: {fileID: 7136192168962421745}
   - component: {fileID: 922963826632957500}
+  - component: {fileID: -1594889551110977471}
   m_Layer: 6
   m_Name: water2
   m_TagString: Spell
@@ -107,20 +107,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7136192168962421745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8926911894686746223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7da05723ef3aa40a45a9b7ac049f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 17.5
-  type: 87
 --- !u!70 &922963826632957500
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -137,3 +123,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0.17438477, y: 0.009150664}
   m_Size: {x: 0.44613463, y: 0.29232275}
   m_Direction: 1
+--- !u!114 &-1594889551110977471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8926911894686746223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f849d341d8869e40bc618d0f5d12830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
+  knockBack: 175
+  type: 87

@@ -5,23 +5,21 @@ using UnityEngine;
 
 public class fire1Script : MonoBehaviour, spell //A script that works for most linear traveling spells
 {
-    Vector2 endLoc;
-    Vector2 startLoc;
+    Vector2 endLoc, startLoc, direction;
     private Animator animator;
     int loops = 0;
-    [SerializeField] float damage, knockBack;
+    [SerializeField] float damage, knockBack, speed;
     [SerializeField] char type;
-    public float step = 0;
 
     private void Start()
     {
-        if(step == 0)
-            step = 12.5f;
+        
         endLoc = transform.position;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        startLoc = player.transform.position;
+        startLoc = player.transform.GetChild(0).position;
         animator = GetComponent<Animator>();
         transform.position = startLoc;
+        direction = (endLoc - startLoc).normalized; //Vector pointing from startLoc to endLoc
         rotate();
     }
 
@@ -29,7 +27,7 @@ public class fire1Script : MonoBehaviour, spell //A script that works for most l
     {
 
         if (transform.position.Equals(endLoc)) { extend(); }
-        if (loops != -1) { transform.position = Vector2.MoveTowards(transform.position, endLoc, Time.deltaTime * step); }
+        if (loops != -1) { transform.Translate(direction * Time.deltaTime * speed, Space.World); }
 
 
     }
@@ -46,7 +44,7 @@ public class fire1Script : MonoBehaviour, spell //A script that works for most l
 
     public void end()
     {
-        step = 0; animator.SetTrigger("fade");
+        speed = 0; animator.SetTrigger("fade");
     }
 
     public void remove() { Destroy(gameObject); }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1459344865468908102}
   - component: {fileID: 7597975186894372261}
   - component: {fileID: 7067792385491563340}
-  - component: {fileID: 3647897157330762754}
+  - component: {fileID: -6293511147171828113}
   - component: {fileID: 5169196120036174568}
   m_Layer: 6
   m_Name: fire5
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6876659489199318594}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.31, y: 1.98, z: 5.638984}
-  m_LocalScale: {x: 20, y: 20, z: 1}
+  m_LocalScale: {x: 15, y: 15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -107,7 +107,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3647897157330762754
+--- !u!114 &-6293511147171828113
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,11 +116,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6876659489199318594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7da05723ef3aa40a45a9b7ac049f4c, type: 3}
+  m_Script: {fileID: 11500000, guid: aaec1981626576b4ea54a514a7766f92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 42
+  damage: 40
+  knockBack: 50
   type: 70
+  spellCount: 1
+  limit: 3
 --- !u!60 &5169196120036174568
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -137,7 +140,7 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5722942, y: 0.4036074}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.32, y: 0.32}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5

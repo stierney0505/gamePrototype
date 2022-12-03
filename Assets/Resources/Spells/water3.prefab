@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 1825319770954268655}
   - component: {fileID: 3918813178429561240}
   - component: {fileID: 3918813178429561243}
-  - component: {fileID: 7693646039342972663}
+  - component: {fileID: -5730920819200402681}
   - component: {fileID: 3736714778970236789}
+  - component: {fileID: 7144174026255408574}
   m_Layer: 6
   m_Name: water3
   m_TagString: Spell
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6193005621912433749}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.47, y: -0, z: 5.6105275}
+  m_LocalPosition: {x: 1.87, y: 1.56, z: 5.6105275}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -107,7 +108,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7693646039342972663
+--- !u!114 &-5730920819200402681
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,11 +117,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6193005621912433749}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7da05723ef3aa40a45a9b7ac049f4c, type: 3}
+  m_Script: {fileID: 11500000, guid: fefe4febdd7617e4da621c26051e94db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 27
+  damage: 0
+  knockBack: 160
   type: 87
+  speed: 2
 --- !u!58 &3736714778970236789
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -134,6 +137,34 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0061271787, y: 0.022398246}
+  m_Offset: {x: 0.0037082196, y: 0.022398233}
   serializedVersion: 2
-  m_Radius: 0.18589601
+  m_Radius: 0.19557194
+--- !u!114 &7144174026255408574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6193005621912433749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1

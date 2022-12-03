@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class onPosScript : MonoBehaviour, spell
 {
-    [SerializeField] float damage, knockBack; //to decide the damage number
+    [SerializeField] float damage, knockBack, rotation; //to decide the damage number
     [SerializeField] char type; //to decide the spell type
+    internal Collider2D col;
     
 
 
     private void Start()
     {
-
+        col = GetComponent<Collider2D>();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if(transform.position.x < player.transform.position.x)
+        if (rotation != 0) { transform.Rotate(0, 0, rotation); }
+        else if (transform.position.x < player.transform.position.x)
             transform.eulerAngles = new Vector2(0, 180);
-
     }
     public Vector3 getVector()
     {
@@ -28,9 +29,8 @@ public class onPosScript : MonoBehaviour, spell
     public float getDamage() { return damage; }
     public char getType() { return type; }
 
-    public void enableCollider() { 
-        Collider2D col = GetComponent<Collider2D>(); 
+    public void enableCollider() {  
         col.enabled = true; }
-    public void disableCollider() { Collider2D col = GetComponent<Collider2D>(); col.enabled = false; }
+    public void disableCollider() { col.enabled = false; }
     public float getKnockBack() { return knockBack; }
 }

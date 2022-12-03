@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 8210138157664800857}
   - component: {fileID: 1385082374847392654}
   - component: {fileID: 3045652678495172272}
-  - component: {fileID: 3417885307187656812}
+  - component: {fileID: 1518117438532721413}
   - component: {fileID: 655563154308345554}
+  - component: {fileID: 2538612347657700704}
   m_Layer: 0
   m_Name: dark3
   m_TagString: Spell
@@ -107,7 +108,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3417885307187656812
+--- !u!114 &1518117438532721413
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,11 +117,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7091393024267030597}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7da05723ef3aa40a45a9b7ac049f4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b8645e66e4cfd4498cc807a20674d2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 45
-  knockBack: 70
+  damage: 12
+  knockBack: 8
+  rotation: 0
   type: 68
 --- !u!70 &655563154308345554
 CapsuleCollider2D:
@@ -138,3 +140,31 @@ CapsuleCollider2D:
   m_Offset: {x: 0.2268145, y: 0.039115153}
   m_Size: {x: 0.4276347, y: 0.2911066}
   m_Direction: 1
+--- !u!60 &2538612347657700704
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7091393024267030597}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.1529069, y: 0.5}
+    oldSize: {x: 0.64, y: 0.48}
+    newSize: {x: 0.64, y: 0.48}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.3239125, y: -0.079279944}
+      - {x: 0.35963416, y: 0.08039637}
+      - {x: 0.0019293986, y: 0.0012734877}

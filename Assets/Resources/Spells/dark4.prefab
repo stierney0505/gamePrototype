@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2334062736283313840}
   - component: {fileID: 2334062736283313843}
   - component: {fileID: 2334062736283313842}
-  - component: {fileID: 2334062736283313854}
+  - component: {fileID: 7206633613259794251}
   - component: {fileID: 2334062736283313841}
   m_Layer: 0
   m_Name: dark4
@@ -107,7 +107,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2334062736283313854
+--- !u!114 &7206633613259794251
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,12 +116,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2334062736283313845}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7da05723ef3aa40a45a9b7ac049f4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 190fdce308a4a05498cfc2efcd6af5db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 75
-  knockBack: 60
+  damage: 15
+  knockBack: 15
+  distanceBetween: 1
+  attackAngle: 30
   type: 68
+  limit: 5
 --- !u!70 &2334062736283313841
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

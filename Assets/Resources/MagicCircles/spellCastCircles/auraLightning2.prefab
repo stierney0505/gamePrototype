@@ -100,7 +100,7 @@ MonoBehaviour:
   direction: 1
   rotationSpeed: 100
   location: {fileID: 0}
-  isChild: 0
+  isChild: 1
 --- !u!1 &8191880512155244706
 GameObject:
   m_ObjectHideFlags: 0

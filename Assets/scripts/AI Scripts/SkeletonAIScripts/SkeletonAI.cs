@@ -58,11 +58,15 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
         if (col.gameObject.TryGetComponent<spell>(out spell spellComponent))
         {
             spellComponent.end();
+            spellComponent.addEnemy(transform);
             if (spellComponent.getDamage() > 0)
             {
                 takeDamage(spellComponent);
-                Vector2 forceDirection = transform.position - col.transform.position;
-                takeKnockBack(forceDirection, spellComponent.getKnockBack());
+                float knockBack = spellComponent.getKnockBack();
+                if (knockBack > 0) { 
+                    Vector2 forceDirection = transform.position - col.transform.position;
+                    takeKnockBack(forceDirection, knockBack);
+                }   
             }
         }
     }

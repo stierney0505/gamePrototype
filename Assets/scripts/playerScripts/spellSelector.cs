@@ -8,11 +8,13 @@ public class spellSelector : MonoBehaviour
     GameObject nextSpellUI;
     GameObject circle;
     Transform beneath;
+    Transform chargeLoc;
     private void Start()
     {
         nextSpellUI = GameObject.Find("NextSpell");//This finds the UI element, 'NextSpell', which holds the UI icon for which spell will be next
         disableChildren();
         beneath = transform.GetChild(1);
+        chargeLoc = transform.GetChild(2);
     }
 
     public char updateNextSpell(char[] runes, char nextSpellType, int runeCount)//This method checks the rune buffer for the latest rune, or if there is a combination and update the next spell type for the next spell cast
@@ -158,37 +160,64 @@ public class spellSelector : MonoBehaviour
         }
     }
 
-    public void createSpellCircle(char spellType)
+    public void createSpellCircle(char spellType, bool runeSpell, int runeCount, bool isCharging)
     {
+        int count = 1;
+        string folder = "";
+        if (isCharging)
+            folder = "chargeCircles/";
+        else
+            folder = "spellCastCircles/";
+
+        if (runeSpell)
+            count += runeCount;
+
+
         if (circle == null)
         {
             string starter = "aura";
             switch (spellType)
             {
                 case 'F':
-                    circle = Instantiate(Resources.Load("MagicCircles/" + starter + "Fire")) as GameObject;
+                    circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Fire" + count)) as GameObject;
                     break;
                 case 'E':
-                    circle = Instantiate(Resources.Load("MagicCircles/" + starter + "Earth")) as GameObject;
+                    circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Earth" + count)) as GameObject;
                     break;
                 case 'W':
                 case 'I':
-                    circle = Instantiate(Resources.Load("MagicCircles/" + starter + "Water")) as GameObject;
+                    circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Water" + count)) as GameObject;
                     break;
                 case 'A':
-                    circle = Instantiate(Resources.Load("MagicCircles/" + starter + "Air")) as GameObject;
+                    circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Air" + count)) as GameObject;
                     break;
                 case 'L':
-                    circle = Instantiate(Resources.Load("MagicCircles/" + starter + "Lightning")) as GameObject;
+                    circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Lightning" + count)) as GameObject;
                     break;
                 case 'D':
-                    circle = Instantiate(Resources.Load("MagicCircles/" + starter + "Dark")) as GameObject;
+                    circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Dark" + count)) as GameObject;
                     break;
                 default:
                     break;
             }
-            magicCircleRotationScript circleScript = circle.GetComponent<magicCircleRotationScript>();
-            circleScript.location = beneath;
+
+
+            if (count < 5)
+            {
+                magicCircleRotationScript circleScript = circle.GetComponent<magicCircleRotationScript>();
+                if (isCharging)
+                    circleScript.location = chargeLoc;
+                else
+                    circleScript.location = beneath;
+            }
+            else
+            {
+                magicCircleAndHelperRotation circleScript = circle.GetComponent<magicCircleAndHelperRotation>();
+                if (isCharging)
+                    circleScript.location = chargeLoc;
+                else
+                    circleScript.location = beneath;
+            }
         }
     }
 

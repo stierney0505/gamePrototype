@@ -43,4 +43,9 @@ public class lightning5Script : MonoBehaviour, spell
         else
             animator.SetTrigger("fade");
     }
+
+    public void addEnemy(Transform enemyTransform)
+    {
+        
+    }
 }

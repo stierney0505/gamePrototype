@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &6915044230574578191
 Animator:
   serializedVersion: 4
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 100
   knockBack: 10
+  rotation: 0
   type: 70
 --- !u!70 &1890139099349438978
 CapsuleCollider2D:

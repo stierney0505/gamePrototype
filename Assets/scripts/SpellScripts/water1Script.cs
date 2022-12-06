@@ -92,6 +92,11 @@ public class water1Script : MonoBehaviour, spell
     public float getKnockBack() { return knockBack; }
 
     public void windUp() { step *= 3; }
+
+    public void addEnemy(Transform enemyTransform)
+    {
+        
+    }
 }
 
 

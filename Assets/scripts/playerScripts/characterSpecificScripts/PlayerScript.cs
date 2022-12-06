@@ -84,7 +84,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    public void Charge() { animator.SetTrigger(getChargeType()); } //simple method to trigger charge animation 
+    public void Charge() { animator.SetTrigger(getChargeType()); runeSelector.createChargeCircle(); } //simple method to trigger charge animation 
     
     public void takeDamage(float damage) //Damage method, triggers hit animation and modifies the player health bar
     {

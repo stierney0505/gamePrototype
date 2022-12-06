@@ -87,6 +87,11 @@ public class fire1Script : MonoBehaviour, spell //A script that works for most l
     public char getType() { return type; }
 
     public float getKnockBack() { return knockBack; }
+
+    public void addEnemy(Transform enemyTransform)
+    {
+        
+    }
 }
 
 

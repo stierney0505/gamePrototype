@@ -54,4 +54,9 @@ public class dark3Script : MonoBehaviour, spell
         }
     }
     public float getKnockBack() { return knockBack; }
+
+    public void addEnemy(Transform enemyTransform)
+    {
+        
+    }
 }

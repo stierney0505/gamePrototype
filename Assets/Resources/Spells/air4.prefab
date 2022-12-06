@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &695207694183499934
+--- !u!1 &4428696804455217838
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1329885523642308110}
-  - component: {fileID: 6878958192989918077}
-  - component: {fileID: 6878958192989918076}
-  - component: {fileID: 6878958192989918079}
-  m_Layer: 6
+  - component: {fileID: 4428696804455217839}
+  - component: {fileID: 4428696804455217833}
+  - component: {fileID: 4428696804455217832}
+  - component: {fileID: 4428696804455217835}
+  - component: {fileID: 4428696804455217834}
+  m_Layer: 0
   m_Name: air4
   m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1329885523642308110
+--- !u!4 &4428696804455217839
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 695207694183499934}
+  m_GameObject: {fileID: 4428696804455217838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.04, y: -0.17, z: 5.624912}
-  m_LocalScale: {x: 15, y: 15, z: 1}
+  m_LocalPosition: {x: 1.56, y: 0.06, z: -0.019813396}
+  m_LocalScale: {x: -10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6878958192989918077
+--- !u!212 &4428696804455217833
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 695207694183499934}
+  m_GameObject: {fileID: 4428696804455217838}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -75,28 +76,28 @@ SpriteRenderer:
   m_SortingLayerID: 2054102035
   m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1818306328, guid: b9d182d757eb7e14c80fc7036156fcf9, type: 3}
+  m_Sprite: {fileID: -360331126, guid: 7f6b51d97063edf4f85f10a87add9d77, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 0.64, y: 0.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!95 &6878958192989918076
+  m_SpriteSortPoint: 1
+--- !u!95 &4428696804455217832
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 695207694183499934}
+  m_GameObject: {fileID: 4428696804455217838}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4160d023bac461340a85ef053d122833, type: 2}
+  m_Controller: {fileID: 9100000, guid: dc224440358f88e458ea46e92204ff95, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -106,17 +107,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6878958192989918079
+--- !u!114 &4428696804455217835
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 695207694183499934}
+  m_GameObject: {fileID: 4428696804455217838}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7da05723ef3aa40a45a9b7ac049f4c, type: 3}
+  m_Script: {fileID: 11500000, guid: b396bb90e30d8904db4c94dbc2a7e748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 35
-  type: 0
+  damage: 1
+  knockBack: 0
+  speed: 3
+  type: 65
+  loopLimit: 7
+--- !u!70 &4428696804455217834
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4428696804455217838}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.010904551, y: -0.008183649}
+  m_Size: {x: 0.62089473, y: 0.2549573}
+  m_Direction: 1

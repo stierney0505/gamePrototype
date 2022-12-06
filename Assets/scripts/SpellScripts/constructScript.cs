@@ -51,4 +51,9 @@ public class constructScript : MonoBehaviour, spell { //Mostly a copy of onPosSc
         int indexNum = objName.IndexOfAny("123456".ToCharArray());
         return objName.Substring(0, indexNum+1);
     }
+
+    public void addEnemy(Transform enemyTransform)
+    {
+        
+    }
 }

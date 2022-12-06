@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &7875734308526651138
 Animator:
   serializedVersion: 4
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 35
   knockBack: 125
+  rotation: 0
   type: 69
 --- !u!61 &6977072738571178485
 BoxCollider2D:

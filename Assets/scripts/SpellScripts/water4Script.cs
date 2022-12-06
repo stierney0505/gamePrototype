@@ -101,4 +101,9 @@ public class water4Script : MonoBehaviour, spell
                 spell.transform.eulerAngles = new Vector2(0, 180);
         }
     }
+
+    public void addEnemy(Transform enemyTransform)
+    {
+      
+    }
 }

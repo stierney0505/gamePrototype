@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &2177312966721644385
 Animator:
   serializedVersion: 4
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 75
   knockBack: 200
+  rotation: 0
   type: 87
 --- !u!60 &-3356595689676365098
 PolygonCollider2D:

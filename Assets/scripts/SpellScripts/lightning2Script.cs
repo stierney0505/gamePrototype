@@ -93,4 +93,9 @@ public class lightning2Script : MonoBehaviour, spell
 
         if (endX < startX) { transform.localScale = new Vector2(transform.localScale.x * -1.0f, transform.localScale.y); }
     }
+
+    public void addEnemy(Transform enemyTransform)
+    {
+        
+    }
 }

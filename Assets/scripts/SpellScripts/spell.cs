@@ -13,5 +13,6 @@ public interface spell // Abstract class for the spells controlled by the player
     public char getType();
     public float getKnockBack();
 
-
+    public void addEnemy(Transform enemyTransform); //This method will be for spells that apply constant movement effects, such as dark6, or the air spells
+    //TODO MAYBE: Change the parameter to gameobject if I want to add a 'movement controlled' effect to the enemies, i.e. when they aren't damaged but they are movement impaired
 }

@@ -87,7 +87,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
                 altFire = true;
                 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 spellName = selector.spellSelect(nextSpellType, runeCount);
-                selector.createSpellCircle(nextSpellType);
+                selector.createSpellCircle(nextSpellType, true, runeCount, false);
                 animator.SetTrigger(getAttackType(nextSpellType));
                 if (mousePos.x < transform.position.x && transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); } //rotates the player towards the direction they clicked
                 else if (mousePos.x > transform.position.x && transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); }
@@ -97,7 +97,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
             {
                 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 spellName = selector.spellSelect(list.getData());
-                selector.createSpellCircle(list.getData());
+                selector.createSpellCircle(list.getData(), false, runeCount, false);
                 animator.SetTrigger(getAttackType(list.getData()));
                 if (mousePos.x < transform.position.x && transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); } //rotates the player towards the direction they clicked
                 else if (mousePos.x > transform.position.x && transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); }
@@ -304,6 +304,10 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         }
     }
 
+    internal void createChargeCircle()
+    {
+       selector.createSpellCircle(list.getData(), true, runeCount, true);
+    }
     public void setBarBool(bool isActive) { barActive = isActive; }
 }
 

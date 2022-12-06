@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &3588996917407426880
 Animator:
   serializedVersion: 4
@@ -137,4 +137,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 100
   knockBack: 60
+  rotation: 0
   type: 76

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3414649168163102022}
   - component: {fileID: 9145105552990704161}
   - component: {fileID: 9145105552990704162}
-  - component: {fileID: 9145105552990704163}
+  - component: {fileID: 2156926814266201246}
   - component: {fileID: 5768466526117154228}
   m_Layer: 6
   m_Name: air2
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &9145105552990704162
 Animator:
   serializedVersion: 4
@@ -107,7 +107,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &9145105552990704163
+--- !u!114 &2156926814266201246
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,10 +116,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1333270495977290149}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7da05723ef3aa40a45a9b7ac049f4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 86e081aa6143a3342acb0c45964b2196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 17.5
+  damage: 20
+  knockBack: 140
+  speed: 4
   type: 65
 --- !u!70 &5768466526117154228
 CapsuleCollider2D:
@@ -128,12 +130,12 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1333270495977290149}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.13011998, y: 0.004273389}
-  m_Size: {x: 0.40803286, y: 0.09870566}
+  m_Offset: {x: 0.27721092, y: 0.01029448}
+  m_Size: {x: 0.8880188, y: 0.29999235}
   m_Direction: 1

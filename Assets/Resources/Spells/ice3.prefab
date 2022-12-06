@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &7268893733095660697
 Animator:
   serializedVersion: 4
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 50
   knockBack: 60
+  rotation: 0
   type: 73
 --- !u!68 &7268893733095660700
 EdgeCollider2D:

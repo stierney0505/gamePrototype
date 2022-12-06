@@ -33,4 +33,9 @@ public class onPosScript : MonoBehaviour, spell
         col.enabled = true; }
     public void disableCollider() { col.enabled = false; }
     public float getKnockBack() { return knockBack; }
+
+    public void addEnemy(Transform enemyTransform)
+    {
+        
+    }
 }

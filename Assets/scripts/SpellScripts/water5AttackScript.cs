@@ -34,4 +34,8 @@ public class water5AttackScript : MonoBehaviour, spell
     public void disableCollider() { col.enabled = false; }
     public float getKnockBack() { return knockBack; }
 
+    public void addEnemy(Transform enemyTransform)
+    {
+        
+    }
 }

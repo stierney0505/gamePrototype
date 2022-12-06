@@ -25,4 +25,9 @@ public class lightning6script : MonoBehaviour, spell
     }
     public void disableCollider() { Collider2D col = GetComponent<Collider2D>(); col.enabled = false; }
     public float getKnockBack() { return knockBack; }
+
+    public void addEnemy(Transform enemyTransform)
+    {
+        
+    }
 }

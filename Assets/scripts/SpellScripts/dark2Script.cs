@@ -66,4 +66,9 @@ public class dark2Script : MonoBehaviour, spell
             spell.transform.position = transform.position;
         }
     }
+
+    public void addEnemy(Transform enemyTransform)
+    {
+        
+    }
 }

@@ -130,4 +130,9 @@ public class water3Script : MonoBehaviour, spell
 
     public void loop() { loops++; }
     public void setDetonated() { detonated = true; }
+
+    public void addEnemy(Transform enemyTransform)
+    {
+        
+    }
 }

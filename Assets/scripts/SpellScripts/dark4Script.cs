@@ -75,4 +75,9 @@ public class dark4Script : MonoBehaviour, spell //This spell will first start wi
             spell.transform.position = getNextLoc();
         }
     }
+
+    public void addEnemy(Transform enemyTransform)
+    {
+        
+    }
 }

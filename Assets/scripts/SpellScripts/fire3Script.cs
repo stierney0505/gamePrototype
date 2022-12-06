@@ -69,4 +69,9 @@ public class fire3Script : MonoBehaviour, spell
             spell.transform.position = getNextLoc();
         }
     }
+
+    public void addEnemy(Transform enemyTransform)
+    {
+        
+    }
 }

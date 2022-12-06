@@ -101,6 +101,18 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -108,12 +120,12 @@ TextureImporter:
       name: Preparing Burst_0
       rect:
         serializedVersion: 2
-        x: 48
+        x: 0
         y: 96
         width: 48
         height: 48
       alignment: 9
-      pivot: {x: 0.1041667, y: 0.5208334}
+      pivot: {x: 0.1, y: 0.52}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -129,12 +141,12 @@ TextureImporter:
       name: Preparing Burst_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 48
         y: 96
         width: 48
         height: 48
       alignment: 9
-      pivot: {x: 0.1041667, y: 0.5208334}
+      pivot: {x: 0.1, y: 0.52}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -150,12 +162,12 @@ TextureImporter:
       name: Preparing Burst_2
       rect:
         serializedVersion: 2
-        x: 144
+        x: 96
         y: 96
         width: 48
         height: 48
       alignment: 9
-      pivot: {x: 0.1041667, y: 0.5208334}
+      pivot: {x: 0.1, y: 0.52}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -171,12 +183,12 @@ TextureImporter:
       name: Preparing Burst_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 48
+        x: 144
+        y: 96
         width: 48
         height: 48
       alignment: 9
-      pivot: {x: 0.1041667, y: 0.5208334}
+      pivot: {x: 0.1, y: 0.52}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -192,12 +204,12 @@ TextureImporter:
       name: Preparing Burst_4
       rect:
         serializedVersion: 2
-        x: 48
+        x: 0
         y: 48
         width: 48
         height: 48
       alignment: 9
-      pivot: {x: 0.1041667, y: 0.5208334}
+      pivot: {x: 0.1, y: 0.52}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -213,12 +225,12 @@ TextureImporter:
       name: Preparing Burst_5
       rect:
         serializedVersion: 2
-        x: 96
+        x: 48
         y: 48
         width: 48
         height: 48
       alignment: 9
-      pivot: {x: 0.1041667, y: 0.5208334}
+      pivot: {x: 0.1, y: 0.52}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -234,12 +246,12 @@ TextureImporter:
       name: Preparing Burst_6
       rect:
         serializedVersion: 2
-        x: 144
+        x: 96
         y: 48
         width: 48
         height: 48
       alignment: 9
-      pivot: {x: 0.1041667, y: 0.5208334}
+      pivot: {x: 0.1, y: 0.52}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -255,12 +267,12 @@ TextureImporter:
       name: Preparing Burst_7
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 144
+        y: 48
         width: 48
         height: 48
       alignment: 9
-      pivot: {x: 0.1041667, y: 0.5208334}
+      pivot: {x: 0.1, y: 0.52}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -276,12 +288,12 @@ TextureImporter:
       name: Preparing Burst_8
       rect:
         serializedVersion: 2
-        x: 48
+        x: 0
         y: 0
         width: 48
         height: 48
       alignment: 9
-      pivot: {x: 0.1041667, y: 0.5208334}
+      pivot: {x: 0.1, y: 0.52}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -289,6 +301,69 @@ TextureImporter:
       bones: []
       spriteID: 4298e9a9ad30d9b48b7d3a154e2e23a4
       internalID: -1380541870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Preparing Burst_9
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.1, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9874f90eccec6d04aba3335dbbb75466
+      internalID: -1305564184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Preparing Burst_10
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.1, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba878897984f70e43b5133252a4fa381
+      internalID: -1240365797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Preparing Burst_11
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.1, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5181aaf21951cbd4a8a9c562e9e1c305
+      internalID: -1041779812
       vertices: []
       indices: 
       edges: []
@@ -308,7 +383,10 @@ TextureImporter:
       Preparing Burst_2: -1570327856
       Preparing Burst_5: 1052699838
       Preparing Burst_7: 888435236
+      Preparing Burst_11: -1041779812
       Preparing Burst_6: 198357191
+      Preparing Burst_9: -1305564184
+      Preparing Burst_10: -1240365797
       Preparing Burst_4: 643376986
       Preparing Burst_0: -1221030592
       Preparing Burst_3: -47004563

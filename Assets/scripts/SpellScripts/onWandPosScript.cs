@@ -40,4 +40,9 @@ public class onWandPosScript : MonoBehaviour, spell
     public void enableCollider() {Collider2D col = GetComponent<Collider2D>(); col.enabled = true; }
     public void disableCollider() { Collider2D col = GetComponent<Collider2D>(); col.enabled = false; }
     public float getKnockBack() { return knockBack; }
+
+    public void addEnemy(Transform enemyTransform)
+    {
+        
+    }
 }

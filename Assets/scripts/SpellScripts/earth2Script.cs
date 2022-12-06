@@ -36,4 +36,9 @@ public class earth2Script : MonoBehaviour, spell
     public float getDamage() { return damage; }
     public char getType() { return type; }
     public float getKnockBack() { return knockBack; }
+
+    public void addEnemy(Transform enemyTransform)
+    {
+        
+    }
 }

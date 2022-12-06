@@ -87,4 +87,8 @@ public class earth3Script : MonoBehaviour, spell
     public char getType() { return type; }
     public float getKnockBack() { return knockBack; }
 
+    public void addEnemy(Transform enemyTransform)
+    {
+        
+    }
 }

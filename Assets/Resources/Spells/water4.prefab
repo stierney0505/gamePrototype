@@ -122,7 +122,7 @@ MonoBehaviour:
   damage: 10
   knockBack: 30
   type: 87
-  spellCount: 1
+  spellCount: 0
   limit: 5
 --- !u!60 &240412066983889115
 PolygonCollider2D:

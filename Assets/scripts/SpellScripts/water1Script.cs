@@ -43,7 +43,7 @@ public class water1Script : MonoBehaviour, spell
         return Mathf.Atan2(Vector3.Dot(Vector3.Cross(start, end), Vector3.back), Vector3.Dot(start, end)) * Mathf.Rad2Deg;
     }
 
-    public void end()
+    public void end(bool environment)
     {
         step = 2;
         animator.speed = 3.5f;
@@ -54,7 +54,7 @@ public class water1Script : MonoBehaviour, spell
     public void loop()
     {
         if (loops < 3) { loops++; }
-        else { end(); }
+        else { end(false); }
     }
 
     public void rotate()

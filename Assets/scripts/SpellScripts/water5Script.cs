@@ -31,7 +31,7 @@ public class water5Script : MonoBehaviour
             if (time >= 5f)
             {
                 animator.SetTrigger("fade");
-                spellScript.end();
+                spellScript.end(false);
             }   
         }
     }

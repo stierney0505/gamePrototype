@@ -42,7 +42,7 @@ public class fire1Script : MonoBehaviour, spell //A script that works for most l
         return Mathf.Atan2(Vector3.Dot(Vector3.Cross(start, end), Vector3.back), Vector3.Dot(start, end)) * Mathf.Rad2Deg;
     }
 
-    public void end()
+    public void end(bool environment)
     {
         speed = 0; animator.SetTrigger("fade");
     }
@@ -51,7 +51,7 @@ public class fire1Script : MonoBehaviour, spell //A script that works for most l
     public void loop()
     {
         if (loops < 3) { loops++; }
-        else { end(); }
+        else { end(false); }
     }
 
     public void rotate()

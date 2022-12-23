@@ -6,7 +6,7 @@ using UnityEngine;
 public class spellSelector : MonoBehaviour
 {
     GameObject nextSpellUI;
-    GameObject circle;
+    static GameObject circle;
     Transform beneath;
     Transform chargeLoc;
     private void Start()
@@ -165,7 +165,10 @@ public class spellSelector : MonoBehaviour
         int count = 1;
         string folder = "";
         if (isCharging)
+        {
+            count++;
             folder = "chargeCircles/";
+        }
         else
             folder = "spellCastCircles/";
 
@@ -221,5 +224,6 @@ public class spellSelector : MonoBehaviour
         }
     }
 
-    public void destoryCircle() { Destroy(circle); } //TODO make a graceful exit animation or something
+    public void destoryCircle() { staticDestoryCircle(); } //TODO make a graceful exit animation or something
+    public static void staticDestoryCircle() { Destroy(circle); }
 }

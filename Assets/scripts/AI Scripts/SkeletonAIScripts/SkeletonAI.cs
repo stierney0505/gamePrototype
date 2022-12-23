@@ -57,7 +57,7 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
     {
         if (col.gameObject.TryGetComponent<spell>(out spell spellComponent))
         {
-            spellComponent.end();
+            spellComponent.end(false);
             spellComponent.addEnemy(transform);
             if (spellComponent.getDamage() > 0)
             {
@@ -97,7 +97,7 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
         attackBox.enabled = false;
         health -= damage;
         aiTriggerd = true;
-        if( health <= 0)
+        if(health <= 0)
             currentState = new deathState(this.gameObject, seeker, animator, player, playerScr);
         else if(currentState.name != state.STATE.IDLE)
             currentState = new hitState(this.gameObject, seeker, animator, player, playerScr);

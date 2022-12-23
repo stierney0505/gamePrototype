@@ -7,6 +7,6 @@ public class environmentStopScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.TryGetComponent<spell>(out spell spellComponent))
-            spellComponent.end();
+            spellComponent.end(true);
     }
 }

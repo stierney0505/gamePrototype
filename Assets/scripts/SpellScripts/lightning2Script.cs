@@ -28,7 +28,7 @@ public class lightning2Script : MonoBehaviour, spell
             if (transform.position.Equals(endLoc)) { extend(); }
             projectileLife += Time.deltaTime;
             if (projectileLife >= 2)
-                end();
+                end(false);
             else
                 transform.position = Vector2.MoveTowards(transform.position, endLoc, Time.deltaTime * speed);
         }
@@ -47,7 +47,13 @@ public class lightning2Script : MonoBehaviour, spell
         return postion;
     }
     public void remove() { Destroy(gameObject); }
-    public void end() { animator.SetTrigger("fade"); animator.speed = 1; speed = 0; }
+    public void end(bool environment)
+    {
+        if (environment)
+            remove();
+        animator.SetTrigger("fade"); 
+        animator.speed = 1; 
+        speed = 0; }
     public float getDamage() { return damage; }
     public char getType() { return type; }
     public void rotate(Vector2 start, Vector2 end)

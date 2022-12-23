@@ -34,7 +34,11 @@ public class dark4Script : MonoBehaviour, spell //This spell will first start wi
 
     }
     public void remove() { Destroy(gameObject); }
-    public void end() { }
+    public void end(bool environment)
+    {
+        if (environment)
+            remove();
+    }
     public float getDamage() { return damage; }
     public char getType() { return type; }
 

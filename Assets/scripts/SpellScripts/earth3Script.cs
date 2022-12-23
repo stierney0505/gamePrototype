@@ -37,7 +37,9 @@ public class earth3Script : MonoBehaviour, spell
     }
 
     public void remove() { Destroy(gameObject); }
-    public void end() { hit = true;
+    public void end(bool environment)
+    {  
+        hit = true;
         animator.SetTrigger("hit");
         animator.speed = 1.25f;
         speed = 0;

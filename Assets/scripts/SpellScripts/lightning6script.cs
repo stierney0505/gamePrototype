@@ -14,7 +14,11 @@ public class lightning6script : MonoBehaviour, spell
 
     }
     public void remove() { Destroy(gameObject); }
-    public void end() { }
+    public void end(bool environment)
+    {
+        if (environment)
+            remove();
+    }
     public float getDamage() { return damage; }
     public char getType() { return type; }
 

@@ -27,7 +27,11 @@ public class water5AttackScript : MonoBehaviour, spell
         return postion;
     }
     public void remove() { Destroy(gameObject); }
-    public void end() { animator.SetTrigger("fade"); }
+    public void end(bool environment)
+    {
+        if (environment)
+            remove();
+        animator.SetTrigger("fade"); }
     public float getDamage() { return damage; }
     public char getType() { return type; }
     public void enableCollider() { col.enabled = true; }

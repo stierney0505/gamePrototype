@@ -30,7 +30,11 @@ public class dark2Script : MonoBehaviour, spell
 
     }
     public void remove() { Destroy(gameObject); }
-    public void end() { }
+    public void end(bool environment)
+    {
+        if (environment)
+            remove();
+    }
     public float getDamage() { return damage; }
     public char getType() { return type; }
     public void rotate(Vector2 start, Vector2 end) //Todo create variance in the rotation probably -30/30

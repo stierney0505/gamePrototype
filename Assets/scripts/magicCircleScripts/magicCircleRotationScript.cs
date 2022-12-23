@@ -16,13 +16,13 @@ public class magicCircleRotationScript : MonoBehaviour //This script is pretty b
         if (direction == 0)
             direction = 1;
 
-        if(!isChild)
+        if(!isChild && location != null)
             transform.position = location.position;
     }
 
     // Update is called once per frame
     void FixedUpdate()
-    {   if(!isChild)
+    {   if(!isChild && location != null)
             transform.position = location.position;
         transform.Rotate(0, 0, direction * rotationSpeed * Time.deltaTime); 
     }

@@ -515,7 +515,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4558791367885878829}
   - component: {fileID: 4558791367885878826}
-  - component: {fileID: 4558791367885878828}
   - component: {fileID: 5452368233279477023}
   m_Layer: 0
   m_Name: auraWater5
@@ -596,22 +595,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4558791367885878828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4558791367885878827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c5a19499740a274f8c0b010c6f7dca4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: -1
-  rotationSpeed: 100
-  location: {fileID: 0}
-  isChild: 0
 --- !u!114 &5452368233279477023
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -88,6 +88,7 @@ public class PlayerScript : MonoBehaviour
     
     public void takeDamage(float damage) //Damage method, triggers hit animation and modifies the player health bar
     {
+        spellSelector.staticDestoryCircle();
         if (dead)
             return;
          health -= damage;
@@ -106,12 +107,30 @@ public class PlayerScript : MonoBehaviour
     public void turnWhite() {  sprite = GetComponent<SpriteRenderer>(); sprite.color = Color.white; allowMovement(); barrierDisabled = false; }
     
     private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.tag == ("Enemy") && col.gameObject.TryGetComponent<Unit>(out Unit enemyComponent))
+    {   
+        Unit enemyComponent = null;
+        spell enemyProjectile = null;
+        float damage = 0, tempDmg = 0, knockBack = 0;
+        char type = 'X';
+        
+        if (col.tag == "Attack")
+        {
+            enemyComponent = col.GetComponentInParent<Unit>();
+            damage = enemyComponent.getDamage();
+            type = enemyComponent.getType();
+            knockBack = enemyComponent.getKnockBack();
+        }
+        else if (col.tag == "EnemyProjectile")
+        {
+            enemyProjectile = col.GetComponent<spell>();
+            damage = enemyProjectile.getDamage();
+            type = enemyProjectile.getType();
+            knockBack = enemyProjectile.getKnockBack();
+            enemyProjectile.end(false);
+        }
+
+        if (enemyComponent != null || enemyProjectile != null)
         {   
-            float damage = enemyComponent.getDamage();
-            char type = enemyComponent.getType();
-            float tempDmg = 0;
             if (barrier != null)
             {
                 barrierScript barrierScr = barrier.GetComponent<barrierScript>();
@@ -154,7 +173,7 @@ public class PlayerScript : MonoBehaviour
             else
                 takeDamage(damage);
             Vector2 forceDirection = transform.position - col.transform.position;
-            body.AddForce(forceDirection.normalized * enemyComponent.getKnockBack(), ForceMode2D.Impulse);
+            body.AddForce(forceDirection.normalized * knockBack, ForceMode2D.Impulse);
         }
     }
     private void createBlock()

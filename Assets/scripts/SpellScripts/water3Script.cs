@@ -87,7 +87,13 @@ public class water3Script : MonoBehaviour, spell
 
     }
     public void remove() { Destroy(gameObject); }
-    public void end() { disableCollider(); animator.SetTrigger("fade"); detonated = true; }
+    public void end(bool environment)
+    {
+        if (environment)
+            remove();
+        disableCollider(); 
+        animator.SetTrigger("fade"); 
+        detonated = true; }
     public float getDamage() { return damage; }
     public char getType() { return type; }
 

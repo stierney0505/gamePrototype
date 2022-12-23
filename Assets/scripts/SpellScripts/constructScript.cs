@@ -21,7 +21,11 @@ public class constructScript : MonoBehaviour, spell { //Mostly a copy of onPosSc
 
     }
     public void remove() { Destroy(gameObject); }
-    public void end() { }
+    public void end(bool environment)
+    {
+        if (environment)
+            remove();
+    }
     public float getDamage() { return damage; }
     public char getType() { return type; }
 

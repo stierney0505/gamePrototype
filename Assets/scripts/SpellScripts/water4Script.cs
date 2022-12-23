@@ -7,7 +7,7 @@ public class water4Script : MonoBehaviour, spell
     [SerializeField] float damage, knockBack; //to decide the damage number
     [SerializeField] char type; //to decide the spell type
     public int spellCount, limit;
-    Vector2 nextLoc, startLoc, endLoc, direction;
+    Vector2 nextLoc, direction;
     bool left; //if the spell is to the left of the player this is true
 
 
@@ -17,6 +17,7 @@ public class water4Script : MonoBehaviour, spell
         if(spellCount ==  limit + 1) { knockBack *= 5; }
         if (spellCount == 0)
         {
+            Vector2 startLoc, endLoc;
             spellCount = 1;
             endLoc = transform.position;
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -31,7 +32,6 @@ public class water4Script : MonoBehaviour, spell
                 transform.position = new Vector2(startLoc.x + .15f, startLoc.y - .15f);
 
             startLoc = transform.position;
-            extend();
             direction = (endLoc - startLoc).normalized; //Vector pointing from startLoc to endLoc
             getNextPoint();
         }
@@ -43,17 +43,6 @@ public class water4Script : MonoBehaviour, spell
         }
     }
 
-    public void extend()
-    {
-        float startX = startLoc.x;
-        float startY = startLoc.y;
-        float endX = endLoc.x;
-        float endY = endLoc.y;
-
-        float rise = endY - startY;
-        float run = endX - startX;
-        endLoc = new Vector2(endLoc.x + (4*run), startLoc.y + (4*rise));
-    }
     public Vector3 getVector()
     {
         Vector3 postion = Input.mousePosition;
@@ -61,7 +50,11 @@ public class water4Script : MonoBehaviour, spell
 
     }
     public void remove() { Destroy(gameObject); }
-    public void end() { }
+    public void end(bool environment)
+    {
+        if (environment)
+            remove();
+    }
     public float getDamage() { return damage; }
     public char getType() { return type; }
 
@@ -94,7 +87,6 @@ public class water4Script : MonoBehaviour, spell
             newSpellScript.spellCount = spellCount + 1;
             spell.transform.position = nextLoc;
             newSpellScript.left = left;
-            newSpellScript.startLoc = startLoc;
             newSpellScript.direction = direction;
 
             if (transform.eulerAngles.y == 180)

@@ -59,7 +59,11 @@ public class ghostWarrior3Behaviour : MonoBehaviour, Unit
     // Update is called once per frame
     void Update()
     {
-
+        if (body.velocity.sqrMagnitude <= 2)
+        {
+            animator.speed = 1;
+            struck = false;
+        }
         time += Time.deltaTime;
         rangedCD += Time.deltaTime;
 
@@ -77,15 +81,9 @@ public class ghostWarrior3Behaviour : MonoBehaviour, Unit
             if (!struck)
                 treeStatus = tree.Process();
 
-        if (aiActivated && time >= createPathTimer) { time = time - createPathTimer; createPath(); } //These lines just check if the time between calculations is .5 seconds or more and then calculates a new path to the player
+            if (aiActivated && time >= createPathTimer) { time = time - createPathTimer; createPath(); } //These lines just check if the time between calculations is .5 seconds or more and then calculates a new path to the player
 
         }
-        if (body.velocity.sqrMagnitude <= 1 && struck)
-        {
-            animator.speed = 1;
-            struck = false;
-        }
-
     }
 
     private void FixedUpdate()
@@ -110,6 +108,7 @@ public class ghostWarrior3Behaviour : MonoBehaviour, Unit
         hitEffect.transform.position = transform.position;
         health -= damage;
         aiActivated = true;
+        attacking = false;
         animator.SetTrigger("hit");
         animator.SetBool("move", false);
         struck = true;
@@ -124,6 +123,7 @@ public class ghostWarrior3Behaviour : MonoBehaviour, Unit
 
         health -= damage;
         aiActivated = true;
+        attacking = false;
         animator.SetTrigger("hit");
         animator.SetBool("move", false);
         struck = true;
@@ -139,7 +139,7 @@ public class ghostWarrior3Behaviour : MonoBehaviour, Unit
 
     private void OnTriggerEnter2D(Collider2D col) //This decrements the HP of the ai, and generates a hit effect | TODO put this into a helper method and add damage calculation based upon damage type
     {
-        if (col.tag == "spell" && col.gameObject.TryGetComponent<spell>(out spell spellComponent))
+        if (col.tag == "Spell" && col.gameObject.TryGetComponent<spell>(out spell spellComponent))
         {
             spellComponent.end(false);
             spellComponent.addEnemy(transform);
@@ -249,6 +249,7 @@ public class ghostWarrior3Behaviour : MonoBehaviour, Unit
         deactivateMelee2Hitbox();
         deactivateMelee1Hitbox();
         hitbox.enabled = false;
+        speed = 0;
         animator.SetTrigger("death");
     }
     public void remove() { Destroy(gameObject); }

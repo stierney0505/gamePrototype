@@ -5,7 +5,7 @@ using UnityEngine;
 public interface spell // Abstract class for the spells controlled by the player, Currently WIP
 {
 
-    public void end(bool environment); //This method is for ending the flight/travel states of projectile spells and the bool checks if its due to the environment
+    public void end(bool environment); //This method is for ending the flight/travel states of projectile spells and the bool checks if its due to the environment and if so should remove it immediately
     public void remove(); //This methods removes the spell from the game, destroys it
     public float getDamage(); //Currently, this method should only be called to get the damage of a spell during a collison
     public char getType();

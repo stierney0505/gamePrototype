@@ -97,14 +97,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.8333333
-    functionName: stopAnimation
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.9166666
-    functionName: stopAnimation
+    functionName: replace
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

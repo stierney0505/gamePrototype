@@ -21,7 +21,7 @@ public class barrierScript : MonoBehaviour //This script just keeps the barrier 
     void updateBlock() { setHealth(blockHealth / 1.75f); } //A method called in the animation that reduces the block health of the barrier
     void updateParry() { parryState--;} //A method called in the animation that reduces the parry state
     public void setPos(Transform pos) //this method sets the position of the barrier to the player and sets the block health
-    { 
+    {   
         transform.position = pos.position + new Vector3(0f, .25f, 0); 
         blockHealth = 100;
         maxHealth = 100;
@@ -31,6 +31,5 @@ public class barrierScript : MonoBehaviour //This script just keeps the barrier 
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
-        
     }
 }

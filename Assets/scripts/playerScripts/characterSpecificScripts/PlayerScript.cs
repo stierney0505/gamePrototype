@@ -91,15 +91,15 @@ public class PlayerScript : MonoBehaviour
         spellSelector.staticDestoryCircle();
         if (dead)
             return;
-         health -= damage;
-         if (health < 0) { health = 0; die(); }
-         else
+        health -= damage;
+        if (health < 0) { health = 0; die(); }
+        else
             animator.SetTrigger("hit");
-         healthBar.incrementPlayerHealth(-damage);
-         healthBar.healthBarColor();
+        healthBar.incrementPlayerHealth(-damage);
+        healthBar.healthBarColor();
     }
 
-    public void die() { animator.SetTrigger("dead"); dead = true; } 
+    public void die() { animator.SetTrigger("dead"); dead = true; Collider2D col = GetComponent<Collider2D>(); col.enabled = false; } 
     public void stopMovement() { movementDisabled = true; animator.SetBool("running", false); } //Stops the player from moving 
     public void allowMovement() { movementDisabled = false; } //Enables moving
     
@@ -169,7 +169,7 @@ public class PlayerScript : MonoBehaviour
             
             // char type = spellComponent.getType(); TODO add enemy type
             if(tempDmg > 0)  
-                takeDamage(tempDmg); 
+                takeDamage(spellTypeHelper.damageModifier(type, runeSelector.list.getData(), tempDmg)); //Calls static spellTypeHelper method to modify the damage
             else
                 takeDamage(damage);
             Vector2 forceDirection = transform.position - col.transform.position;
@@ -217,8 +217,11 @@ public class PlayerScript : MonoBehaviour
                 return null;
         }
     }
-
-    public void stopAnimation() { 
-        animator.speed = 0; }
     public bool isDead() { return dead; }
+    public void replace()
+    {
+        string prefix = name.Substring(0, 2);
+        GameObject deathObject = Instantiate(Resources.Load(prefix + "dead")) as GameObject;
+        Destroy(gameObject);
+    }
 }

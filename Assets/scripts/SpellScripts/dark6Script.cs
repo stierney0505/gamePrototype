@@ -24,16 +24,16 @@ public class dark6Script : MonoBehaviour, spell
         if (active) {
             for (int i = 0; i < enemies.Count; i++)
             {
-                Vector3 direction = transform.position - enemies[i].position;
-                direction = Quaternion.Euler(0, 0, 80) * direction; //The third number defines how quickly the enemy moves into the center
-                float appliedSpeed = speed * Time.deltaTime;
 
             retry:
                 try
                 {
+                    Vector3 direction = transform.position - enemies[i].position;
+                    direction = Quaternion.Euler(0, 0, 80) * direction; //The third number defines how quickly the enemy moves into the center
+                    float appliedSpeed = speed * Time.deltaTime;
                     enemies[i].transform.Translate((Vector2)direction.normalized * appliedSpeed, Space.World);
                 }
-                catch (NullReferenceException)
+                catch (MissingReferenceException)
                 {
                     enemies.RemoveAt(i);
                     if (enemies.Count != i) //this checks if there is an element after the dead enemy, if so, it jumps back to 'retry;

@@ -10,7 +10,7 @@ public class water3Script : MonoBehaviour, spell
 {
 
     [SerializeField] float damage, knockBack; //to decide the damage number
-    [SerializeField] char type; //to decide the spell type
+    [SerializeField] dLRSNode.types type; //to decide the spell type
     public float speed;
     Seeker seeker;
     GameObject targetEnemy;
@@ -95,7 +95,7 @@ public class water3Script : MonoBehaviour, spell
         animator.SetTrigger("fade"); 
         detonated = true; }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
 
     public void findEnemy()
     {

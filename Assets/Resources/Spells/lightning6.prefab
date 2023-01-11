@@ -138,4 +138,4 @@ MonoBehaviour:
   damage: 100
   knockBack: 60
   rotation: 0
-  type: 76
+  type: 2

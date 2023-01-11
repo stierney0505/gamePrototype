@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class fire3Script : MonoBehaviour, spell
 {
     [SerializeField] float damage, knockBack; //to decide the damage number
-    [SerializeField] char type; //to decide the spell type
+    [SerializeField] dLRSNode.types type; //to decide the spell type
     public int spellCount, limit;
     public Vector2 startLoc;
 
@@ -31,7 +31,7 @@ public class fire3Script : MonoBehaviour, spell
             remove();
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
 
     public void enableCollider()
     {

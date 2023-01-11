@@ -123,7 +123,7 @@ MonoBehaviour:
   knockBack: 15
   distanceBetween: 1
   attackAngle: 30
-  type: 68
+  type: 0
   limit: 5
 --- !u!70 &2334062736283313841
 CapsuleCollider2D:

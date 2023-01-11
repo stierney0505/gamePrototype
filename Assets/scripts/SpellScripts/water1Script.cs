@@ -9,7 +9,7 @@ public class water1Script : MonoBehaviour, spell
     private Animator animator;
     int loops = 0;
     [SerializeField] float damage, knockBack;
-    [SerializeField] char type;
+    [SerializeField] dLRSNode.types type;
     public float step = 0;
 
     private void Start()
@@ -87,7 +87,7 @@ public class water1Script : MonoBehaviour, spell
 
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
 
     public float getKnockBack() { return knockBack; }
 

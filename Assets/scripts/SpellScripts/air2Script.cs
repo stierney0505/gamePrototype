@@ -6,7 +6,7 @@ using UnityEngine;
 public class air2Script : MonoBehaviour, spell //This spell has two parts, it starts by moving the enemies towards its 'center' and then pushes them out dealing damage
 {
     [SerializeField] float damage, knockBack, speed; //to decide the damage number
-    [SerializeField] char type; //to decide the spell type
+    [SerializeField] dLRSNode.types type; //to decide the spell type
     internal Collider2D col;
     float tempDamage, tempKnockBack; //these hold the damage values of damage and knockBack so that they can be activated after the movement portion of the spell
     List<Transform> enemies = new List<Transform>();
@@ -60,7 +60,7 @@ public class air2Script : MonoBehaviour, spell //This spell has two parts, it st
             remove();
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
 
     public void rotate(Vector2 start, Vector2 end)
     {

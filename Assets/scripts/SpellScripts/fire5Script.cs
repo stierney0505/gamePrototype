@@ -5,7 +5,7 @@ using UnityEngine;
 public class fire5Script : MonoBehaviour, spell
 {
     [SerializeField] float damage, knockBack; //to decide the damage number
-    [SerializeField] char type; //to decide the spell type
+    [SerializeField] dLRSNode.types type; //to decide the spell type
     public int spellCount, limit;
     internal Vector2 startLoc, endLoc, direction;
     internal bool left;
@@ -41,7 +41,7 @@ public class fire5Script : MonoBehaviour, spell
             remove();
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
 
     public void enableCollider()
     {

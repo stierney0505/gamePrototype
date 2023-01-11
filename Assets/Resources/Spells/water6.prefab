@@ -122,7 +122,7 @@ MonoBehaviour:
   damage: 75
   knockBack: 200
   rotation: 0
-  type: 87
+  type: 4
 --- !u!60 &-3356595689676365098
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -139,7 +139,7 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.52572, y: 0.06349202}
+    pivot: {x: 0.5, y: 0.2}
     oldSize: {x: 0.66, y: 0.77}
     newSize: {x: 0.66, y: 0.77}
     adaptiveTilingThreshold: 0.5

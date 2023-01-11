@@ -139,4 +139,4 @@ MonoBehaviour:
   knockBack: 0
   speed: 20
   loopLimit: 14
-  type: 65
+  type: 5

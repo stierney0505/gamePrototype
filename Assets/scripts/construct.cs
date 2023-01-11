@@ -5,9 +5,9 @@ using UnityEngine;
 public class construct : MonoBehaviour
 {   
     float damage, health;
-    char type;
+    dLRSNode.types type;
     Animator animator;
-    public void setDamageType(float dmg, char typ) { damage = dmg; type = typ; health = 1.75f * dmg; }
+    public void setDamageType(float dmg, dLRSNode.types typ) { damage = dmg; type = typ; health = 1.75f * dmg; }
 
 
     private void OnCollisionEnter2D(Collision2D col)

@@ -5,7 +5,7 @@ using UnityEngine;
 public class water5AttackScript : MonoBehaviour, spell
 {
     public float damage, knockBack, rotation;
-    public char type;
+    public dLRSNode.types type;
     public Transform parent;
     public bool left;
     Animator animator;
@@ -33,7 +33,7 @@ public class water5AttackScript : MonoBehaviour, spell
             remove();
         animator.SetTrigger("fade"); }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+    public dLRSNode.types getType() { return type; }
     public void enableCollider() { col.enabled = true; }
     public void disableCollider() { col.enabled = false; }
     public float getKnockBack() { return knockBack; }

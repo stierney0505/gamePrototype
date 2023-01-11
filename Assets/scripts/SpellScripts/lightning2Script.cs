@@ -6,7 +6,7 @@ using UnityEngine;
 public class lightning2Script : MonoBehaviour, spell
 {
     public float damage, knockBack, speed;
-    public char type;
+    public dLRSNode.types type;
     Animator animator;
     bool projectile = false;
     Vector2 endLoc, startLoc;
@@ -55,7 +55,7 @@ public class lightning2Script : MonoBehaviour, spell
         animator.speed = 1; 
         speed = 0; }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
     public void rotate(Vector2 start, Vector2 end)
     {
         if (start.x > end.x) { transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y); }

@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   knockBack: 160
-  type: 87
+  type: 4
   speed: 2
 --- !u!58 &3736714778970236789
 CircleCollider2D:

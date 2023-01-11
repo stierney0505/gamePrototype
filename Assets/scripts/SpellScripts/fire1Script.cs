@@ -9,7 +9,7 @@ public class fire1Script : MonoBehaviour, spell //A script that works for most l
     private Animator animator;
     int loops = 0;
     [SerializeField] float damage, knockBack, speed;
-    [SerializeField] char type;
+    [SerializeField] dLRSNode.types type;
 
     private void Start()
     {
@@ -84,7 +84,7 @@ public class fire1Script : MonoBehaviour, spell //A script that works for most l
 
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
 
     public float getKnockBack() { return knockBack; }
 

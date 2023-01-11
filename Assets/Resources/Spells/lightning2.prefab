@@ -122,7 +122,7 @@ MonoBehaviour:
   damage: 40
   knockBack: 10
   speed: 36
-  type: 76
+  type: 2
 --- !u!60 &6223218827558371670
 PolygonCollider2D:
   m_ObjectHideFlags: 0

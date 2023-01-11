@@ -122,7 +122,7 @@ MonoBehaviour:
   damage: 15
   knockBack: 45
   speed: 10
-  type: 68
+  type: 0
 --- !u!58 &1845036693317166575
 CircleCollider2D:
   m_ObjectHideFlags: 0

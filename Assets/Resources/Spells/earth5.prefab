@@ -121,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 50
   knockBack: 50
-  type: 69
+  type: 3
   spellCount: 1
 --- !u!60 &5014758474525784579
 PolygonCollider2D:

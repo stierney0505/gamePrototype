@@ -122,7 +122,7 @@ MonoBehaviour:
   damage: 10
   knockBack: 0
   speed: 0
-  type: 87
+  type: 8
 --- !u!68 &7156234697847523884
 EdgeCollider2D:
   m_ObjectHideFlags: 0

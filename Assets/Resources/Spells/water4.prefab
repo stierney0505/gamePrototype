@@ -121,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   knockBack: 30
-  type: 87
+  type: 4
   spellCount: 0
   limit: 5
 --- !u!60 &240412066983889115

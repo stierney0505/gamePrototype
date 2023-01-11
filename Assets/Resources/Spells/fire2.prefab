@@ -122,7 +122,7 @@ MonoBehaviour:
   damage: 17.5
   knockBack: 12
   speed: 15
-  type: 70
+  type: 1
 --- !u!70 &5391542163282372040
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

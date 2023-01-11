@@ -5,7 +5,7 @@ using UnityEngine;
 public class dark3Script : MonoBehaviour, spell
 {
     [SerializeField] float damage, knockBack; //to decide the damage number || For this spell the damage and knockback should be 1/4 of the total damage and Knockback
-    [SerializeField] char type; //because the spell will hit twice, once with the black triangle and a second time with the hand
+    [SerializeField] dLRSNode.types type; //because the spell will hit twice, once with the black triangle and a second time with the hand
     internal CapsuleCollider2D capCol;
     internal PolygonCollider2D polyCol;
     private bool phase2 = false;
@@ -32,7 +32,7 @@ public class dark3Script : MonoBehaviour, spell
             remove();
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
 
     public void enableCollider()
     {

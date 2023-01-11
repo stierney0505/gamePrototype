@@ -121,8 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 15
   knockBack: 5
-  type: 68
-  spellCount: 0
+  type: 0
   limit: 7
 --- !u!70 &5010048935782748286
 CapsuleCollider2D:

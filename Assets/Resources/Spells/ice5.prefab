@@ -122,7 +122,7 @@ MonoBehaviour:
   damage: 35
   knockBack: 0
   rotation: 0
-  type: 87
+  type: 8
 --- !u!70 &1231962645676062321
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

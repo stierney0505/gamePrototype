@@ -7,7 +7,7 @@ public class earth3Script : MonoBehaviour, spell
     float animSpeed = 1f, speed = 5f;
     private Animator animator;
     public float damage, knockBack;
-    public char type;
+    public dLRSNode.types type;
     Vector3 startLoc, endLoc;
     bool hit = false;
     private void Start()
@@ -86,7 +86,7 @@ public class earth3Script : MonoBehaviour, spell
     }
 
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
     public float getKnockBack() { return knockBack; }
 
     public void addEnemy(Transform enemyTransform)

@@ -5,7 +5,7 @@ using UnityEngine;
 public class dark2Script : MonoBehaviour, spell
 {
     public float damage, knockBack;
-    public char type;
+    public dLRSNode.types type;
     public int spellCount, limit;
     internal Vector2 playerSource, startLoc;
 
@@ -36,7 +36,7 @@ public class dark2Script : MonoBehaviour, spell
             remove();
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
     public void rotate(Vector2 start, Vector2 end) //Todo create variance in the rotation probably -30/30
     {
         if (start.x > end.x) { transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y); }

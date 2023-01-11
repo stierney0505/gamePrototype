@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class air6Script : MonoBehaviour, spell
 {
     [SerializeField] float damage, knockBack, speed, loopLimit;
-    [SerializeField] char type;
+    [SerializeField] dLRSNode.types type;
     internal Collider2D col;
     Vector2 startLoc, dir;
     float time = 0, x, y; //these hold the damage values of damage and knockBack so that they can be activated after the movement portion of the spell
@@ -62,7 +62,7 @@ public class air6Script : MonoBehaviour, spell
             remove();
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
 
     public void enableCollider()
     {

@@ -8,7 +8,7 @@ public class water5Script : MonoBehaviour
     public float damage, knockBack;
     float time, rotation;
     bool started = false, left;
-    public char type;
+    public dLRSNode.types type;
     water5AttackScript spellScript;
     Animator animator;
 

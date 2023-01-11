@@ -5,7 +5,7 @@ using UnityEngine;
 public class lightning5Script : MonoBehaviour, spell
 {
     [SerializeField] float damage, knockBack; //to decide the damage number
-    [SerializeField] char type; //to decide the spell type
+    [SerializeField] dLRSNode.types type; //to decide the spell type
     int loops = 0;
     Animator animator;
 
@@ -28,7 +28,7 @@ public class lightning5Script : MonoBehaviour, spell
             remove();
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
 
     public void enableCollider() { Collider2D col = GetComponent<Collider2D>(); col.enabled = true; }
     public void disableCollider() { Collider2D col = GetComponent<Collider2D>(); col.enabled = false; }

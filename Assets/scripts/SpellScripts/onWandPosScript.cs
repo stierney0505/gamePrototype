@@ -5,7 +5,7 @@ using UnityEngine;
 public class onWandPosScript : MonoBehaviour, spell
 {
     public float damage, knockBack;
-    public char type;
+    public dLRSNode.types type;
     
 
     private void Start()
@@ -28,7 +28,7 @@ public class onWandPosScript : MonoBehaviour, spell
             remove();
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
     public void rotate(Vector2 start, Vector2 end)
     {
         if (start.x > end.x) { transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y); }

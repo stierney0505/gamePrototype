@@ -5,7 +5,7 @@ using UnityEngine;
 public class onPosScript : MonoBehaviour, spell
 {
     [SerializeField] float damage, knockBack, rotation; //to decide the damage number
-    [SerializeField] char type; //to decide the spell type
+    [SerializeField] dLRSNode.types type; //to decide the spell type
     internal Collider2D col;
     
 
@@ -31,7 +31,7 @@ public class onPosScript : MonoBehaviour, spell
             remove();
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
 
     public void enableCollider() {  
         col.enabled = true; }

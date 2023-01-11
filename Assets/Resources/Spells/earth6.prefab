@@ -168,4 +168,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 60
   knockBack: 70
-  type: 69
+  type: 3

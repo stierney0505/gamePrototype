@@ -6,7 +6,7 @@ using UnityEngine;
 public class air4Script : MonoBehaviour, spell
 {
     [SerializeField] float damage, knockBack, speed; //to decide the damage number
-    [SerializeField] char type; //to decide the spell type
+    [SerializeField] dLRSNode.types type; //to decide the spell type
     [SerializeField] int loopLimit;
     internal Collider2D col;
     List<Transform> enemies = new List<Transform>();
@@ -58,7 +58,7 @@ public class air4Script : MonoBehaviour, spell
             remove();
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
     public void enableCollider()
     {
         col.enabled = true;

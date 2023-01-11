@@ -5,7 +5,7 @@ using UnityEngine;
 public class water4Script : MonoBehaviour, spell
 {
     [SerializeField] float damage, knockBack; //to decide the damage number
-    [SerializeField] char type; //to decide the spell type
+    [SerializeField] dLRSNode.types type; //to decide the spell type
     public int spellCount, limit;
     Vector2 nextLoc, direction;
     bool left; //if the spell is to the left of the player this is true
@@ -56,7 +56,7 @@ public class water4Script : MonoBehaviour, spell
             remove();
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
 
     public void enableCollider()
     {

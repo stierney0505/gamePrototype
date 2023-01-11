@@ -6,16 +6,16 @@ public class dLRS //Doubly Linked-List Rune Selector Class, pretty simple it wil
 {                 // F for fire, W for water, L for lightning, E for earth, A for air
     public dLRSNode head;
 
-    public dLRS(char type)
+    public dLRS(dLRSNode.types type)
     {
         head = new dLRSNode(type);
         
     }
-    public char getData() { return head.type; }
+    public dLRSNode.types getData() { return head.getData(); }
     public void next() { head = head.next; }
     public void prev() { head = head.prev; }
 
-    public static dLRS createList(char[] types)
+    public static dLRS createList(dLRSNode.types[] types)
     {
         dLRS typeArray;
 

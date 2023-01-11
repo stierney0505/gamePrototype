@@ -1,5 +1,6 @@
 using Pathfinding;
 using UnityEngine;
+using static UnityEditor.LightingExplorerTableColumn;
 using Random = UnityEngine.Random;
 
 public class ghostWarrior3Behaviour : MonoBehaviour, Unit //This ai uses a behaviour tree to decide what behaviour it will do, if it is not activated it will wander and if it is activated it never wander and try to attack ranged first 
@@ -9,7 +10,7 @@ public class ghostWarrior3Behaviour : MonoBehaviour, Unit //This ai uses a behav
     Seeker seeker;
     Rigidbody2D body;
     Collider2D melee1, melee2;
-    char type = 'D';
+    dLRSNode.types type = dLRSNode.types.DARK;
     public float damage = 10.0f, health = 100.0f, attackCD = 3f, knockBack = 15f, speed = 4;
     bool meleePart2 = false, aiActivated = false, struck = false, endPath = false, attacking = false, playerDead = true;
     behaviourTree tree; //The above bools track if the melee attack will have two parts, if the ai is activated, if the ai is struck by the player and can't
@@ -87,7 +88,7 @@ public class ghostWarrior3Behaviour : MonoBehaviour, Unit //This ai uses a behav
     }
 
 
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
     public float getDamage() { return damage; }
     public float getKnockBack() { return knockBack; }
 
@@ -97,7 +98,7 @@ public class ghostWarrior3Behaviour : MonoBehaviour, Unit //This ai uses a behav
         deactivateMelee2Hitbox();
 
         float damage = spell.getDamage(); //gets the type and damage from the spell that is damaging it
-        char atkType = spell.getType();
+        dLRSNode.types atkType = spell.getType();
 
         GameObject hitEffect = Instantiate(Resources.Load(spellTypeHelper.getOnHitEffect(spell.getType()))) as GameObject; //creates a hiteffect
         hitEffect.transform.position = transform.position; //set hit effect position to itself

@@ -6,7 +6,7 @@ public class earth2Script : MonoBehaviour, spell
 {
     float time = 0;
     [SerializeField] float damage, knockBack;
-    [SerializeField] char type;
+    [SerializeField] dLRSNode.types type;
 
     private void Start()
     {
@@ -38,7 +38,7 @@ public class earth2Script : MonoBehaviour, spell
     }
 
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
     public float getKnockBack() { return knockBack; }
 
     public void addEnemy(Transform enemyTransform)

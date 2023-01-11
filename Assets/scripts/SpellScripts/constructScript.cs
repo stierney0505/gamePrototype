@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class constructScript : MonoBehaviour, spell { //Mostly a copy of onPosScript, but with added methods to create objects in the environment
     [SerializeField] float damage, knockBack; //to decide the damage number
-    [SerializeField] char type; //to decide the spell type
+    [SerializeField] dLRSNode.types type; //to decide the spell type
 
     private void Start()
     {
@@ -27,7 +27,7 @@ public class constructScript : MonoBehaviour, spell { //Mostly a copy of onPosSc
             remove();
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
 
     public void enableCollider()
     {

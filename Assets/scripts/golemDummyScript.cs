@@ -38,7 +38,7 @@ public class golemDummyScript : MonoBehaviour, unitInterface
         if (col.gameObject.TryGetComponent<spell>(out spell spellComponent))
         {
             float damage = spellComponent.getDamage();
-            char type = spellComponent.getType();
+            dLRSNode.types type = spellComponent.getType();
             spellComponent.end(false);
             takeDamage(damage);
             GameObject hitEffect = Instantiate(Resources.Load(spellTypeHelper.getOnHitEffect(spellComponent.getType()))) as GameObject;

@@ -122,7 +122,7 @@ MonoBehaviour:
   damage: 40
   knockBack: 120
   rotation: 0
-  type: 87
+  type: 6
 --- !u!60 &8798474342732600065
 PolygonCollider2D:
   m_ObjectHideFlags: 0

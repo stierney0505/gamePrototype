@@ -5,7 +5,7 @@ using UnityEngine;
 public class lightning6script : MonoBehaviour, spell
 {
     [SerializeField] float damage, knockBack;
-    [SerializeField] char type; 
+    [SerializeField] dLRSNode.types type; 
     public Vector3 getVector()
     {
         
@@ -20,7 +20,7 @@ public class lightning6script : MonoBehaviour, spell
             remove();
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
 
     public void enableCollider()
     {

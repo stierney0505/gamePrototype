@@ -111,7 +111,7 @@ public class PlayerScript : MonoBehaviour
         Unit enemyComponent = null;
         spell enemyProjectile = null;
         float damage = 0, tempDmg = 0, knockBack = 0;
-        char type = 'X';
+        dLRSNode.types type = dLRSNode.types.EMPTY;
         
         if (col.tag == "Attack")
         {
@@ -167,9 +167,9 @@ public class PlayerScript : MonoBehaviour
                 }
             }
             
-            // char type = spellComponent.getType(); TODO add enemy type
+   
             if(tempDmg > 0)  
-                takeDamage(spellTypeHelper.damageModifier(type, runeSelector.list.getData(), tempDmg)); //Calls static spellTypeHelper method to modify the damage
+                takeDamage(spellTypeHelper.damageModifier(type, runeSelector.list.getData(), tempDmg)); //Calls static spellTypeHelper method to modify the damage based on what rune is selected in the rune selector
             else
                 takeDamage(damage);
             Vector2 forceDirection = transform.position - col.transform.position;
@@ -180,7 +180,7 @@ public class PlayerScript : MonoBehaviour
     {
         animator.SetBool("running", false);
         barrierActive = true;
-        char type = runeSelector.list.getData();
+        dLRSNode.types type = runeSelector.list.getData();
         runeSelector.setBarBool(true);
         barrier = Instantiate(Resources.Load("Barriers/" + type + "Barrier")) as GameObject;
         barrier.GetComponent<barrierScript>().setPos(transform);
@@ -197,21 +197,21 @@ public class PlayerScript : MonoBehaviour
 
     public string getChargeType() //This is a helper method to determine which charge animation to play based on the rune
     {
-        char type = runeSelector.list.getData();
+        dLRSNode.types type = runeSelector.list.getData();
 
         switch (type)
         {
-            case 'F':
+            case dLRSNode.types.FIRE:
                 return "fCharge";
-            case 'E':
+            case dLRSNode.types.EARTH:
                 return "eCharge";
-            case 'W':
+            case dLRSNode.types.WATER:
                 return "wCharge";
-            case 'A':
+            case dLRSNode.types.AIR:
                 return "aCharge";
-            case 'L':
+            case dLRSNode.types.LIGHTNING:
                 return "lCharge";
-            case 'D':
+            case dLRSNode.types.DARK:
                 return "dCharge";
             default:
                 return null;

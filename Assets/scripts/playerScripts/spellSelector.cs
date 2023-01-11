@@ -17,21 +17,21 @@ public class spellSelector : MonoBehaviour
         chargeLoc = transform.GetChild(2);
     }
 
-    public char updateNextSpell(char[] runes, char nextSpellType, int runeCount)//This method checks the rune buffer for the latest rune, or if there is a combination and update the next spell type for the next spell cast
+    public dLRSNode.types updateNextSpell(dLRSNode.types[] runes, dLRSNode.types nextSpellType, int runeCount)//This method checks the rune buffer for the latest rune, or if there is a combination and update the next spell type for the next spell cast
     {   //It also checks for spell combinations, which happens when there is an equal amount of specific runes, i.e. X earth and X water makes a wood spell, lighting and fire makes acid, water and wind makes Ice.
         int count1 = 0;
         int count2 = 0;
-        char type1 = 'X';
-        char type2 = 'X';
-        char nextSpell = nextSpellType;
+        dLRSNode.types type1 = dLRSNode.types.EMPTY;
+        dLRSNode.types type2 = dLRSNode.types.EMPTY;
+        dLRSNode.types nextSpell = nextSpellType;
 
         for (int i = 0; i < runeCount; i++)
         {
-            if (type1 == 'X' || runes[i] == type1)
+            if (type1 == dLRSNode.types.EMPTY || runes[i] == type1)
             {   type1 = runes[i];//This block here iteratively checks each rune in the runes array
                 count1++; //and if there is more than two than there isnt a combination so it breaks
             }
-            else if (type1 != runes[i] && (type2 == 'X' || runes[i] == type2))
+            else if (type1 != runes[i] && (type2 == dLRSNode.types.EMPTY || runes[i] == type2))
             {   type2 = runes[i];
                 count2++;
             }
@@ -47,17 +47,17 @@ public class spellSelector : MonoBehaviour
 
         switch (type1, type2) 
         {
-            case ('E', 'W'): //This case checks if the types are Earth and water or vice versa for wood spell
-            case ('W', 'E'):
-                nextSpell = 'P';
+            case (dLRSNode.types.EARTH, dLRSNode.types.WATER): //This case checks if the types are Earth and water or vice versa for wood spell
+            case (dLRSNode.types.WATER, dLRSNode.types.EARTH):
+                nextSpell = dLRSNode.types.WOOD;
                 break;
-            case ('L', 'F'): //This case checks if the types are lightning and fire or vice versa for acid spell
-            case ('F', 'L'):
-                nextSpell = 'C';
+            case (dLRSNode.types.LIGHTNING, dLRSNode.types.FIRE): //This case checks if the types are lightning and fire or vice versa for acid spell
+            case (dLRSNode.types.FIRE, dLRSNode.types.LIGHTNING):
+                nextSpell = dLRSNode.types.ACID;
                 break;
-            case ('A', 'W'): //This case checks if the types are water and air or vice versa for ice spell
-            case ('W', 'A'):
-                nextSpell = 'I';
+            case (dLRSNode.types.AIR, dLRSNode.types.WATER): //This case checks if the types are water and air or vice versa for ice spell
+            case (dLRSNode.types.WATER, dLRSNode.types.AIR):
+                nextSpell = dLRSNode.types.ICE;
                 break;
         }
 
@@ -67,56 +67,56 @@ public class spellSelector : MonoBehaviour
             nextSpellType = nextSpell;
             return nextSpell;
     }
-    public string spellSelect(char nextSpell, int runes) //This method shound return the string of the next spell based on the nextSpell char
+    public string spellSelect(dLRSNode.types nextSpell, int runes) //This method is for selecting spells using the spell buffer
     {
         int runeCount = runes + 1;
         switch (nextSpell)//This checks what runes[i] is and increments the runecount for that type
         {
-            case 'L': //Case L for lighting
+            case dLRSNode.types.LIGHTNING: 
                 return "lightning" + runeCount;
-            case 'F': //Case F for Fire
+            case dLRSNode.types.FIRE: 
                 return "fire" + runeCount;
-            case 'A': //Case A for Air
+            case dLRSNode.types.AIR: 
                 return "air" + runeCount;
-            case 'E': //Case E for Earth
+            case dLRSNode.types.EARTH: 
                 return "earth" + runeCount;
-            case 'W': //Case W for Water
+            case dLRSNode.types.WATER: 
                 return "water" + runeCount;
-            case 'D': //Case D for Dark
+            case dLRSNode.types.DARK: 
                 return "dark" + runeCount;
-            case 'C': //case C for aCid becuase a is taken
+            case dLRSNode.types.ACID: 
                 return "acid" + runeCount;
-            case 'P': //case P for wood because wood is from trees which is from Plants
+            case dLRSNode.types.WOOD: 
                 return "wood" + runeCount;
-            case 'I': //case I for Ice
+            case dLRSNode.types.ICE: 
                 return "ice" + runeCount;
             default:
                 return null; //Todo replace this with a placeholder spell for errors
         }
     }
 
-    public string spellSelect(char nextSpell) //This method shound return the string of the next spell based on the nextSpell char
+    public string spellSelect(dLRSNode.types nextSpell) //This method is for spells casted without the spell buffer using the runes
     {
         switch (nextSpell)//This checks what runes[i] is and increments the runecount for that type
         {
-            case 'L': //Case L for lighting
-                return "lightning" + 1;
-            case 'F': //Case F for Fire
-                return "fire" + 1;
-            case 'A': //Case A for Air
-                return "air" + 1;
-            case 'E': //Case E for Earth
-                return "earth" + 1;
-            case 'W': //Case W for Water
-                return "water" + 1;
-            case 'D': //Case D for Dark
-                return "dark" + 1;
-            case 'C': //case C for aCid becuase a is taken
-                return "acid" + 1;
-            case 'P': //case P for wood because wood is from trees which is from Plants
-                return "wood" + 1;
-            case 'I': //case I for Ice
-                return "ice" + 1;
+            case dLRSNode.types.LIGHTNING:
+                return "lightning1";
+            case dLRSNode.types.FIRE:
+                return "fire1";
+            case dLRSNode.types.AIR:
+                return "air1";
+            case dLRSNode.types.EARTH:
+                return "earth1";
+            case dLRSNode.types.WATER:
+                return "water1";
+            case dLRSNode.types.DARK:
+                return "dark1";
+            case dLRSNode.types.ACID:
+                return "acid1";
+            case dLRSNode.types.WOOD:
+                return "wood1";
+            case dLRSNode.types.ICE:
+                return "ice1";
             default:
                 return null; //Todo replace this with a placeholder spell for errors
         }
@@ -124,27 +124,27 @@ public class spellSelector : MonoBehaviour
 
 
 
-    public int getChildrenNum(char type) //This method takes the spell type and returns the child number for the nextSpellUI element
+    public int getChildrenNum(dLRSNode.types type) //This method takes the spell type and returns the child number for the nextSpellUI element
     {   
         switch (type)
         {
-            case 'L':
+            case dLRSNode.types.LIGHTNING:
                 return 0;
-            case 'F':
+            case dLRSNode.types.FIRE:
                 return 1;
-            case 'W':
+            case dLRSNode.types.WATER:
                 return 2;
-            case 'A':
+            case dLRSNode.types.AIR:
                 return 3;
-            case 'E':
+            case dLRSNode.types.EARTH:
                 return 4;
-            case 'D':
+            case dLRSNode.types.DARK:
                 return 5;
-            case 'C':
+            case dLRSNode.types.ACID:
                 return 6;
-            case 'P':
+            case dLRSNode.types.WOOD:
                 return 7;
-            case 'I':
+            case dLRSNode.types.ICE:
                 return 8;
             default:
                 return -1;
@@ -160,7 +160,7 @@ public class spellSelector : MonoBehaviour
         }
     }
 
-    public void createSpellCircle(char spellType, bool runeSpell, int runeCount, bool isCharging)
+    public void createSpellCircle(dLRSNode.types spellType, bool runeSpell, int runeCount, bool isCharging)
     {
         int count = 1;
         string folder = "";
@@ -181,23 +181,23 @@ public class spellSelector : MonoBehaviour
             string starter = "aura";
             switch (spellType)
             {
-                case 'F':
+                case dLRSNode.types.FIRE:
                     circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Fire" + count)) as GameObject;
                     break;
-                case 'E':
+                case dLRSNode.types.EARTH:
                     circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Earth" + count)) as GameObject;
                     break;
-                case 'W':
-                case 'I':
+                case dLRSNode.types.WATER:
+                case dLRSNode.types.ICE:
                     circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Water" + count)) as GameObject;
                     break;
-                case 'A':
+                case dLRSNode.types.AIR:
                     circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Air" + count)) as GameObject;
                     break;
-                case 'L':
+                case dLRSNode.types.LIGHTNING:
                     circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Lightning" + count)) as GameObject;
                     break;
-                case 'D':
+                case dLRSNode.types.DARK:
                     circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Dark" + count)) as GameObject;
                     break;
                 default:

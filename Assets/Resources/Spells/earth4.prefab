@@ -122,7 +122,7 @@ MonoBehaviour:
   damage: 35
   knockBack: 125
   rotation: 0
-  type: 69
+  type: 3
 --- !u!61 &6977072738571178485
 BoxCollider2D:
   m_ObjectHideFlags: 0

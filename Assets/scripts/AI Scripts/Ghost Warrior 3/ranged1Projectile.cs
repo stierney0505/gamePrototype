@@ -6,7 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 public class ranged1Projectile : MonoBehaviour, spell
 {
     [SerializeField] float damage, knockBack; //to decide the damage number
-    char type = 'D';
+    dLRSNode.types type = dLRSNode.types.DARK;
     public float speed, aSpeed;
     GameObject targetEnemy;
     Animator animator;
@@ -37,7 +37,7 @@ public class ranged1Projectile : MonoBehaviour, spell
     }
     public void remove() { Destroy(gameObject); }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+    public dLRSNode.types getType() { return type; }
     
     public void findPlayer()
     {

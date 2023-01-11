@@ -5,7 +5,7 @@ using UnityEngine;
 public class ranged2Projectile : MonoBehaviour, spell
 {
     [SerializeField] float damage, knockBack; //to decide the damage number
-    [SerializeField] char type; //to decide the spell type
+    [SerializeField] dLRSNode.types type; //to decide the spell type
     int spellCount = 0;
     public int limit;
     Vector2 nextLoc, direction;
@@ -37,7 +37,7 @@ public class ranged2Projectile : MonoBehaviour, spell
         }
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
 
     public void enableCollider()
     {

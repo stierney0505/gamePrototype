@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 public class dark4Script : MonoBehaviour, spell //This spell will first start with one spell at the cursor location then attack X more times
 {                                               //which distanceBetween +or- distanceBetween/2 within the angle of AttackAngle
     [SerializeField] float damage, knockBack, distanceBetween, attackAngle; 
-    [SerializeField] char type;
+    [SerializeField] dLRSNode.types type;
     internal int spellCount;
     public int limit;
     internal Vector2 startLoc, direction;
@@ -40,7 +40,7 @@ public class dark4Script : MonoBehaviour, spell //This spell will first start wi
             remove();
     }
     public float getDamage() { return damage; }
-    public char getType() { return type; }
+     public dLRSNode.types getType() { return type; }
 
     public void enableCollider()
     {

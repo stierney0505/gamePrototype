@@ -4,7 +4,7 @@ using UnityEngine;
 public class runeSelector : MonoBehaviour //This class manages the rune selection by the player
 {
     spellSelector selector;
-    private char[] runes;
+    private dLRSNode.types[] runes;
     private int runeCount;
     private GameObject FireIcon, EarthIcon, AirIcon, LightningIcon, DarkIcon, WaterIcon;
     public dLRS list;
@@ -12,7 +12,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     Vector2 mousePos;
     string spellName;
     Animator animator;
-    char nextSpellType;
+    dLRSNode.types nextSpellType;
     float runeSwitchCD = 1;
 
     // Start is called before the first frame update
@@ -20,8 +20,8 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     {
         animator = GetComponent<Animator>();
         selector = GetComponent<spellSelector>(); //Set up for rune buffer
-        runes = new char[5];
-        runes[0] = 'X';
+        runes = new dLRSNode.types[5];
+        runes[0] = dLRSNode.types.EMPTY;
         runeCount = 0;
         disableRuneIcons();
 
@@ -39,25 +39,25 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         LightningIcon.SetActive(false);
 
 
-        char[] elements = new char[2];
+        dLRSNode.types[] elements = new dLRSNode.types[2];
         switch (gameObject.name[0]) //Each character gets only 2 elements to charge/use basic attacks with, so the first letter of the character is either W, R, or B 
         {                           //For the white, red, and blue witch respectively and each will get two elements based upon that.
             case 'W':
-                elements[0] = 'W';
-                elements[1] = 'A';
-                setIcon('W');
+                elements[0] = dLRSNode.types.WATER;
+                elements[1] = dLRSNode.types.AIR;
+                setIcon(dLRSNode.types.WATER);
                 break;
 
             case 'R':
-                elements[0] = 'E';
-                elements[1] = 'F';
-                setIcon('E');
+                elements[0] = dLRSNode.types.EARTH;
+                elements[1] = dLRSNode.types.FIRE;
+                setIcon(dLRSNode.types.EARTH);
                 break;
 
             case 'B':
-                elements[0] = 'L';
-                elements[1] = 'D';
-                setIcon('L');
+                elements[0] = dLRSNode.types.LIGHTNING;
+                elements[1] = dLRSNode.types.DARK;
+                setIcon(dLRSNode.types.LIGHTNING);
                 break;
         }
 
@@ -135,51 +135,51 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
             runeCount = 0;
     }
 
-    public void setIcon(char type) //Currently I have my gui elements all overlaping and disable them and enable them as need be, on the backlog for refactoring but it ain't broken right now so I don't need to fix it
+    public void setIcon(dLRSNode.types type) //Currently I have my gui elements all overlaping and disable them and enable them as need be, on the backlog for refactoring but it ain't broken right now so I don't need to fix it
     {
         switch (type)
         {
-            case 'F':
+            case dLRSNode.types.FIRE:
                 FireIcon.SetActive(true);
                 break;
-            case 'E':
+            case dLRSNode.types.EARTH:
                 EarthIcon.SetActive(true);
                 break;
-            case 'W':
+            case dLRSNode.types.WATER:
                 WaterIcon.SetActive(true);
                 break;
-            case 'A':
+            case dLRSNode.types.AIR:
                 AirIcon.SetActive(true);
                 break;
-            case 'L':
+            case dLRSNode.types.LIGHTNING:
                 LightningIcon.SetActive(true);
                 break;
-            case 'D':
+            case dLRSNode.types.DARK:
                 DarkIcon.SetActive(true);
                 break;
         }
     }
 
-    public void disableIcon(char type)
+    public void disableIcon(dLRSNode.types type)
     {
         switch (type)
         {
-            case 'F':
+            case dLRSNode.types.FIRE:
                 FireIcon.SetActive(false);
                 break;
-            case 'E':
+            case dLRSNode.types.EARTH:
                 EarthIcon.SetActive(false);
                 break;
-            case 'W':
+            case dLRSNode.types.WATER:
                 WaterIcon.SetActive(false);
                 break;
-            case 'A':
+            case dLRSNode.types.AIR:
                 AirIcon.SetActive(false);
                 break;
-            case 'L':
+            case dLRSNode.types.LIGHTNING:
                 LightningIcon.SetActive(false);
                 break;
-            case 'D':
+            case dLRSNode.types.DARK:
                 DarkIcon.SetActive(false);
                 break;
         }
@@ -190,25 +190,25 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         int runeGroup = 0;
         if (runeCount >= 5)
             return;
-        char type = list.getData();
+        dLRSNode.types type = list.getData();
         switch (type)
         {
-            case 'F':
+            case dLRSNode.types.FIRE:
                 runeGroup = 1;
                 break;
-            case 'E':
+            case dLRSNode.types.EARTH:
                 runeGroup = 2;
                 break;
-            case 'W':
+            case dLRSNode.types.WATER:
                 runeGroup = 3;
                 break;
-            case 'A':
+            case dLRSNode.types.AIR:
                 runeGroup = 4;
                 break;
-            case 'L':
+            case dLRSNode.types.LIGHTNING:
                 runeGroup = 5;
                 break;
-            case 'D':
+            case dLRSNode.types.DARK:
                 runeGroup = 6;
                 break;
         }
@@ -221,31 +221,31 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         nextSpellType = selector.updateNextSpell(runes, nextSpellType, runeCount);
     }
 
-    public void AddRune(char rune) //This method adds a rune to the rune buffer based on what rune is selected in the rune selector
+    public void AddRune(dLRSNode.types rune) //This method adds a rune to the rune buffer based on what rune is selected in the rune selector
     {
         int runeGroup = 0;
         if (runeCount >= 5)
             return;
-        char type = rune;
+        dLRSNode.types type = rune;
 
         switch (rune)
         {
-            case 'F' :
+            case dLRSNode.types.FIRE:
                 runeGroup = 1;
                 break;
-            case 'E':
+            case dLRSNode.types.EARTH:
                 runeGroup = 2;
                 break;
-            case 'W':
+            case dLRSNode.types.WATER:
                 runeGroup = 3;
                 break;
-            case 'A':
+            case dLRSNode.types.AIR:
                 runeGroup = 4;
                 break;
-            case 'L':
+            case dLRSNode.types.LIGHTNING:
                 runeGroup = 5;
                 break;
-            case 'D':
+            case dLRSNode.types.DARK:
                 runeGroup = 6;
                 break;
         }
@@ -264,7 +264,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         spell.SetActive(true);
         if (altFire)
         {
-            for (int i = 0; i < runes.Length; i++) { runes[i] = 'X'; };
+            for (int i = 0; i < runes.Length; i++) { runes[i] = dLRSNode.types.EMPTY; };
             disableRuneIcons();
             selector.disableChildren();
             altFire = false;
@@ -275,29 +275,22 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     public void setLocked(bool isLocked) { locked = isLocked; }
     public void unlock() { locked = false; } //This method just 'unlocks' the rune selector and is called on the first run frame so that the player can quickly cancel the charge if they are doing so
     public bool isChargeActive() { return chargeActive; }
-    public string getAttackType(char type) //This helper method takes a char and returns the animation trigger based upon the char type 
+    public string getAttackType(dLRSNode.types type) //This helper method takes a 'types' enum and returns the animation trigger based upon the enum type 
     {
         switch (type)
         {
-            case 'F':
-            case 'f':
+            case dLRSNode.types.FIRE:
                 return "fAttack";
-            case 'E':
-            case 'e':
+            case dLRSNode.types.EARTH:
                 return "eAttack";
-            case 'W':
-            case 'w':
-            case 'I':
-            case 'i':
+            case dLRSNode.types.WATER:
+            case dLRSNode.types.ICE:
                 return "wAttack";
-            case 'A':
-            case 'a':
+            case dLRSNode.types.AIR:
                 return "aAttack";
-            case 'L':
-            case 'l':
+            case dLRSNode.types.LIGHTNING:
                 return "lAttack";
-            case 'D':
-            case 'd':
+            case dLRSNode.types.DARK:
                 return "dAttack";
             default:
                 return null;

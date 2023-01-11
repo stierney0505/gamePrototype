@@ -122,7 +122,7 @@ MonoBehaviour:
   damage: 1
   knockBack: 0
   speed: 3
-  type: 65
+  type: 5
   loopLimit: 7
 --- !u!70 &4428696804455217834
 CapsuleCollider2D:

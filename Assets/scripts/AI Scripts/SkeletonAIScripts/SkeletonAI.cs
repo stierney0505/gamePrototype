@@ -14,7 +14,7 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
     Rigidbody2D body;
     public float damage = 10.0f, health = 100.0f, attackCD = 3f, knockBack = 15f;
     private float time;
-    char type = 'E'; public char getType() { return type; }
+    dLRSNode.types type = dLRSNode.types.EARTH;  public dLRSNode.types getType() { return type; }
     internal bool attackEnd = false, canAttack = true, aiTriggerd = false; 
     
     private float speed;
@@ -80,7 +80,7 @@ public class SkeletonAI : MonoBehaviour, Unit //This AI uses a finite state mach
     {
         attackBox.enabled = false;
         float damage = spell.getDamage();
-        char type = spell.getType();
+        dLRSNode.types type = spell.getType();
 
         GameObject hitEffect = Instantiate(Resources.Load(spellTypeHelper.getOnHitEffect(spell.getType()))) as GameObject;
         hitEffect.transform.position = transform.position;

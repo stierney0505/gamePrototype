@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 12
   knockBack: 8
-  type: 68
+  type: 0
 --- !u!70 &655563154308345554
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

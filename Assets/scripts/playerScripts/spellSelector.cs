@@ -162,6 +162,8 @@ public class spellSelector : MonoBehaviour
 
     public void createSpellCircle(dLRSNode.types spellType, bool runeSpell, int runeCount, bool isCharging)
     {
+        if (runeCount == 5)
+            return;
         int count = 1;
         string folder = "";
         if (isCharging)

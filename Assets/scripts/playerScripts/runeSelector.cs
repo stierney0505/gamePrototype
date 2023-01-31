@@ -39,14 +39,24 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         LightningIcon.SetActive(false);
 
 
-        dLRSNode.types[] elements = new dLRSNode.types[2];
+        dLRSNode.types[] elements = new dLRSNode.types[6];
         switch (gameObject.name[0]) //Each character gets only 2 elements to charge/use basic attacks with, so the first letter of the character is either W, R, or B 
         {                           //For the white, red, and blue witch respectively and each will get two elements based upon that.
-            case 'W':
+            case 'W': //TODO probably remove or comment out w r and b cases
                 elements[0] = dLRSNode.types.WATER;
                 elements[1] = dLRSNode.types.AIR;
                 setIcon(dLRSNode.types.WATER);
                 break;
+
+            case 'N':
+                elements[0] = dLRSNode.types.FIRE;
+                elements[1] = dLRSNode.types.DARK;
+                elements[2] = dLRSNode.types.EARTH;
+                elements[3] = dLRSNode.types.WATER;
+                elements[4] = dLRSNode.types.AIR;
+                elements[5] = dLRSNode.types.LIGHTNING;
+                setIcon(dLRSNode.types.FIRE);
+                break; 
 
             case 'R':
                 elements[0] = dLRSNode.types.EARTH;
@@ -80,7 +90,14 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         {
             Vector2 pos = new Vector2(0, 0); //This block of code just checks if the player clicked or scrolled
             pos.y += Input.mouseScrollDelta.y * 1.0f; //if they scrolled switches rune, if they clicked they lauch a spell
-            if (switchActive && !barActive && (pos.y > 0 || pos.y < 0)) { switchIcon(pos.y > 0); }
+            if (pos.y > 0 || pos.y < 0)
+            {
+                if (switchActive && !barActive)
+                {
+                    switchIcon(pos.y > 0);
+                    animator.SetLayerWeight(getLayer(), 1);
+                }
+            }
 
             if (Input.GetMouseButtonDown(1) && runeCount != 0)
             {
@@ -302,6 +319,20 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
        selector.createSpellCircle(list.getData(), true, runeCount, true);
     }
     public void setBarBool(bool isActive) { barActive = isActive; }
+
+    public int getLayer() //This method checks if the current rune equipped is the same type as the animator layer through the toStr method
+    {                     //this method also makes each layer than isn't the layer of the selected equal to 0
+        int returnInt = 0;
+        for (int i = 0; i < animator.layerCount; i++)  
+        {
+            if (list.toStr() == animator.GetLayerName(i))
+                returnInt = i;
+            else
+                animator.SetLayerWeight(i, 0); //TODO once the amount of runes are selectable, optimize the code so that it only turns off the x-1 selected runes
+
+        }
+        return returnInt;
+    }
 }
 
 

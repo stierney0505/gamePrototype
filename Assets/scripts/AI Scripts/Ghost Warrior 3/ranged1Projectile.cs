@@ -22,8 +22,10 @@ public class ranged1Projectile : MonoBehaviour, spell
     }
 
     private void Update()
-    {   
-        if(!ending)
+    {
+        if (targetEnemy != null)
+            end(false);
+        else if (!ending)
             travel();
     }
     private void travel()

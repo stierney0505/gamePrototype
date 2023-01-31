@@ -99,7 +99,14 @@ public class PlayerScript : MonoBehaviour
         healthBar.healthBarColor();
     }
 
-    public void die() { animator.SetTrigger("dead"); dead = true; Collider2D col = GetComponent<Collider2D>(); col.enabled = false; } 
+    public void die() { 
+        animator.SetLayerWeight(runeSelector.getLayer(), 1);
+        animator.SetTrigger("dead"); 
+        dead = true; 
+        Collider2D col = GetComponent<Collider2D>(); 
+        col.enabled = false;
+        body.velocity = Vector2.zero;
+    } 
     public void stopMovement() { movementDisabled = true; animator.SetBool("running", false); } //Stops the player from moving 
     public void allowMovement() { movementDisabled = false; } //Enables moving
     
@@ -222,6 +229,7 @@ public class PlayerScript : MonoBehaviour
     {
         string prefix = name.Substring(0, 2);
         GameObject deathObject = Instantiate(Resources.Load(prefix + "dead")) as GameObject;
+        deathObject.transform.rotation = transform.rotation;
         Destroy(gameObject);
     }
 }

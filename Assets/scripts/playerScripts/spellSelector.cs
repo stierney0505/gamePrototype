@@ -6,7 +6,6 @@ using UnityEngine;
 public class spellSelector : MonoBehaviour
 {
     GameObject nextSpellUI;
-    static GameObject circle;
     Transform beneath;
     Transform chargeLoc;
     private void Start()
@@ -159,73 +158,6 @@ public class spellSelector : MonoBehaviour
             nextSpellUI.transform.GetChild(i).gameObject.SetActive(false);
         }
     }
-
-    public void createSpellCircle(dLRSNode.types spellType, bool runeSpell, int runeCount, bool isCharging)
-    {
-        if (runeCount == 5)
-            return;
-        int count = 1;
-        string folder = "";
-        if (isCharging)
-        {
-            count++;
-            folder = "chargeCircles/";
-        }
-        else
-            folder = "spellCastCircles/";
-
-        if (runeSpell)
-            count += runeCount;
-
-
-        if (circle == null)
-        {
-            string starter = "aura";
-            switch (spellType)
-            {
-                case dLRSNode.types.FIRE:
-                    circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Fire" + count)) as GameObject;
-                    break;
-                case dLRSNode.types.EARTH:
-                    circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Earth" + count)) as GameObject;
-                    break;
-                case dLRSNode.types.WATER:
-                case dLRSNode.types.ICE:
-                    circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Water" + count)) as GameObject;
-                    break;
-                case dLRSNode.types.AIR:
-                    circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Air" + count)) as GameObject;
-                    break;
-                case dLRSNode.types.LIGHTNING:
-                    circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Lightning" + count)) as GameObject;
-                    break;
-                case dLRSNode.types.DARK:
-                    circle = Instantiate(Resources.Load("MagicCircles/" + folder + starter + "Dark" + count)) as GameObject;
-                    break;
-                default:
-                    break;
-            }
-
-
-            if (count < 5)
-            {
-                magicCircleRotationScript circleScript = circle.GetComponent<magicCircleRotationScript>();
-                if (isCharging)
-                    circleScript.location = chargeLoc;
-                else
-                    circleScript.location = beneath;
-            }
-            else
-            {
-                magicCircleAndHelperRotation circleScript = circle.GetComponent<magicCircleAndHelperRotation>();
-                if (isCharging)
-                    circleScript.location = chargeLoc;
-                else
-                    circleScript.location = beneath;
-            }
-        }
-    }
-
-    public void destoryCircle() { staticDestoryCircle(); } //TODO make a graceful exit animation or something
-    public static void staticDestoryCircle() { Destroy(circle); }
 }
+
+

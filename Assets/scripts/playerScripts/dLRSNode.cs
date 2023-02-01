@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class dLRSNode //Doubly Linked-List Rune Selector Node, to be used for the rune selection
@@ -18,5 +19,25 @@ public class dLRSNode //Doubly Linked-List Rune Selector Node, to be used for th
 
     public types getData() { return type; }
 
+    public static string toStr(types type) //this static method returns a string based upon what enum was put into the parameter
+    {                                      //primarily made to discern what animator layer to set to, but could be reused
+        switch (type)
+        {
+            case dLRSNode.types.FIRE:
+                return("Fire");
+            case dLRSNode.types.EARTH:
+                return ("Earth");
+            case dLRSNode.types.WATER:
+                return ("Water");
+            case dLRSNode.types.AIR:
+                return ("Air");
+            case dLRSNode.types.LIGHTNING:
+                return ("Lightning");
+            case dLRSNode.types.DARK:
+                return ("Dark");
+            default:
+                return ("YOU MESSED UP");
+        }
+    }
 }
 

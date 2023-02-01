@@ -5,15 +5,22 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
 {
     spellSelector selector;
     private dLRSNode.types[] runes;
-    private int runeCount;
+    private short runeCount, //runeCount is the count of the runes used in a spell
+        comboCount, //ComboCount will be incremented up to three based upon how many times the player clicks during the combo window
+        comboCheck = 0; //ComboCheck increments at the end of each comboAttack as a way to check when the combo is done
     private GameObject FireIcon, EarthIcon, AirIcon, LightningIcon, DarkIcon, WaterIcon;
-    public dLRS list;
-    private bool locked = false, chargeActive = false, altFire = false, switchActive = true, barActive = false; 
-    Vector2 mousePos;
+    public dLRS list; //List of the runes the player has
+    private bool locked = false, //Locked bool is for stopping the rune selector from switching runes
+        chargeActive = false, //this bool keeps track of if the character is charging a rune into the rune buffer
+        altFire = false,  //altFire bool is true when the player uses the empowered spell, and it lets launchspell know to empty the rune buffer
+        switchReady = true, //switchActive bool is for checking if the character is able to switch runes
+        barActive = false, //barActive bool is for checking if the character is using a barrier
+        comboActive = false; //comboActice bool is for checking if the character is performing a combo
+    Vector2 mousePos; //this vector2 keeps track of the mousePos that the player clicked on to
     string spellName;
     Animator animator;
     dLRSNode.types nextSpellType;
-    float runeSwitchCD = 1;
+    float runeSwitchCD = 1; //The cooldown between rune switches
 
     // Start is called before the first frame update
     void Start()
@@ -42,12 +49,6 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         dLRSNode.types[] elements = new dLRSNode.types[6];
         switch (gameObject.name[0]) //Each character gets only 2 elements to charge/use basic attacks with, so the first letter of the character is either W, R, or B 
         {                           //For the white, red, and blue witch respectively and each will get two elements based upon that.
-            case 'W': //TODO probably remove or comment out w r and b cases
-                elements[0] = dLRSNode.types.WATER;
-                elements[1] = dLRSNode.types.AIR;
-                setIcon(dLRSNode.types.WATER);
-                break;
-
             case 'N':
                 elements[0] = dLRSNode.types.FIRE;
                 elements[1] = dLRSNode.types.DARK;
@@ -57,34 +58,22 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
                 elements[5] = dLRSNode.types.LIGHTNING;
                 setIcon(dLRSNode.types.FIRE);
                 break; 
-
-            case 'R':
-                elements[0] = dLRSNode.types.EARTH;
-                elements[1] = dLRSNode.types.FIRE;
-                setIcon(dLRSNode.types.EARTH);
-                break;
-
-            case 'B':
-                elements[0] = dLRSNode.types.LIGHTNING;
-                elements[1] = dLRSNode.types.DARK;
-                setIcon(dLRSNode.types.LIGHTNING);
-                break;
         }
 
         list = dLRS.createList(elements);
+
+        animator.SetLayerWeight(getLayer(), 1);
     }
 
     void Update()
     {
-
-        if (switchActive) { }
-        else if (runeSwitchCD < 1f)
+        if (!switchReady && runeSwitchCD < 1f) 
         {
-            switchActive = false;
+            switchReady = false;
             runeSwitchCD += (Time.deltaTime);
         }
-        else if (runeSwitchCD >= 1f)
-            switchActive = true;
+        else if (!switchReady && runeSwitchCD >= 1f)
+            switchReady = true;
 
         if (!locked)
         {
@@ -92,7 +81,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
             pos.y += Input.mouseScrollDelta.y * 1.0f; //if they scrolled switches rune, if they clicked they lauch a spell
             if (pos.y > 0 || pos.y < 0)
             {
-                if (switchActive && !barActive)
+                if (switchReady && !barActive)
                 {
                     switchIcon(pos.y > 0);
                     animator.SetLayerWeight(getLayer(), 1);
@@ -104,18 +93,20 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
                 altFire = true;
                 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 spellName = selector.spellSelect(nextSpellType, runeCount);
-                selector.createSpellCircle(nextSpellType, true, runeCount, false);
-                animator.SetTrigger(getAttackType(nextSpellType));
+                animator.SetLayerWeight(getLayer(dLRSNode.toStr(nextSpellType)), 1);
+                animator.SetTrigger("specialAttack");
                 if (mousePos.x < transform.position.x && transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); } //rotates the player towards the direction they clicked
                 else if (mousePos.x > transform.position.x && transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); }
             }
 
             if (Input.GetMouseButtonDown(0))
             {
+                if(comboActive == false) { comboCount = 1; comboActive = true; } //These line checks if the character is in the middle of a combo, and if not sets the combo bool to true
+                else if(comboActive == true && comboCount < 3) { comboCount++; }
+
                 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 spellName = selector.spellSelect(list.getData());
-                selector.createSpellCircle(list.getData(), false, runeCount, false);
-                animator.SetTrigger(getAttackType(list.getData()));
+                animator.SetBool("attack" + comboCount, true);
                 if (mousePos.x < transform.position.x && transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); } //rotates the player towards the direction they clicked
                 else if (mousePos.x > transform.position.x && transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); }
             }
@@ -127,7 +118,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     public void switchIcon(bool next)//This just switches between icons based off the parameter
     {
         runeSwitchCD = 0f;
-        switchActive = false;
+        switchReady = false;
         disableIcon(list.getData());
         if (next)
         {
@@ -287,39 +278,11 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
             altFire = false;
         }
     }
-
     public void switchLocked() { locked = !locked; chargeActive = !chargeActive; }
     public void setLocked(bool isLocked) { locked = isLocked; }
     public void unlock() { locked = false; } //This method just 'unlocks' the rune selector and is called on the first run frame so that the player can quickly cancel the charge if they are doing so
     public bool isChargeActive() { return chargeActive; }
-    public string getAttackType(dLRSNode.types type) //This helper method takes a 'types' enum and returns the animation trigger based upon the enum type 
-    {
-        switch (type)
-        {
-            case dLRSNode.types.FIRE:
-                return "fAttack";
-            case dLRSNode.types.EARTH:
-                return "eAttack";
-            case dLRSNode.types.WATER:
-            case dLRSNode.types.ICE:
-                return "wAttack";
-            case dLRSNode.types.AIR:
-                return "aAttack";
-            case dLRSNode.types.LIGHTNING:
-                return "lAttack";
-            case dLRSNode.types.DARK:
-                return "dAttack";
-            default:
-                return null;
-        }
-    }
-
-    internal void createChargeCircle()
-    {
-       selector.createSpellCircle(list.getData(), true, runeCount, true);
-    }
     public void setBarBool(bool isActive) { barActive = isActive; }
-
     public int getLayer() //This method checks if the current rune equipped is the same type as the animator layer through the toStr method
     {                     //this method also makes each layer than isn't the layer of the selected equal to 0
         int returnInt = 0;
@@ -333,6 +296,27 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         }
         return returnInt;
     }
+    public int getLayer(string goalLayer) //This is an overload of the getLayer() method, this has a parameter as a goal layer to set as the top layer
+    {                     
+        int returnInt = 0;
+        for (int i = 0; i < animator.layerCount; i++)
+        {
+            if (goalLayer == animator.GetLayerName(i)) //checks if the current layer is the goal layer
+                returnInt = i;
+            else
+                animator.SetLayerWeight(i, 0); 
+
+        }
+        return returnInt;
+    }
+    public void resetCombo() { //This method resets the comboActive bool and comboCount int, called through the animator at the end of each combo animation
+        comboCheck++;
+        if (comboCount > comboCheck)//Since comboCount goes up to 3, if comboCheck is ever equal to comboCount then the comboShould end
+            return;
+
+        comboActive = false; comboCount = 0; comboCheck = 0;  
+        animator.SetBool("attack1", false); animator.SetBool("attack2", false); animator.SetBool("attack3", false);} 
+    public void resetAnimatorLayer() { animator.SetLayerWeight(getLayer(), 1); } //This method switches the animator layer back to the element selected in the rune buffer, called through the animator at the end of a special attack or every hurt/death animation
 }
 
 

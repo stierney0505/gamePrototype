@@ -19,9 +19,6 @@ public class dLRS //Doubly Linked-List Rune Selector Class, pretty simple it wil
     public static dLRS createList(dLRSNode.types[] types)
     {
         dLRS typeArray;
-
-
-        
         typeArray = new dLRS(types[0]);
         if (types.Length > 1)
         {

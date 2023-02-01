@@ -88,9 +88,9 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
                 }
             }
 
-            if (Input.GetMouseButtonDown(1) && runeCount != 0)
-            {
-                altFire = true;
+            if (Input.GetMouseButtonDown(1) && runeCount != 0 && !comboActive) //This checks if the player right clicked and has enough runes to use a specialattack (runes>0), and that a melee combo isn't being performed
+            {   
+                altFire = true; //Adjust the altfire bool because a special attack is will be performed
                 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 spellName = selector.spellSelect(nextSpellType, runeCount);
                 animator.SetLayerWeight(getLayer(dLRSNode.toStr(nextSpellType)), 1);
@@ -265,12 +265,17 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         nextSpellType = selector.updateNextSpell(runes, nextSpellType, runeCount);
     }
 
-    public void launchSpell() //This method current triggers the spellSelector's launch spell method and give it the camera
-    {                        //Position of where the player clicked. Called through the animator
+    public void launchSpell()
+    {                        
+        if (comboCheck == 2)//This if statement checks if the combo is on the third(Final) attack of the combo, comboCheck gets incremented at the end of an attack so it needs to be 2 to check for the third attack during the third attack
+            spellName = selector.spellSelect(list.getData(), 1);//Upgrades the attack to level two through the spellSelect method
+
         GameObject spell = Instantiate(Resources.Load("Spells/" + spellName)) as GameObject;
+        if (Input.GetMouseButton(0) && !altFire) //This checks if the mouse is being held during the launch of a combo, and if so
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //readjusts the mousePos for the lauching of the spell
         spell.transform.position = mousePos;
         spell.SetActive(true);
-        if (altFire)
+        if (altFire) //altFire bool tracks if the rune buffer was used to empower the spell, so if it is true then it removes the runes in the buffer
         {
             for (int i = 0; i < runes.Length; i++) { runes[i] = dLRSNode.types.EMPTY; };
             disableRuneIcons();
@@ -311,12 +316,21 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     }
     public void resetCombo() { //This method resets the comboActive bool and comboCount int, called through the animator at the end of each combo animation
         comboCheck++;
-        if (comboCount > comboCheck)//Since comboCount goes up to 3, if comboCheck is ever equal to comboCount then the comboShould end
+        if (Input.GetMouseButton(0) && comboCount < 3) //This if statement checks if the left click is being held down, if so
+        {   comboCount++; //it increments the comboCount
+            animator.SetBool("attack" + comboCount, true); //Advances the animation to the next stage of the combo attack
+            return; //ends the method
+        }
+        else if (comboCount > comboCheck)//Since comboCount goes up to 3, if comboCheck is ever equal to comboCount then the comboShould end
             return;
 
         comboActive = false; comboCount = 0; comboCheck = 0;  
         animator.SetBool("attack1", false); animator.SetBool("attack2", false); animator.SetBool("attack3", false);} 
     public void resetAnimatorLayer() { animator.SetLayerWeight(getLayer(), 1); } //This method switches the animator layer back to the element selected in the rune buffer, called through the animator at the end of a special attack or every hurt/death animation
-}
+    public void onHitBoolReset() { altFire = false; comboActive = false; comboCount = 0; comboCheck = 0;
+        animator.SetBool("attack1", false); animator.SetBool("attack2", false); animator.SetBool("attack3", false);
+        chargeActive = false; barActive = false; //This method just resets all the values/bools to their base state, intended for use when the player gets struck, called through the animator
+    }
+}   
 
 

@@ -4632,6 +4632,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 57048464441444805, guid: 80c9921624e62d548adf377036b31cab, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 200.89789
+      objectReference: {fileID: 0}
     - target: {fileID: 2489313651580267714, guid: 80c9921624e62d548adf377036b31cab, type: 3}
       propertyPath: m_Name
       value: SpellsUI

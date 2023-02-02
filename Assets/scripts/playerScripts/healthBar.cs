@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class healthBar : MonoBehaviour
 {
-    public static float totalHealth;
-    public static float currentHealth;
+    private static float totalHealth;
+    private static float currentHealth;
     private static Image healthImage;
     // Start is called before the first frame update
     void Start()
@@ -21,7 +19,6 @@ public class healthBar : MonoBehaviour
     {
         currentHealth += value;
         healthImage.fillAmount = (currentHealth/totalHealth);
-        
     }
 
     public static void healthBarColor() //This changes the health bar color based on the ratio between current health and total health

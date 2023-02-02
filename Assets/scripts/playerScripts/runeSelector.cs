@@ -4,37 +4,24 @@ using UnityEngine;
 public class runeSelector : MonoBehaviour //This class manages the rune selection by the player
 {
     spellSelector selector;
-    private dLRSNode.types[] runes;
-    private short runeCount, //runeCount is the count of the runes used in a spell
-        comboCount, //ComboCount will be incremented up to three based upon how many times the player clicks during the combo window
-        comboCheck = 0; //ComboCheck increments at the end of each comboAttack as a way to check when the combo is done
-    private GameObject FireIcon, EarthIcon, AirIcon, LightningIcon, DarkIcon, WaterIcon;
-    public dLRS list; //List of the runes the player has
-    private bool locked = false, //Locked bool is for stopping the rune selector from switching runes
-        chargeActive = false, //this bool keeps track of if the character is charging a rune into the rune buffer
-        altFire = false,  //altFire bool is true when the player uses the empowered spell, and it lets launchspell know to empty the rune buffer
-        switchReady = true, //switchActive bool is for checking if the character is able to switch runes
-        barActive = false, //barActive bool is for checking if the character is using a barrier
-        comboActive = false; //comboActice bool is for checking if the character is performing a combo
-    Vector2 mousePos; //this vector2 keeps track of the mousePos that the player clicked on to
-    string spellName;
+    PlayerScript pScript;
     Animator animator;
-    dLRSNode.types nextSpellType;
+    private GameObject FireIcon, EarthIcon, AirIcon, LightningIcon, DarkIcon, WaterIcon, runeIcons;
     float runeSwitchCD = 1; //The cooldown between rune switches
-
+    private bool switchReady = true, barActive = false; //switchActive bool is for checking if the character is able to switch runes
     // Start is called before the first frame update
     void Start()
     {
+        selector = GetComponent<spellSelector>();
         animator = GetComponent<Animator>();
-        selector = GetComponent<spellSelector>(); //Set up for rune buffer
-        runes = new dLRSNode.types[5];
-        runes[0] = dLRSNode.types.EMPTY;
-        runeCount = 0;
+        pScript = GetComponent<PlayerScript>();
+        runeIcons = GameObject.Find("Spell Slots");
+
         disableRuneIcons();
 
         FireIcon = GameObject.Find("FireIcon"); //This block of code disables the icons on the gui on start,
-        FireIcon.SetActive(false);              //TODO replace gui icons with prefabs to add and delete them
-        WaterIcon = GameObject.Find("WaterIcon"); //Instead of enabling and disabling
+        FireIcon.SetActive(false);              
+        WaterIcon = GameObject.Find("WaterIcon"); 
         WaterIcon.SetActive(false);
         EarthIcon = GameObject.Find("EarthIcon");
         EarthIcon.SetActive(false);
@@ -45,90 +32,44 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         LightningIcon = GameObject.Find("LightningIcon");
         LightningIcon.SetActive(false);
 
-
-        dLRSNode.types[] elements = new dLRSNode.types[6];
-        switch (gameObject.name[0]) //Each character gets only 2 elements to charge/use basic attacks with, so the first letter of the character is either W, R, or B 
-        {                           //For the white, red, and blue witch respectively and each will get two elements based upon that.
-            case 'N':
-                elements[0] = dLRSNode.types.FIRE;
-                elements[1] = dLRSNode.types.DARK;
-                elements[2] = dLRSNode.types.EARTH;
-                elements[3] = dLRSNode.types.WATER;
-                elements[4] = dLRSNode.types.AIR;
-                elements[5] = dLRSNode.types.LIGHTNING;
-                setIcon(dLRSNode.types.FIRE);
-                break; 
-        }
-
-        list = dLRS.createList(elements);
-
-        animator.SetLayerWeight(getLayer(), 1);
     }
 
     void Update()
     {
-        if (!switchReady && runeSwitchCD < 1f) 
-        {
-            switchReady = false;
+        if (!switchReady && runeSwitchCD < 1f) //This if statement checks if the player has just switched(switchReady == false)
+        {                                      // and if they have switched within 1 second (runeSwitchCD)
+            switchReady = false; 
             runeSwitchCD += (Time.deltaTime);
         }
-        else if (!switchReady && runeSwitchCD >= 1f)
-            switchReady = true;
+        else if (!switchReady && runeSwitchCD >= 1f) //If the player has switched greater than 1 second ago, 
+            switchReady = true; //Changes the switchReady bool to true        
 
-        if (!locked)
+        Vector2 pos = new Vector2(0, 0); //This block of code just checks if the player clicked or scrolled
+        pos.y += Input.mouseScrollDelta.y * 1.0f; //if they scrolled switches rune, if they clicked they lauch a spell
+        if (pos.y > 0 || pos.y < 0)
         {
-            Vector2 pos = new Vector2(0, 0); //This block of code just checks if the player clicked or scrolled
-            pos.y += Input.mouseScrollDelta.y * 1.0f; //if they scrolled switches rune, if they clicked they lauch a spell
-            if (pos.y > 0 || pos.y < 0)
+            if (switchReady && !barActive)
             {
-                if (switchReady && !barActive)
-                {
-                    switchIcon(pos.y > 0);
-                    animator.SetLayerWeight(getLayer(), 1);
-                }
+                switchIcon(pos.y > 0);
+                animator.SetLayerWeight(pScript.getLayer(), 1);
             }
-
-            if (Input.GetMouseButtonDown(1) && runeCount != 0 && !comboActive) //This checks if the player right clicked and has enough runes to use a specialattack (runes>0), and that a melee combo isn't being performed
-            {   
-                altFire = true; //Adjust the altfire bool because a special attack is will be performed
-                mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                spellName = selector.spellSelect(nextSpellType, runeCount);
-                animator.SetLayerWeight(getLayer(dLRSNode.toStr(nextSpellType)), 1);
-                animator.SetTrigger("specialAttack");
-                if (mousePos.x < transform.position.x && transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); } //rotates the player towards the direction they clicked
-                else if (mousePos.x > transform.position.x && transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); }
-            }
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                if(comboActive == false) { comboCount = 1; comboActive = true; } //These line checks if the character is in the middle of a combo, and if not sets the combo bool to true
-                else if(comboActive == true && comboCount < 3) { comboCount++; }
-
-                mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                spellName = selector.spellSelect(list.getData());
-                animator.SetBool("attack" + comboCount, true);
-                if (mousePos.x < transform.position.x && transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); } //rotates the player towards the direction they clicked
-                else if (mousePos.x > transform.position.x && transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); }
-            }
-
         }
-        
     }
 
     public void switchIcon(bool next)//This just switches between icons based off the parameter
     {
         runeSwitchCD = 0f;
         switchReady = false;
-        disableIcon(list.getData());
+        disableIcon(pScript.getList().getData());
         if (next)
         {
-            list.next();
-            setIcon(list.getData());
+            pScript.getList().next();
+            setIcon(pScript.getList().getData());
         }
         else
         {
-            list.prev();
-            setIcon(list.getData());
+            pScript.getList().prev();
+            setIcon(pScript.getList().getData());
         }
     }
 
@@ -136,11 +77,11 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     {  
             for (int j = 1; j < 7; j++)
             {
-                GameObject currentRunes = GameObject.Find("Runes" + j);
+                GameObject currentRunes = runeIcons.transform.Find("Runes" + j).gameObject;
                 for (int i = 1; i < 6; i++)
                     currentRunes.transform.GetChild(i - 1).gameObject.SetActive(false);
             }
-            runeCount = 0;
+            pScript.setRuneCount(0);
     }
 
     public void setIcon(dLRSNode.types type) //Currently I have my gui elements all overlaping and disable them and enable them as need be, on the backlog for refactoring but it ain't broken right now so I don't need to fix it
@@ -193,15 +134,20 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         }
     }
 
-    public void AddRune() //This method adds a rune to the rune buffer based on what rune is selected in the rune selector
+    public void AddRune() //This method adds a rune to the rune buffer based on what rune is selected in the rune selector, made to be called from the animator
     {
-        int runeGroup = 0;
-        if (runeCount >= 5)
+        int runeGroup = 0; //This int is used for finding the correct rune group in the GUI
+        int runeCount = pScript.getRuneCount(); //These statments get the values from the Playscript
+        dLRSNode.types[] runes = pScript.getRunes();
+        dLRSNode.types nextSpellType = pScript.getNextSpellType();
+        dLRS list = pScript.getList();
+
+        if (runeCount >= 5) //If the player has 5 runes they shouldn't be able to get any more
             return;
-        dLRSNode.types type = list.getData();
-        switch (type)
+        dLRSNode.types type = pScript.getList().getData();
+        switch (type) //This switch statement takes the rune type and finds the gui group related to the element, and changes runeGroup to match that group
         {
-            case dLRSNode.types.FIRE:
+            case dLRSNode.types.FIRE: //TODO REPLACE int runegroup with a string for better readability and rename gui elements
                 runeGroup = 1;
                 break;
             case dLRSNode.types.EARTH:
@@ -221,17 +167,26 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
                 break;
         }
 
-        GameObject currentRunes = GameObject.Find("Runes" + runeGroup);
-        currentRunes.transform.GetChild(runeCount).gameObject.SetActive(true);
+        GameObject currentRunes = runeIcons.transform.Find("Runes" + runeGroup).gameObject; //These two statements get the gui Element and 
+        currentRunes.transform.GetChild(runeCount).gameObject.SetActive(true); //make the gui element active to indicate a rune in the rune buffer
         runes[runeCount] = list.getData();
         runeCount++;
         nextSpellType = runes[runeCount -1];
         nextSpellType = selector.updateNextSpell(runes, nextSpellType, runeCount);
+
+        pScript.setRunes(runes); //These statements update the PlayerScript's value in order to maintain
+        pScript.setNextSpellType(nextSpellType); //the rune-value coherency
+        pScript.setRuneCount(runeCount);
     }
 
-    public void AddRune(dLRSNode.types rune) //This method adds a rune to the rune buffer based on what rune is selected in the rune selector
+    public void AddRune(dLRSNode.types rune) //This overload of the method adds a rune to the rune buffer based on what rune is selected in the rune selector,
     {
-        int runeGroup = 0;
+
+        int runeGroup = 0; //This int is used for finding the correct rune group in the GUI
+        int runeCount = pScript.getRuneCount(); //These statments get the values from the Playscript
+        dLRSNode.types[] runes = pScript.getRunes();
+        dLRSNode.types nextSpellType = pScript.getNextSpellType();
+
         if (runeCount >= 5)
             return;
         dLRSNode.types type = rune;
@@ -257,80 +212,21 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
                 runeGroup = 6;
                 break;
         }
-        GameObject currentRunes = GameObject.Find("Runes" + runeGroup);
-        currentRunes.transform.GetChild(runeCount).gameObject.SetActive(true);
+
+        GameObject currentRunes = runeIcons.transform.Find("Runes" + runeGroup).gameObject; //These two statements get the gui Element and 
+        currentRunes.transform.GetChild(runeCount).gameObject.SetActive(true); //make the gui element active to indicate a rune in the rune buffer
         runes[runeCount] = rune;
         runeCount++;
         nextSpellType = rune;
         nextSpellType = selector.updateNextSpell(runes, nextSpellType, runeCount);
+
+
+        pScript.setRunes(runes); //These statements update the PlayerScript's value in order to maintain
+        pScript.setNextSpellType(nextSpellType); //the rune-value coherency
+        pScript.setRuneCount(runeCount);
     }
 
-    public void launchSpell()
-    {                        
-        if (comboCheck == 2)//This if statement checks if the combo is on the third(Final) attack of the combo, comboCheck gets incremented at the end of an attack so it needs to be 2 to check for the third attack during the third attack
-            spellName = selector.spellSelect(list.getData(), 1);//Upgrades the attack to level two through the spellSelect method
-
-        GameObject spell = Instantiate(Resources.Load("Spells/" + spellName)) as GameObject;
-        if (Input.GetMouseButton(0) && !altFire) //This checks if the mouse is being held during the launch of a combo, and if so
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //readjusts the mousePos for the lauching of the spell
-        spell.transform.position = mousePos;
-        spell.SetActive(true);
-        if (altFire) //altFire bool tracks if the rune buffer was used to empower the spell, so if it is true then it removes the runes in the buffer
-        {
-            for (int i = 0; i < runes.Length; i++) { runes[i] = dLRSNode.types.EMPTY; };
-            disableRuneIcons();
-            selector.disableChildren();
-            altFire = false;
-        }
-    }
-    public void switchLocked() { locked = !locked; chargeActive = !chargeActive; }
-    public void setLocked(bool isLocked) { locked = isLocked; }
-    public void unlock() { locked = false; } //This method just 'unlocks' the rune selector and is called on the first run frame so that the player can quickly cancel the charge if they are doing so
-    public bool isChargeActive() { return chargeActive; }
     public void setBarBool(bool isActive) { barActive = isActive; }
-    public int getLayer() //This method checks if the current rune equipped is the same type as the animator layer through the toStr method
-    {                     //this method also makes each layer than isn't the layer of the selected equal to 0
-        int returnInt = 0;
-        for (int i = 0; i < animator.layerCount; i++)  
-        {
-            if (list.toStr() == animator.GetLayerName(i))
-                returnInt = i;
-            else
-                animator.SetLayerWeight(i, 0); //TODO once the amount of runes are selectable, optimize the code so that it only turns off the x-1 selected runes
-
-        }
-        return returnInt;
-    }
-    public int getLayer(string goalLayer) //This is an overload of the getLayer() method, this has a parameter as a goal layer to set as the top layer
-    {                     
-        int returnInt = 0;
-        for (int i = 0; i < animator.layerCount; i++)
-        {
-            if (goalLayer == animator.GetLayerName(i)) //checks if the current layer is the goal layer
-                returnInt = i;
-            else
-                animator.SetLayerWeight(i, 0); 
-
-        }
-        return returnInt;
-    }
-    public void resetCombo() { //This method resets the comboActive bool and comboCount int, called through the animator at the end of each combo animation
-        comboCheck++;
-        if (Input.GetMouseButton(0) && comboCount < 3) //This if statement checks if the left click is being held down, if so
-        {   comboCount++; //it increments the comboCount
-            animator.SetBool("attack" + comboCount, true); //Advances the animation to the next stage of the combo attack
-            return; //ends the method
-        }
-        else if (comboCount > comboCheck)//Since comboCount goes up to 3, if comboCheck is ever equal to comboCount then the comboShould end
-            return;
-
-        comboActive = false; comboCount = 0; comboCheck = 0;  
-        animator.SetBool("attack1", false); animator.SetBool("attack2", false); animator.SetBool("attack3", false);} 
-    public void resetAnimatorLayer() { animator.SetLayerWeight(getLayer(), 1); } //This method switches the animator layer back to the element selected in the rune buffer, called through the animator at the end of a special attack or every hurt/death animation
-    public void onHitBoolReset() { altFire = false; comboActive = false; comboCount = 0; comboCheck = 0;
-        animator.SetBool("attack1", false); animator.SetBool("attack2", false); animator.SetBool("attack3", false);
-        chargeActive = false; barActive = false; //This method just resets all the values/bools to their base state, intended for use when the player gets struck, called through the animator
-    }
 }   
 
 

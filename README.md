@@ -15,6 +15,6 @@ This work is licensed under a
 The art is not mine, the sources are below:
 <br>
 <br>Spell effects by Pimen https://pimen.itch.io/
-<br>Character sprite by 9E0 https://9e0.itch.io/
+<br>Character sprite by Otsoga https://otsoga.itch.io/eleonore
 <br>UI Border by GX310 https://gx310.itch.io/ 
-<br>Tileset was created by https://cainos.itch.io/
+<br>Tilesets were created by https://rafaelmatos.itch.io/

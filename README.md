@@ -17,4 +17,4 @@ The art is not mine, the sources are below:
 <br>Spell effects by Pimen https://pimen.itch.io/
 <br>Character sprite by Otsoga https://otsoga.itch.io/eleonore
 <br>UI Border by GX310 https://gx310.itch.io/ 
-<br>Tilesets were created by https://rafaelmatos.itch.io/
+<br>Tilesets were created by Rafaelmatos https://rafaelmatos.itch.io/

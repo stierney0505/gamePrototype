@@ -100,7 +100,7 @@ public class PlayerScript : MonoBehaviour
                 else if (mousePos.x > transform.position.x && transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); }
             }
 
-        if (Input.GetKeyDown(KeyCode.E) && !movementDisabled) {  //The E button currently turns the character into a charge state where they 
+        if (Input.GetKeyDown(KeyCode.E) && !movementDisabled && manaBar.getManaBarValue() > 0) {  //The E button currently turns the character into a charge state where they 
                animator.SetTrigger("charge");   chargeActive = true;}     //triggers the charge animation
 
         if (Input.GetKey(KeyCode.W)) //these get the directions the character is moving as bools, this is so that if 
@@ -117,8 +117,8 @@ public class PlayerScript : MonoBehaviour
 
         if (chargeActive == true && manaBar.getManaBarValue() > 0)
         {
-            runeBufferProgress.incrementProgress(manaDrain *Time.deltaTime);
-            manaBar.incrementPlayerMana(-manaDrain * Time.deltaTime); //Mana is currently removed at a set amount, will be changed once the game is more realized 
+            runeBufferProgress.incrementProgress(4 * manaDrain *Time.deltaTime); //Increments the progress bar by a proportion of the mana used over time
+            manaBar.incrementPlayerMana(-manaDrain * Time.deltaTime, true); //Mana is currently removed at a set amount, will be changed once the game is more realized 
         }
         else if (manaBar.getManaBarValue() <= 0) { chargeActive = false; animator.SetTrigger("idle"); }
 

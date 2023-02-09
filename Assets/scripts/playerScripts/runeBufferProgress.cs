@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class runeBufferProgress : MonoBehaviour
-{ 
+{
+    private static dLRSNode.types nextType = dLRSNode.types.FIRE;
     private static float progress; //Progress is the progress to the next rune,
     private static int total = 100, //total is the total amount the progress int needs to be at to gain a rune
         runeAmount; //runeAmount is the amount of runes the player has
@@ -20,7 +21,7 @@ public class runeBufferProgress : MonoBehaviour
         for(int i = 0; i < 5; i++) 
             progressBars[i] = transform.GetChild(i).gameObject;
 
-        changeProgressBarColor(dLRSNode.types.FIRE);//currently the first element the character has is fire so this sets the progress bar to fire
+        changeProgressBarColor(nextType);//currently the first element the character has is fire so this sets the progress bar to fire
     }
 
     public static void incrementProgress(float value) //This increments the progress bar
@@ -34,6 +35,7 @@ public class runeBufferProgress : MonoBehaviour
             progress -= total; 
             runeAmount++;
             runeSelector.AddRune();
+            changeProgressBarColor(nextType);
         }
         else
             progressBars[runeAmount].GetComponent<Image>().fillAmount = progress/total; //Increases the visible progress on the progress bar
@@ -41,6 +43,7 @@ public class runeBufferProgress : MonoBehaviour
 
     public static void changeProgressBarColor(dLRSNode.types type) //This method just changes the color of the current progress bar based on the parameter
     {
+        nextType = type;
         Color newColor;
         switch(type) //Switch statement that takes the type parameter and changes the color based on it
         {
@@ -54,7 +57,7 @@ public class runeBufferProgress : MonoBehaviour
                 newColor = new Color(.122f, .494f, 1);
                 break;
             case dLRSNode.types.AIR:
-                newColor = new Color(.812f, .341f, .235f);
+                newColor = new Color(.459f, .655f, .263f);
                 break;
             case dLRSNode.types.LIGHTNING:
                 newColor = new Color(1, .843f, .514f);
@@ -78,6 +81,6 @@ public class runeBufferProgress : MonoBehaviour
     {
         runeAmount = 0;
         for (int i = 0; i < 5; i++)
-            progressBars[runeAmount].GetComponent<Image>().fillAmount = 0; 
+            progressBars[i].GetComponent<Image>().fillAmount = 0; 
     }
 }

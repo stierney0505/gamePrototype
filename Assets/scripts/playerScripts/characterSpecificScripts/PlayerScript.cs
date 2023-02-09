@@ -7,12 +7,13 @@ public class PlayerScript : MonoBehaviour
 {
     spellSelector selector;
     private dLRSNode.types[] runes;
-    public float speed = 5.0f, health = 100.0f;
+    public float speed = 5.0f, health = 100.0f, mana = 50.0f;
     protected int runeCount, //runeCount is the count of the runes used in a spell
         comboCount, //ComboCount will be incremented up to three based upon how many times the player clicks during the combo window
-        comboCheck = 0; //ComboCheck increments at the end of each comboAttack as a way to check when the combo is done
+        comboCheck = 0, //ComboCheck increments at the end of each comboAttack as a way to check when the combo is done
+        manaDrain = 15;
     private Animator animator;
-    private bool locked = false, //Locked bool is for stopping the rune selector from switching runes and attacking
+    private bool isStruck = false, 
         chargeActive = false, //this bool keeps track of if the character is charging a rune into the rune buffer
         altFire = false,  //altFire bool is true when the player uses the empowered spell, and it lets launchspell know to empty the rune buffer
         barActive = false, //barActive bool is for checking if the character is using a barrier
@@ -24,7 +25,7 @@ public class PlayerScript : MonoBehaviour
     SpriteRenderer sprite;
     runeSelector runeSelector;
     public dLRS list; //List of the runes the player has
-    dLRSNode.types nextSpellType;
+    dLRSNode.types nextSpellType; //The next spell that will be alt-fired, determined by either the last rune in the buffer or a combination of them
     Vector2 mousePos; //this vector2 keeps track of the mousePos that the player clicked on to
     string spellName;
 
@@ -33,6 +34,7 @@ public class PlayerScript : MonoBehaviour
         
         animator = GetComponent<Animator>();
         healthBar.setHealthBarValue(health);
+        manaBar.setManaBarValue(mana);
         body = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         runeSelector = GetComponent<runeSelector>();
@@ -66,27 +68,13 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.E) && !movementDisabled) //The E button currently turns the character into a charge state where they 
-            Charge();        //triggers the charge animation
-
-        if (Input.GetKey(KeyCode.W)) //these get the directions the character is moving as bools, this is so that if 
-            up = true;               //Up and down is pressed the character doesnt move
-        if (Input.GetKey(KeyCode.S))
-            down = true;
-        if (Input.GetKey(KeyCode.A))
-            left = true;
-        if (Input.GetKey(KeyCode.D))
-            right = true;
-        Move(up, down, left, right);
-
         if (!(up || down || left || right)) //This stops the character's move animation the moment they stop
             animator.SetBool("running", false);
 
-        if (!barrierDisabled && Input.GetKeyDown(KeyCode.LeftShift) && !isChargeActive()) { createBlock(); } //TODO ADD BOOL FOR IF HIT/KNOCKBACK AND MAKE ALL ACTIONS NOT POSSIBLE DURING
+        if (!barrierDisabled && Input.GetKeyDown(KeyCode.LeftShift)) { createBlock(); } //TODO ADD BOOL FOR IF HIT/KNOCKBACK AND MAKE ALL ACTIONS NOT POSSIBLE DURING
         if (barrierActive && !Input.GetKey(KeyCode.LeftShift)) { destroyBlock(); }
 
-        if (!locked) //If the player is 'locked' they can't switch or attack 
-        {
+        
             if (Input.GetMouseButtonDown(1) && runeCount != 0 && !comboActive) //This checks if the player right clicked and has enough runes to use a specialattack (runes>0), and that a melee combo isn't being performed
             {
                 altFire = true; //Adjust the altfire bool because a special attack is will be performed
@@ -94,6 +82,7 @@ public class PlayerScript : MonoBehaviour
                 spellName = selector.spellSelect(nextSpellType, runeCount);
                 animator.SetLayerWeight(getLayer(dLRSNode.toStr(nextSpellType)), 1);
                 animator.SetTrigger("specialAttack");
+                chargeActive = false;
                 if (mousePos.x < transform.position.x && transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); } //rotates the player towards the direction they clicked
                 else if (mousePos.x > transform.position.x && transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); }
             }
@@ -106,12 +95,33 @@ public class PlayerScript : MonoBehaviour
                 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 spellName = selector.spellSelect(list.getData());
                 animator.SetBool("attack" + comboCount, true);
+                chargeActive = false;
                 if (mousePos.x < transform.position.x && transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); } //rotates the player towards the direction they clicked
                 else if (mousePos.x > transform.position.x && transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); }
             }
-        }
+
+        if (Input.GetKeyDown(KeyCode.E) && !movementDisabled) {  //The E button currently turns the character into a charge state where they 
+               animator.SetTrigger("charge");   chargeActive = true;}     //triggers the charge animation
+
+        if (Input.GetKey(KeyCode.W)) //these get the directions the character is moving as bools, this is so that if 
+            up = true;               //Up and down is pressed the character doesnt move
+        if (Input.GetKey(KeyCode.S))
+            down = true;
+        if (Input.GetKey(KeyCode.A))
+            left = true;
+        if (Input.GetKey(KeyCode.D))
+            right = true;
+        Move(up, down, left, right);
 
         up = false; down = false; left = false; right = false;
+
+        if (chargeActive == true && manaBar.getManaBarValue() > 0)
+        {
+            runeBufferProgress.incrementProgress(manaDrain *Time.deltaTime);
+            manaBar.incrementPlayerMana(-manaDrain * Time.deltaTime); //Mana is currently removed at a set amount, will be changed once the game is more realized 
+        }
+        else if (manaBar.getManaBarValue() <= 0) { chargeActive = false; animator.SetTrigger("idle"); }
+
     }
 
     public void Move(bool up, bool down, bool left, bool right) //Movement method, just takes the bools for movement directions
@@ -127,12 +137,14 @@ public class PlayerScript : MonoBehaviour
         if (moveUp) //these if statements move the player based on the previous bools
         {
             animator.SetBool("running", true);
+            chargeActive = false;
             Vector2 movement = new Vector3(0, 1.0f, 1.0f);
             transform.Translate(movement * speed * Time.deltaTime);
         }
         if (moveDown)
         {
             animator.SetBool("running", true);
+            chargeActive = false;
             Vector2 movement = new Vector3(0, -1.0f, -1.0f);
             transform.Translate(movement * speed * Time.deltaTime);
         }
@@ -140,18 +152,18 @@ public class PlayerScript : MonoBehaviour
         {
             if (transform.eulerAngles.y == 0) { transform.eulerAngles = new Vector2(0, 180); }
             animator.SetBool("running", true);
+            chargeActive = false;
             transform.Translate(-transform.right.normalized * speed * Time.deltaTime);
         }
         if (moveRight)
         {
             if (transform.eulerAngles.y == 180) { transform.eulerAngles = new Vector2(0, 0); }
             animator.SetBool("running", true);
+            chargeActive = false;
             transform.Translate(transform.right.normalized * speed * Time.deltaTime);
         }
     }
 
-    public void Charge() { animator.SetTrigger(getChargeType()); } //simple method to trigger charge animation 
-    
     public void takeDamage(float damage) //Damage method, triggers hit animation and modifies the player health bar
     {
         if (dead)
@@ -178,60 +190,56 @@ public class PlayerScript : MonoBehaviour
     public void turnRed() { sprite = GetComponent<SpriteRenderer>(); sprite.color = Color.red; stopMovement(); barrierDisabled = true; }
     public void turnWhite() {  sprite = GetComponent<SpriteRenderer>(); sprite.color = Color.white; allowMovement(); barrierDisabled = false; }
     
-    private void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerEnter2D(Collider2D col) //This currently caculates the damage the player takes based on the barrier and collision
     {   
-        Unit enemyComponent = null;
-        spell enemyProjectile = null;
-        float damage = 0, tempDmg = 0, knockBack = 0;
-        dLRSNode.types type = dLRSNode.types.EMPTY;
+        Unit enemyComponent = null; //This component is for an enemy melee attack
+        spell enemyProjectile = null; //This component is for an enemy ranged attack
+        float damage = 0, tempDmg = 0, knockBack = 0; //floats for the inital total dmg, the actual dmg the player takes, and knockback
+        dLRSNode.types type = dLRSNode.types.EMPTY; //The type of the attack
         
-        if (col.tag == "Attack")
+        if (col.tag == "Attack") //If its tag is "attack" its a melee attack
         {
-            enemyComponent = col.GetComponentInParent<Unit>();
+            enemyComponent = col.GetComponentInParent<Unit>(); //Set the intial values above to the value of the enemy
             damage = enemyComponent.getDamage();
             type = enemyComponent.getType();
             knockBack = enemyComponent.getKnockBack();
         }
-        else if (col.tag == "EnemyProjectile")
+        else if (col.tag == "EnemyProjectile") //If its tag is EnemyProjectile is a ranged attack
         {
-            enemyProjectile = col.GetComponent<spell>();
+            enemyProjectile = col.GetComponent<spell>(); //Set the intial values above to the value of the enemy
             damage = enemyProjectile.getDamage();
             type = enemyProjectile.getType();
             knockBack = enemyProjectile.getKnockBack();
             enemyProjectile.end(false);
         }
 
-        if (enemyComponent != null || enemyProjectile != null)
+        if (enemyComponent != null || enemyProjectile != null) //This checks if 
         {   
-            if (barrier != null)
+            if (barrier != null) //Checks if the barrier is active
             {
-                barrierScript barrierScr = barrier.GetComponent<barrierScript>();
-                switch (barrierScr.getParryState())
+                barrierScript barrierScr = barrier.GetComponent<barrierScript>();//Gets the barrierscript
+                switch (barrierScr.getParryState()) //Switch statement for the parry state, 2 for perfect parry, 1 for parry, 0 for block
                 {   //TODO add knock back and some sort of parry reflect damage
-                    case 2 :
-                        runeSelector.AddRune(type);
-                        runeSelector.AddRune(type);
-                        runeSelector.AddRune(type);
+                    case 2 : //If its a perfect parry damage is ignored and runebuffer progresses
+                        runeBufferProgress.incrementProgress(spellTypeHelper.damageModifier(type, list.getData(), (damage*1.5f)));
                         return;
-                    case 1 :
-                        tempDmg = (damage / 2) - barrierScr.getHealth();
+                    case 1 : //If its a parry the damage is halfed
+                        tempDmg = (damage / 2) - barrierScr.getHealth(); //Modifies the actual damage and barrier health
                         barrierScr.setHealth(barrierScr.getHealth() - (damage / 2));
-                        if (tempDmg <= 0)
+                        if (tempDmg <= 0) //if the barrier withstand the hit then it progress the rune buffer
                         {
-                            runeSelector.AddRune(type);
-                            runeSelector.AddRune(type);
+                            runeBufferProgress.incrementProgress(spellTypeHelper.damageModifier(type, list.getData(), damage));
                             return;
                         }
-                        damage = tempDmg;
-                        destroyBlock();
+                        destroyBlock();//If the code reaches here the block failed, so it is destroyed
                         break;
 
-                    default:
-                        tempDmg = damage - barrierScr.getHealth();
+                    default: 
+                        tempDmg = damage - barrierScr.getHealth(); //Set tempdamage to 
                         barrierScr.setHealth(barrierScr.getHealth() - (damage));
                         if (tempDmg <= 0)
                         {
-                            runeSelector.AddRune(type);
+                            runeBufferProgress.incrementProgress(spellTypeHelper.damageModifier(type, list.getData(), damage * 0.5f));
                             return;
                         }
                         destroyBlock();
@@ -240,16 +248,18 @@ public class PlayerScript : MonoBehaviour
             }
             
    
-            if(tempDmg > 0)  
+            if(tempDmg > 0)  //If tempDmg is greater than 0 then a barrier modified the damage
                 takeDamage(spellTypeHelper.damageModifier(type, list.getData(), tempDmg)); //Calls static spellTypeHelper method to modify the damage based on what rune is selected in the rune selector
-            else
-                takeDamage(damage);
-            Vector2 forceDirection = transform.position - col.transform.position;
-            body.AddForce(forceDirection.normalized * knockBack, ForceMode2D.Impulse);
+            else //If tempDmg is less than 0 and the code reaches here, then tempDmg was never changed and the player takes full damage
+                takeDamage(spellTypeHelper.damageModifier(type, list.getData(), damage));
+            Vector2 forceDirection = transform.position - col.transform.position; //create knockback vector
+            body.AddForce(forceDirection.normalized * knockBack, ForceMode2D.Impulse); //take knockback
         }
     }
     private void createBlock()
     {
+        chargeActive = false;
+        animator.SetTrigger("idle");
         animator.SetBool("running", false);
         barrierActive = true;
         dLRSNode.types type = list.getData();
@@ -305,10 +315,10 @@ public class PlayerScript : MonoBehaviour
             runeSelector.disableRuneIcons();
             selector.disableChildren();
             altFire = false;
+            runeBufferProgress.resetBarProgress();
         }
     }
 
-    public bool isChargeActive() { return chargeActive; }
     public int getLayer() //This method checks if the current rune equipped is the same type as the animator layer through the toStr method
     {                     //this method also makes each layer than isn't the layer of the selected equal to 0
         int returnInt = 0;
@@ -353,7 +363,7 @@ public class PlayerScript : MonoBehaviour
     public void resetAnimatorLayer() { animator.SetLayerWeight(getLayer(), 1); } //This method switches the animator layer back to the element selected in the rune buffer, called through the animator at the end of a special attack or every hurt/death animation
     public void onHitBoolReset()
     {
-        altFire = false; comboActive = false; comboCount = 0; comboCheck = 0;
+        altFire = false; comboActive = false; comboCount = 0; comboCheck = 0; chargeActive = false;
         animator.SetBool("attack1", false); animator.SetBool("attack2", false); animator.SetBool("attack3", false);
         chargeActive = false; barActive = false; //This method just resets all the values/bools to their base state, intended for use when the player gets struck, called through the animator
     }
@@ -367,7 +377,7 @@ public class PlayerScript : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void unlock() { locked = false; }
+    public void endCharge() { chargeActive = false; runeBufferProgress.incrementProgress(10); }
 
     public dLRS getList() { return list; }
     public int getRuneCount() { return runeCount; }

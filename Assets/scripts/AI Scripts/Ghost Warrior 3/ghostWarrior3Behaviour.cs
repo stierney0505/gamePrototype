@@ -88,7 +88,7 @@ public class ghostWarrior3Behaviour : MonoBehaviour, Unit //This ai uses a behav
     }
 
 
-     public dLRSNode.types getType() { return type; }
+    public dLRSNode.types getType() { return type; }
     public float getDamage() { return damage; }
     public float getKnockBack() { return knockBack; }
 
@@ -97,12 +97,13 @@ public class ghostWarrior3Behaviour : MonoBehaviour, Unit //This ai uses a behav
         deactivateMelee1Hitbox(); //disables hitboxes while struck
         deactivateMelee2Hitbox();
 
-        float damage = spell.getDamage(); //gets the type and damage from the spell that is damaging it
         dLRSNode.types atkType = spell.getType();
+        float damage = spellTypeHelper.damageModifier(atkType, type, spell.getDamage()); //gets the type and damage from the spell that is damaging it
 
         GameObject hitEffect = Instantiate(Resources.Load(spellTypeHelper.getOnHitEffect(spell.getType()))) as GameObject; //creates a hiteffect
         hitEffect.transform.position = transform.position; //set hit effect position to itself
-        health -= spellTypeHelper.damageModifier(atkType, type, damage); //Subtracts the health from the enemy based after modifying it based on its types
+        health -= damage; //Subtracts the health from the enemy based after modifying it based on its types
+        runeBufferProgress.incrementProgress(damage);
         aiActivated = true; //if the ai gets struck it activates it stops if from attacking
         attacking = false; 
         animator.SetTrigger("hit"); 

@@ -1,12 +1,14 @@
+using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
 
 public class runeSelector : MonoBehaviour //This class manages the rune selection by the player
 {
-    spellSelector selector;
-    PlayerScript pScript;
+    static spellSelector selector;
+    static PlayerScript pScript;
     Animator animator;
-    private GameObject FireIcon, EarthIcon, AirIcon, LightningIcon, DarkIcon, WaterIcon, runeIcons;
+    private GameObject FireIcon, EarthIcon, AirIcon, LightningIcon, DarkIcon, WaterIcon;
+    private static GameObject runeIcons;
     float runeSwitchCD = 1; //The cooldown between rune switches
     private bool switchReady = true, barActive = false; //switchActive bool is for checking if the character is able to switch runes
     // Start is called before the first frame update
@@ -57,7 +59,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
     }
 
     public void switchIcon(bool next)//This just switches between icons based off the parameter
-    {
+    {                               //Next is used to determine to move up or down the circular linked list
         runeSwitchCD = 0f;
         switchReady = false;
         disableIcon(pScript.getList().getData());
@@ -71,6 +73,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
             pScript.getList().prev();
             setIcon(pScript.getList().getData());
         }
+        runeBufferProgress.changeProgressBarColor(pScript.list.getData());
     }
 
     public void disableRuneIcons() //this removes the rune icons in the rune buffer
@@ -134,7 +137,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         }
     }
 
-    public void AddRune() //This method adds a rune to the rune buffer based on what rune is selected in the rune selector, made to be called from the animator
+    public static void AddRune() //This method adds a rune to the rune buffer based on what rune is selected in the rune selector, made to be called from the animator
     {
         int runeGroup = 0; //This int is used for finding the correct rune group in the GUI
         int runeCount = pScript.getRuneCount(); //These statments get the values from the Playscript
@@ -179,7 +182,7 @@ public class runeSelector : MonoBehaviour //This class manages the rune selectio
         pScript.setRuneCount(runeCount);
     }
 
-    public void AddRune(dLRSNode.types rune) //This overload of the method adds a rune to the rune buffer based on what rune is selected in the rune selector,
+    public static void AddRune(dLRSNode.types rune) //This overload of the method adds a rune to the rune buffer based on what rune is selected in the rune selector,
     {
 
         int runeGroup = 0; //This int is used for finding the correct rune group in the GUI

@@ -12,7 +12,6 @@ public class manaBar : MonoBehaviour
     void Start()
     {
         healthImage = GetComponent<Image>();
-        healthImage.color = new Color(0.204f, 0.922f, 0.6f, 1);
     }
 
     public static void setManaBarValue(float value) { totalMana = value; currentMana = totalMana; }
